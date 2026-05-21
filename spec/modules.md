@@ -27,6 +27,10 @@ The loop self-advances without per-cycle operator input. Advancement
 is governed by structural control — the cycle structure and the
 [READY] gate — not by AI judgement of when to stop.
 
+This is auto-battle's foundation only. Its full design — halt
+conditions, and the handling of a decision that needs the operator
+with none available — is a separate effort, not yet undertaken.
+
 ## 2. The standardized lens set
 
 The standardized lenses are the pre-written inspection criteria the
