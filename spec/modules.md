@@ -87,11 +87,23 @@ Clippy's coding lens set is an example instance.
 ### 3.1 The tracker
 
 The tracker holds two tracks (`core.md` §4): findings and design
-decisions. Each entry carries its status tag and the content its
-track requires:
+decisions. Each entry is a **fixed-shape ledger line** — a status
+tag, a one-sentence summary, and an evidence-or-basis field — and
+carries nothing else:
 
-- **Finding** — a summary and verification evidence.
-- **Design decision** — a summary and a basis (`core.md` §2.4).
+- **Finding** — a status tag, a one-sentence summary of what was
+  found, and its verification evidence.
+- **Design decision** — a status tag, a one-sentence summary of the
+  committed position, and its basis (`core.md` §2.4).
+
+The evidence and basis fields hold a §2.4 artifact — a located read,
+a search result — not prose describing one; a free-text account of
+having looked is not a basis (§2.4), and in a tracker entry it is a
+malformed field. An entry has no narrative field: reasoning that is
+not a citable basis does not belong in the tracker — the tracker is
+the run's ledger, not its design narrative. The standardized-pass
+findings artifact (§3.2) is a separate per-cycle artifact, not part
+of the tracker.
 
 ### 3.2 The standardized-pass findings artifact
 

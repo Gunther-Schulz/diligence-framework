@@ -264,7 +264,12 @@ artifact-driven — the three checks below work from the tracker, the
 standardized lens set, and the work product, and need nothing from
 the run's conversation — so the isolated context is fully equipped.
 The isolation is unconditional: that verify runs isolated is not a
-judgement the run makes per task.
+judgement the run makes per task. verify's recorded result names the
+context it was conducted in, so a [PASSED] carries whether the check
+was independent. If an isolated context genuinely cannot be
+established, verify is still conducted, without isolation, and its
+result records that — an un-isolated verify is never silently taken
+as though it were independent.
 
 - **Planned vs actual** — every locked design decision is checked
   against what the work actually does.
