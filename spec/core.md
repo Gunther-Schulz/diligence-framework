@@ -204,15 +204,17 @@ grows the set of intended targets, the scope decision re-opens and is
 re-searched. Because [READY] requires every design decision
 [VERIFIED] (§4.4), an unestablished scope holds the phase.
 
-**[READY]** derives from the cycle history. investigate-design yields
-[READY] when, and only when, both hold:
+**[READY]** has two parts. From the cycle history, investigate-design
+reaches [READY] only when both hold:
 
 - every cycle has completed its standardized inspection pass, and
 - the last cycle's standardized inspection pass produced no material
   finding — none that changes the design.
 
-[READY] permits the transition to implement. Until both conditions
-hold, the phase is [NOT READY] and the loop continues.
+The tracker-state conditions — every design decision [VERIFIED], no
+finding or step left open — complete the gate and are specified in
+§4.4. [READY] permits the transition to implement; until the full
+gate is met, the phase is [NOT READY] and the loop continues.
 
 ### 3.2 implement
 
