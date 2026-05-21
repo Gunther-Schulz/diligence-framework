@@ -67,7 +67,7 @@ A run is driven in one of two modes:
 The AI self-resolves every design decision it faces during a run; it
 does not pose decisions to the operator as choices to make. It
 commits to a recommendation and records the decision as a tracked
-design decision (§4.3), with its basis (§2.4) — visible, never
+design decision (§4.2), with its basis (§2.4) — visible, never
 silent. This holds for a decision to defer or not act: "defer X,
 because Y" is a recorded decision, not an absence. A decision resting
 on an assumption — including one only the operator could confirm —
@@ -101,7 +101,7 @@ there is no single shared template.
   (`modules.md`): its name, the question it asks, and its scope,
   which carries the trigger that brings it into a cycle.
 - A **gate** is specified directly — the condition it checks and the
-  transition it guards (the [READY] gate: §3.1, §4.4).
+  transition it guards (the [READY] gate: §3.1, §4.3).
 
 ### 2.3 The un-fakeable-artifact rule
 
@@ -190,7 +190,7 @@ design recorded in the tracker. It ends at [READY].
 The standardized inspection pass runs every cycle.
 
 **Design.** Across the cycle the AI forms and updates design decisions
-(§4.3) from the cycle's findings — the design-formation the phase is
+(§4.2) from the cycle's findings — the design-formation the phase is
 named for, §1's synthesis into the evolving design. The locked design
 is the body of those decisions; it locks as they reach [VERIFIED].
 
@@ -202,7 +202,7 @@ problem space, not the AI's model of it. It is established first and
 reaches [VERIFIED] only when search-established. When a later cycle
 grows the set of intended targets, the scope decision re-opens and is
 re-searched. Because [READY] requires every design decision
-[VERIFIED] (§4.4), an unestablished scope holds the phase.
+[VERIFIED] (§4.3), an unestablished scope holds the phase.
 
 **[READY]** has two parts. From the cycle history, investigate-design
 reaches [READY] only when both hold:
@@ -212,8 +212,7 @@ reaches [READY] only when both hold:
   finding — none that changes the design.
 
 The tracker-state conditions — every design decision [VERIFIED], no
-finding or step left open — complete the gate and are specified in
-§4.4. [READY] permits the transition to implement; until the full
+finding left open — complete the gate and are specified in §4.3. [READY] permits the transition to implement; until the full
 gate is met, the phase is [NOT READY] and the loop continues.
 
 ### 3.2 implement
@@ -240,8 +239,8 @@ verify findings rather than passing silently.
 verify checks the completed work against the locked design and the
 standardized lenses.
 
-- **Planned vs actual** — every locked design decision and
-  implementation step is checked against what the work actually does.
+- **Planned vs actual** — every locked design decision is checked
+  against what the work actually does.
 - **Standardized lenses** — the standardized lens set is applied to
   the produced work.
 - **Executing the verification** — the domain's executable
@@ -265,16 +264,15 @@ re-runs (§5).
 
 ## 4. The status-state machine
 
-A status tag records the state of a finding, a design decision, or
-an implementation step. There are three tracks. ([PASSED] and
-[ISSUES FOUND] — verify's phase result — are not a track; they are
-specified in §3.3.)
+A status tag records the state of a finding or a design decision.
+There are two tracks. ([PASSED] and [ISSUES FOUND] — verify's phase
+result — are not a track; they are specified in §3.3.)
 
-Three tags appear in more than one track, each track-scoped and with
-one consistent sense: **[PENDING]** (recorded, not yet at a
-terminal), **[VERIFIED]** (a verified terminal), **[INVALIDATED]** (a
-verified terminal contradicted by later evidence). The reuse is
-deliberate — one vocabulary across the tracks, not three.
+Three tags appear in both tracks, track-scoped and with one
+consistent sense: **[PENDING]** (recorded, not yet at a terminal),
+**[VERIFIED]** (a verified terminal), **[INVALIDATED]** (a verified
+terminal contradicted by later evidence). The reuse is deliberate —
+one vocabulary across both tracks.
 
 ### 4.1 Finding states
 
@@ -299,26 +297,11 @@ A [VERIFIED] finding can then be invalidated:
 
 4. **[INVALIDATED]** — a [VERIFIED] finding contradicted by later
    evidence. An [INVALIDATED] finding reopens — it reverts to
-   [PENDING] for re-verification — and holds the phase (§4.4) until
+   [PENDING] for re-verification — and holds the phase (§4.3) until
    it does. Only a [VERIFIED] finding becomes [INVALIDATED]; one
    contradicted before [VERIFIED] is simply corrected.
 
-### 4.2 Implementation-step states
-
-An implementation step — a unit of the locked design — moves through:
-
-1. **[PENDING]** — the step's design is not yet fully worked out.
-2. **[RESOLVED]** — the step's design is complete.
-
-An [INVALIDATED] finding or design decision reverts every dependent
-[RESOLVED] step to [PENDING].
-
-[RESOLVED] is a design-maturity state, reached in investigate-design.
-implement carries out [RESOLVED] steps and verify checks them; the
-step track does not separately mark a step as carried out — verify is
-that check.
-
-### 4.3 Design-decision states
+### 4.2 Design-decision states
 
 A design decision — a recorded choice about what to build, including
 a choice to defer or exclude — carries a category, a summary, and a
@@ -332,8 +315,9 @@ reach [VERIFIED]. It moves through:
    investigation.
 3. **[CONDITIONAL]** — a concrete decision resting on an unverified
    assumption; the assumption is recorded with it.
-4. **[VERIFIED]** — a concrete decision, complete, its basis
-   evidence — locked.
+4. **[VERIFIED]** — a concrete decision, complete and locked, its
+   basis evidence, detailed enough that implementing it introduces no
+   new design decision.
 5. **[INVALIDATED]** — a [VERIFIED] decision contradicted by later
    evidence.
 
@@ -344,19 +328,18 @@ investigation proceeds — a [PENDING] decision found to rest on an
 unverified assumption becomes [CONDITIONAL]; a [CONDITIONAL] decision
 becomes [VERIFIED] when its assumption is verified, and reverts to
 [PENDING] to be re-formed if the assumption is disproved. An
-[INVALIDATED] decision reopens — it reverts to [PENDING], and its
-dependent [RESOLVED] steps revert with it (§4.2) — and holds the
-phase (§4.4) until re-formed. Only a [VERIFIED] decision becomes
+[INVALIDATED] decision reopens — it reverts to [PENDING], and any
+decision that depended on it reverts with it — and holds the phase
+(§4.3) until re-formed. Only a [VERIFIED] decision becomes
 [INVALIDATED]; one contradicted before [VERIFIED] is simply revised.
 
-### 4.4 Relationship to [READY]
+### 4.3 Relationship to [READY]
 
 Beyond the cycle-history condition in §3.1, the [READY] gate
 requires: no finding is [INVALIDATED], no load-bearing finding is
-left below [VERIFIED], every design decision is [VERIFIED], and every
-implementation step is [RESOLVED]. An [INVALIDATED] finding, a
-load-bearing finding short of [VERIFIED], a non-[VERIFIED] design
-decision, or a [PENDING] step holds the phase at [NOT READY].
+left below [VERIFIED], and every design decision is [VERIFIED]. An
+[INVALIDATED] finding, a load-bearing finding short of [VERIFIED], or
+a non-[VERIFIED] design decision holds the phase at [NOT READY].
 
 ---
 
@@ -374,7 +357,7 @@ the run are specified in `modules.md` §1.
 **Sequencing and transitions.** The orchestrator advances
 investigate-design → implement → verify, entering a phase only when
 its predecessor has reported completion. The investigate-design →
-implement transition is held by the [READY] gate (§3.1, §4.4):
+implement transition is held by the [READY] gate (§3.1, §4.3):
 implement is not entered until [READY].
 
 **Loopbacks.** A phase may return the run to an earlier phase; the

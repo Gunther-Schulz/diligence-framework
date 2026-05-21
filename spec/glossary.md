@@ -96,14 +96,14 @@ manages the run lifecycle. Specified in `core.md` §5.
 ## State
 
 **Tracker** — the structured state record of an investigation: its
-findings, design decisions, implementation steps, and their status.
+findings, design decisions, and their status.
 The primary state of the investigate-design phase.
 
 **Finding** — a discrete observation recorded in the tracker, carrying
 a status tag.
 
-**Status tag** — a bracketed marker on a finding, a design decision,
-or an implementation step recording its state. The full set and the
+**Status tag** — a bracketed marker on a finding or a design
+decision recording its state. The full set and the
 transitions between them are the status-state machine, specified in
 `core.md`.
 

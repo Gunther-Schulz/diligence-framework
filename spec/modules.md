@@ -60,16 +60,13 @@ lens set is an example instance.
 
 ### 3.1 The tracker
 
-The tracker holds three tracks (`core.md` §4): findings, design
-decisions, implementation steps. Each entry carries its status tag
-and the content its track requires:
+The tracker holds two tracks (`core.md` §4): findings and design
+decisions. Each entry carries its status tag and the content its
+track requires:
 
 - **Finding** — a summary and verification evidence.
 - **Design decision** — a category, a summary, and a basis
   (`core.md` §2.4).
-- **Implementation step** — the concrete design detail required to
-  mark it [RESOLVED]: enough that implementing it introduces no new
-  design decision.
 
 ### 3.2 The standardized-pass findings artifact
 
