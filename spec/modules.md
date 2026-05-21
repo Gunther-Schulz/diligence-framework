@@ -38,9 +38,22 @@ The loop self-advances without per-cycle operator input. Advancement
 is governed by structural control — the cycle structure and the
 [READY] gate — not by AI judgement of when to stop.
 
-This is auto-battle's foundation only. Its full design — halt
-conditions, and the handling of a decision that needs the operator
-with none available — is a separate effort, not yet undertaken.
+A design decision recorded [CONDITIONAL] would, in interactive mode,
+hold the run until the operator resolves it (`core.md` §1, §4.2).
+Auto-battle has no operator to resolve it. Instead, when such a
+decision reaches the [READY] gate still resting on its assumption,
+auto-battle **accepts the AI's committed recommendation** — every
+design decision carries one (`core.md` §1) — and the decision is
+tagged **[AUTO-ACCEPTED]** (`core.md` §4.2): the recommendation
+stands, the assumption it rested on was not verified, and the tag
+records exactly that. The run proceeds. Every [AUTO-ACCEPTED]
+decision is, by its tag, surfaced in the tracker for the operator's
+review of the completed run — it is auto-battle accepting a call the
+operator would otherwise have made, recorded as such, never silently.
+
+Auto-battle's remaining halt conditions — when a phase genuinely
+cannot complete, such as a verify loop that will not converge — are a
+separate effort, not yet undertaken.
 
 ## 2. The standardized lens set
 

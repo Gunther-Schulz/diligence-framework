@@ -335,8 +335,15 @@ assumption cannot reach [VERIFIED]. It moves through:
 4. **[VERIFIED]** — a concrete decision, complete and locked, its
    basis evidence, detailed enough that implementing it introduces no
    new design decision.
-5. **[INVALIDATED]** — a [VERIFIED] decision contradicted by later
-   evidence.
+5. **[AUTO-ACCEPTED]** — a [CONDITIONAL] decision that auto-battle
+   accepted on the AI's committed recommendation, the run proceeding
+   without the operator who would otherwise resolve it (`modules.md`
+   §1.2). The recommendation stands; the assumption it rested on was
+   not verified — [AUTO-ACCEPTED] records exactly that, and does not
+   claim the verification that [VERIFIED] does. Reached only in
+   auto-battle.
+6. **[INVALIDATED]** — a [VERIFIED] or [AUTO-ACCEPTED] decision
+   contradicted by later evidence.
 
 An [OUTLINED] decision becomes concrete as either [PENDING] or
 [CONDITIONAL]. [PENDING] and [CONDITIONAL] are the
@@ -344,19 +351,24 @@ concrete-intermediate states, and a decision moves between them as
 investigation proceeds — a [PENDING] decision found to rest on an
 unverified assumption becomes [CONDITIONAL]; a [CONDITIONAL] decision
 becomes [VERIFIED] when its assumption is verified, and reverts to
-[PENDING] to be re-formed if the assumption is disproved. An
-[INVALIDATED] decision reopens — it reverts to [PENDING], and any
-decision that depended on it reverts with it — and holds the phase
-(§4.3) until re-formed. Only a [VERIFIED] decision becomes
-[INVALIDATED]; one contradicted before [VERIFIED] is simply revised.
+[PENDING] to be re-formed if the assumption is disproved. In
+auto-battle, a [CONDITIONAL] decision still resting on its assumption
+at the [READY] gate — with no operator available to resolve it —
+becomes [AUTO-ACCEPTED] rather than holding the run (`modules.md`
+§1.2). An [INVALIDATED] decision reopens — it reverts to [PENDING],
+and any decision that depended on it reverts with it — and holds the
+phase (§4.3) until re-formed. Only a [VERIFIED] or [AUTO-ACCEPTED]
+decision becomes [INVALIDATED]; one contradicted before reaching
+either is simply revised.
 
 ### 4.3 Relationship to [READY]
 
 Beyond the cycle-history condition in §3.1, the [READY] gate
 requires: no finding is [INVALIDATED], no load-bearing finding is
-left below [VERIFIED], and every design decision is [VERIFIED]. An
-[INVALIDATED] finding, a load-bearing finding short of [VERIFIED], or
-a non-[VERIFIED] design decision holds the phase at [NOT READY].
+left below [VERIFIED], and every design decision is [VERIFIED] — or,
+in auto-battle, [VERIFIED] or [AUTO-ACCEPTED] (§4.2). An [INVALIDATED]
+finding, a load-bearing finding short of [VERIFIED], or a design
+decision short of that bar holds the phase at [NOT READY].
 
 ---
 
@@ -390,7 +402,10 @@ phase it is in — persists across interruptions; a run interrupted
 mid-flight resumes from that state rather than restarting.
 
 **Halt and surface.** When the orchestrator cannot advance — a phase
-cannot complete, or a decision needs the operator with none available
-— it halts the run and surfaces the reason; it never advances on an
-unresolved gate. Auto-battle's halt conditions are part of
-that mode's design (`modules.md` §1).
+cannot complete — it halts the run and surfaces the reason; it never
+advances on an unresolved gate. A decision that needs the operator is
+not such a case: in interactive mode it is held as [CONDITIONAL]
+until the operator resolves it; in auto-battle it becomes
+[AUTO-ACCEPTED] and the run proceeds (§4.2, `modules.md` §1.2).
+Auto-battle's remaining halt conditions are part of that mode's
+design (`modules.md` §1.2).
