@@ -255,6 +255,17 @@ verify findings rather than passing silently.
 verify checks the completed work against the locked design and the
 standardized lenses.
 
+verify is conducted in a context **isolated** from the run's working
+context — the context that conducted investigate-design and
+implement. An actor checking its own work carries its own anchoring
+and blind spots into the check; isolation is what makes verify an
+independent check and not the actor re-reading itself. verify is
+artifact-driven — the three checks below work from the tracker, the
+standardized lens set, and the work product, and need nothing from
+the run's conversation — so the isolated context is fully equipped.
+The isolation is unconditional: that verify runs isolated is not a
+judgement the run makes per task.
+
 - **Planned vs actual** — every locked design decision is checked
   against what the work actually does.
 - **Standardized lenses** — the standardized lens set is applied to
@@ -393,7 +404,10 @@ the run are specified in `modules.md` §1.
 investigate-design → implement → verify, entering a phase only when
 its predecessor has reported completion. The investigate-design →
 implement transition is held by the [READY] gate (§3.1, §4.3):
-implement is not entered until [READY].
+implement is not entered until [READY]. Each time verify is conducted
+— on first reaching it, and on each re-run after [ISSUES FOUND] — the
+orchestrator establishes it in a context isolated from the one that
+conducted investigate-design and implement (§3.3).
 
 **Loopbacks.** A phase may return the run to an earlier phase; the
 orchestrator honors the return rather than proceeding. implement
