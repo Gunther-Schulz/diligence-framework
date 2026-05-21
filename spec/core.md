@@ -13,8 +13,9 @@ the rubric every prescription in this spec is judged against — a
 prescription that serves neither does not belong.
 
 1. **Grounded claims.** No assertion without its basis. The AI cannot
-   silently pass an assumption or a guess as fact; every claim is
-   backed by evidence or explicitly marked as inferred. This is what
+   silently pass an assumption or a guess as fact; every load-bearing
+   claim is backed by evidence or explicitly marked as inferred. This
+   is what
    "converts AI confidence into AI evidence" means.
 2. **A coherent, complete picture.** Every concern is held, visible,
    and carries a state. A superseded aspect is reconciled or
@@ -23,7 +24,7 @@ prescription that serves neither does not belong.
 
 These are two axes of one failure — hollow work (a claim with nothing
 under it) and lost work (the picture going partial or narrow). Every
-mechanism in this spec — inspection, the tracker, the status-state
+part of this spec — inspection, the tracker, the status-state
 machine, the cycle loop, the gates — exists to secure one or both.
 
 Human inspectability of the work is a further value, but a
@@ -52,6 +53,9 @@ A run proceeds through three phases in sequence:
 The tracker carries state across the phases: investigate-design
 produces it, implement works from it, and verify records its results
 into it.
+
+An orchestrator conducts the run — running the phases, holding their
+transitions, and honoring any loopback a phase raises (§5).
 
 A run is driven in one of two modes:
 
