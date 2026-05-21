@@ -64,6 +64,10 @@ instances. Its basis is a mechanical search (`core.md` §2.4).
 **Run** — a single execution of the framework on a task: the three
 phases conducted from request to a verified outcome.
 
+**Work product** — what a run produces; what implement carries the
+locked design out into (also: "the work"). An instance binds it to
+its domain — code, for Clippy.
+
 **Phase** — a top-level stage of the protocol. The framework has
 three, run in sequence:
 
@@ -127,3 +131,8 @@ foundational design decision, established by search. Specified in
    and chooses at menus.
 2. **Auto-battle** — autonomous-execution: the loop self-advances
    under structural control, without per-cycle operator input.
+
+**Menu** — interactive mode's advance point: the AI presents the
+tracker and a recommendation, and the operator selects an option —
+continue, or proceed to the next phase — or free-form overrides.
+Specified in `modules.md` §1.1.

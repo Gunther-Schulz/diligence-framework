@@ -220,9 +220,9 @@ gate is met, the phase is [NOT READY] and the loop continues.
 implement carries out the locked design recorded in the tracker,
 producing the work.
 
-The locked design is the authority. Existing work and surrounding
-conventions are context, not authority — where they diverge from the
-locked design, the design governs. The work is derived from the
+The locked design is the authority. The existing work product and
+surrounding conventions are context, not authority — where they
+diverge from the locked design, the design governs. The work is derived from the
 design first; existing patterns are evaluated for fit afterward.
 
 Discovery in implement is minimal — a small local clarification, not
@@ -304,9 +304,9 @@ A [VERIFIED] finding can then be invalidated:
 ### 4.2 Design-decision states
 
 A design decision — a recorded choice about what to build, including
-a choice to defer or exclude — carries a category, a summary, and a
-**basis** (§2.4): the evidence it rests
-on, or, where it rests on an assumption, that assumption named. The
+a choice to defer or exclude — carries a summary and a **basis**
+(§2.4): the evidence it rests on, or, where it rests on an
+assumption, that assumption named. The
 basis is mandatory; a decision whose basis is an assumption cannot
 reach [VERIFIED]. It moves through:
 

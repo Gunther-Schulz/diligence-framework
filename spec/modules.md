@@ -17,9 +17,10 @@ start (`core.md` §5).
 
 The operator advances the run. After each investigate-design cycle,
 and at each phase boundary, the AI presents the tracker — its
-findings and recorded design decisions — and a recommendation; the
-operator reviews and selects whether to continue or to proceed. The
-advance point is a menu.
+findings and recorded design decisions — and a recommendation. This
+advance point is a **menu**: the operator selects an option —
+continue the loop, or proceed to the next phase — or free-form
+overrides (`core.md` §1) instead of taking a listed option.
 
 ### 1.2 auto-battle
 
@@ -52,9 +53,11 @@ Each standardized lens is specified by:
 
 The set itself — the specific lenses — is the domain instance's
 content: the recurring blind-spots of the domain, each filling the
-§2.1 shape. The instance specifies it; the framework requires only
-that the set is closed and complete for the domain. Clippy's coding
-lens set is an example instance.
+§2.1 shape. The instance specifies it; the framework
+requires the set be closed — a lens is in it or not. Completeness
+for the domain is the aim, not a checkable property: it is approached
+as real use surfaces missing lenses (see `../instantiation-guide.md`).
+Clippy's coding lens set is an example instance.
 
 ## 3. Artifact formats
 
@@ -65,8 +68,7 @@ decisions. Each entry carries its status tag and the content its
 track requires:
 
 - **Finding** — a summary and verification evidence.
-- **Design decision** — a category, a summary, and a basis
-  (`core.md` §2.4).
+- **Design decision** — a summary and a basis (`core.md` §2.4).
 
 ### 3.2 The standardized-pass findings artifact
 
