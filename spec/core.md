@@ -385,12 +385,12 @@ verify ending [ISSUES FOUND] returns the run to resolve those
 findings, then re-runs.
 
 **Run lifecycle.** A run starts at investigate-design and ends when
-verify reports [PASSED]. The tracker carries the run's state across
-phases (§1), so a run interrupted mid-flight resumes from the tracker
-rather than restarting.
+verify reports [PASSED]. A run's state — the tracker (§4) and the
+phase it is in — persists across interruptions; a run interrupted
+mid-flight resumes from that state rather than restarting.
 
 **Halt and surface.** When the orchestrator cannot advance — a phase
 cannot complete, or a decision needs the operator with none available
 — it halts the run and surfaces the reason; it never advances on an
-unresolved gate. Auto-battle's halt conditions are specified with
-that mode in `modules.md` §1.
+unresolved gate. Auto-battle's halt conditions are part of
+that mode's design (`modules.md` §1).
