@@ -41,6 +41,13 @@ binding (instance) — and fix it *there*, then re-render downward.
 Patching the instance directly hides the real gap; the same fault
 recurs in the next render, or the next instance.
 
+A deviation found by running the instance is triaged to its level: an
+*adherence gap* — the instance did not follow the spec → fix the
+instance's render; a *spec gap* — it followed the spec and still
+broke → a finding for the framework or the instance spec; a
+*conformant success* — it followed and worked → a positive signal,
+logged to `spec/validation-watch.md`.
+
 ### 2. Rendering is lossy — renderer ≠ verifier
 
 An instance is rendered from the framework spec by paraphrase.
@@ -49,7 +56,9 @@ becomes "should") and drops clauses. The renderer cannot see its own
 flattening — it reads its output as faithful. So every render is
 verified by a **separate context** — a fresh subagent, or a different
 party — by clause-level diff against the source. The context that
-produced a render never verifies it.
+produced a render never verifies it. What "faithful" requires — the
+rendering-fidelity rule itself — is skill-craft's (`Rendering from a
+source`).
 
 ### 3. Subagents for context-heavy work
 

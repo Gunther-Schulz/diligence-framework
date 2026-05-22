@@ -12,7 +12,7 @@ a sibling. This guide is how to derive a new instance.
    framework spec (`spec/`) for the method, and supplies only the
    domain bindings and the domain's standardized lens set.
 2. **Generate the plugin** from the spec, per skill-craft.
-3. **Validate** — the generative and empirical tests (§5).
+3. **Verify and validate** the instance by the development process (§5).
 
 Spec-first is not optional. Writing and settling the spec before
 building the plugin surfaces gaps — mis-bindings, missing lenses,
@@ -120,23 +120,19 @@ elsewhere; are all downstream consumers enumerated; are failure paths
 specified; are all value-classes covered. Use these as prompts; the
 domain decides its own set.
 
-## 5. Generate and validate
+## 5. Generate the instance
 
-With the instance spec written, generate the plugin:
+With the instance spec written and the lens set bootstrapped, the
+domain-specific work is done. From here the instance is built and
+evolved by the **development process** (`development-process.md`) —
+render, verify in a separate context, validate, and change. The first
+build is that process run once over the whole instance; every later
+change runs it over the affected parts. This guide does not restate
+it.
 
-- Generate the plugin files from the spec, per skill-craft — skill
-  architecture, file layout, enforcement primitives, progressive
-  disclosure. The spec is the source of truth; skill-craft is how it
-  becomes a skill.
-- Render faithfully. Each framework rule or mechanism becomes
-  operational plugin text — and the rendering is lossy by default:
-  paraphrase silently drops clauses, and a structurally-enforced
-  mechanism flattens into a soft principle. Apply skill-craft's
-  rendering-fidelity rule — every load-bearing clause of the source
-  survives, and a structural mechanism renders *as* a structural
-  mechanism (a forced step, a gate), never as prose. Verify by a
-  clause-level diff against the source, not by re-reading the rendered
-  text — the renderer is blind to its own flattening.
+Render the plugin files from the instance spec and the framework spec
+— faithfully, per skill-craft's rendering-fidelity rule (`Rendering
+from a source`). The same rule governs every later re-render.
 
 The instance also needs its `CLAUDE.md`. It auto-loads for any
 session working on the instance repo, so it must carry the rule that
@@ -170,24 +166,14 @@ Extend the `CLAUDE.md` below this section with the instance's own
 plugin-housekeeping — description sync, version discipline, component
 inventory — and any instance-specific rules.
 
-Then validate:
-
-- **Generative test** — not merely "could a skeleton be built," but:
-  does each rendered rule carry every load-bearing clause of its
-  source, and is every structural mechanism still structural? Verified
-  against the spec, clause by clause. A faithful render means the spec
-  is complete and the rendering held; a dropped clause or a flattened
-  mechanism is the finding.
-- **Empirical test** — run the instance on a real task and review the
-  run against the spec. Triage each run-vs-spec deviation: an
-  *adherence gap* (the spec is right, the plugin did not follow it →
-  fix the plugin), a *spec gap* (the plugin followed the spec and it
-  still broke → a new finding for the framework or the instance
-  spec), or a *conformant success* (followed and worked → a positive
-  signal for `spec/validation-watch.md`).
+Then verify and validate the instance by the development process —
+the render checked in a separate context, the first empirical run
+triaged as `development-process.md` describes. From there the
+instance is evolved like any other.
 
 ---
 
 *Status: written from the Clippy spec effort and its first plugin
 rewrite — which exercised the spec→plugin path and exposed the
-rendering-fidelity gap §5 now addresses.*
+rendering-fidelity gap now closed by skill-craft's
+rendering-fidelity rule.*
