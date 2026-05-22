@@ -56,7 +56,7 @@ fork, not an instance.
   specs
 - the two-pass cycle, and inspection / gate — the two functions
 - the basis rule and the un-fakeable-artifact rule
-- the tracker and the status-state machine
+- the tracker's form and the status-state machine
 - [READY] and the gates
 - the two modes (interactive, auto-battle)
 - the orchestrator
@@ -67,6 +67,20 @@ fork, not an instance.
 
 - the domain **bindings** (§3)
 - the domain's standardized **lens set** (§4)
+- the **tracker-persistence mechanism** — the framework fixes the
+  tracker's form (an append-only ledger) and requires it to persist
+  across interruptions (`spec/core.md` §5, `spec/modules.md` §3.1);
+  the instance supplies the concrete mechanism — where the tracker
+  lives, how an in-progress run is found and resumed. Clippy's
+  `bindings.md` is the worked example.
+
+"Only this" bounds the *method* — an instance binds the framework to
+a domain, it does not extend or revise the method. It does not bound
+*presentation*: the rendered plugin's wording, formatting, and any
+icons are not spec'd at any level. Presentation sits outside the
+inherit/supply structure entirely — the framework neither prescribes
+nor precludes a given look; it is the rendered plugin's own, whatever
+the instance's render produces.
 
 ## 3. Binding the framework to the domain
 
