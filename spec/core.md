@@ -76,6 +76,13 @@ of [READY] until the assumption is grounded or the operator resolves
 it. The operator, seeing the recorded decisions, retains free-form
 override at any point, in either mode.
 
+The operator's request sets the task; it may also propose a solution.
+Such a proposal is a strong input, not a locked design: that it is
+the right solution is a design premise — grounded on evidence like
+any other (§2.4), not assumed because the operator proposed it. The
+AI investigates the proposal as it would any design question —
+confirming, sharpening, or replacing it on evidence.
+
 ---
 
 ## 2. Mechanism foundations
