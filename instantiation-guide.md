@@ -67,12 +67,15 @@ fork, not an instance.
 
 - the domain **bindings** (§3)
 - the domain's standardized **lens set** (§4)
-- the **tracker-persistence mechanism** — the framework fixes the
-  tracker's form (an append-only ledger) and requires it to persist
-  across interruptions (`spec/core.md` §6, `spec/modules.md` §3.1);
-  the instance supplies the concrete mechanism — where the tracker
-  lives, how an in-progress run is found and resumed. Clippy's
-  `bindings.md` is the worked example.
+- the **run-artifact persistence mechanism** — the framework fixes the
+  forms of the run's persisted artifacts and requires them to persist:
+  the tracker (an append-only ledger, persisted across interruptions —
+  `spec/core.md` §6, `spec/modules.md` §3.1), each cycle's
+  standardized-pass findings artifact (`spec/modules.md` §3.2), and
+  each design decision's implementation decomposition
+  (`spec/modules.md` §3.3); the instance supplies the concrete
+  mechanism — where these artifacts live, how an in-progress run is
+  found and resumed. Clippy's `bindings.md` is the worked example.
 
 "Only this" bounds the *method* — an instance binds the framework to
 a domain, it does not extend or revise the method. It does not bound
