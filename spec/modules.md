@@ -120,6 +120,20 @@ line per entry. The append-only history is the run's audit trail;
 because no line is ever rewritten, no past entry can be silently
 altered.
 
+Not every change is substantive. A **basis-only refinement** on an
+entry at its terminal status — [VERIFIED], or [AUTO-ACCEPTED] for a
+design decision in auto-battle — where the status and summary are
+unchanged and only the basis strengthens (further evidence grounds
+what previously rested on a weaker basis) — is appended as a
+**sub-annotation** under the entry, not as a new peer-level ledger
+line. The sub-annotation carries the strengthened basis on one
+line; the peer-level entry is unchanged. Reduce-to-latest: an
+entry's current state is its latest peer-level line together with
+any sub-annotations attached. The append-only property holds — no
+past line is rewritten, the sub-annotation is itself a new appended
+line — and the audit trail is preserved without the duplicate-line
+tax of re-emitting a peer line for an evidence-only update.
+
 ### 3.2 The standardized-pass findings artifact
 
 Each cycle's standardized inspection pass emits a findings artifact

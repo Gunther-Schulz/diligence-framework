@@ -34,21 +34,54 @@ retained tracker of run X." Generic "did it help" yields
 sycophantic mush; a forced artifact yields data that can be wrong
 and checked.
 
-### Q1. Escapes to a later phase (the keystone)
+### Q1. Design defects — misses (the keystone)
 
-> List every finding implement or verify recorded that was a
-> *design defect* — a design decision got something wrong — as
-> opposed to genuinely new scope. For each: name which
+> List every design defect the run produced. Classify each as an
+> **escape** (implement or verify recorded it past `[READY]`) or an
+> **operator catch** (the operator caught it at the `[READY]`
+> presentation, before the run proceeded). For each: name which
 > investigate-design check (a specific lens, the basis rule, the
 > `[READY]` judgement) should have caught it and why it didn't; or
 > state "no existing check covers this class."
 
-This measures the protocol's true failure rate. Zero escapes means
-the design phase is working; any escape names a concrete blind
-spot, triaged per `development-process.md` practice 1. The human
-sanity-checks the design-defect-vs-new-scope calls — the run has a
-mild incentive to file its own escapes as "new scope" rather than
-"design defect."
+This measures the design phase's true failure rate. Zero defects
+means the design phase is working autonomously; an operator catch
+means the design phase missed but the `[READY]` presentation caught
+(protocol-as-designed); an escape means both missed (caught only by
+implement-loopback or verify — the most expensive catch). Each
+non-zero count names a concrete blind spot, triaged per
+`development-process.md` practice 1. The operator sanity-checks the
+design-defect-vs-new-scope calls — the run has a mild incentive to
+file its own catches as "new scope" rather than "design defect."
+
+### Q3. Grind — cost
+
+> Where did this run's effort go: token-heavy or time-heavy regions,
+> repeated work, fixed-shape attestation? Identify any work the
+> protocol forced but the run didn't need — quote the specific
+> procedure parts that felt unnecessary. Specific examples, not
+> impressions.
+
+Cost matters. A protocol that catches everything but costs many
+times what it should is broken in its own way. Grind reductions
+(v0.7.0→v0.8.0, v0.8.3, the basis-only sub-annotation) all started
+from this kind of observation. Artifact-forcing: name the procedure
+parts, quote the tracker lines or pass artifacts, don't
+generalize.
+
+### Q4. Ad-hoc additions — gaps
+
+> Did you add any ad-hoc check, step, or instruction not in the
+> protocol this run? For each: quote the ad-hoc work verbatim, name
+> the gap it was covering, and say whether the gap is particular to
+> this task or generalizable across runs.
+
+Ad-hoc additions are how protocol gaps surface — the AI noticed
+something the protocol didn't cover and patched it. F18 (Unit-4's
+ad-hoc pairwise cross-decision coherence check) was this pattern;
+investigating it surfaced the §5.2 detection gap and produced
+v0.8.2. This is the most directly-actionable signal for protocol
+completeness.
 
 ### Q2. Value attribution
 
@@ -57,7 +90,7 @@ mild incentive to file its own escapes as "new scope" rather than
 > cycle re-examination / verify. Give the counts.
 
 Descriptive data on which mechanisms produced findings this run.
-Useful context — **not** a measure of whether a standardized lens
+Useful context — **not** a verdict on whether a standardized lens
 "earns its rent." A lens's job is the rare-but-critical catch — a
 lens clean nine runs out of ten that catches a disaster on the
 tenth has terrible yield and pays enormous rent. Judge a lens by
