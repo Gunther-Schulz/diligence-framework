@@ -115,3 +115,30 @@ picture — is given structural enforcement (an un-fakeable artifact, a
 gate, a forced step) regardless of how minimal it is. "Minimal" never
 licenses "soft": a load-bearing rule left as unenforced prose is
 under-prescribed, not minimally prescribed.
+
+## Extending the framework
+
+The framework grows by adding concepts — a mechanism, a status, a
+mode, a lens-set property. It does not grow freely: a new concept
+earns its place, or it does not enter.
+
+A proposed concept runs three filters:
+
+1. **Level.** The three-level test above — is the concept skill-craft
+   (how to build any skill), the Diligence framework (a specific of
+   this methodology), or instance (a domain binding)? Only a
+   framework-level concept enters this spec; the others belong
+   elsewhere.
+2. **Placement.** Within the framework: part of the stable spine — a
+   mechanism foundation, a phase, a status, orchestrator behaviour →
+   `core.md`; or a revisable module — a mode, the lens-set shape, an
+   artifact format → `modules.md`. A genuinely new category that fits
+   neither may warrant its own file; the bar is that it fits neither.
+3. **Warrant.** The prescription discipline above — the concept earns
+   its place only if it serves the Purpose (`core.md`), and is then
+   prescribed minimally and at the right enforcement strength.
+
+The framework is deliberately resistant to extension. The question is
+never "is there room for this" but "does it further the Purpose, and
+what is the least of it that does." A concept that cannot answer that
+does not belong in the spec.
