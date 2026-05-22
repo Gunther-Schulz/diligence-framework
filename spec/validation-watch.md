@@ -56,3 +56,19 @@ whether catching them there is acceptably cheap — or whether they
 slip past verify too. Also whether any mechanism appears in real runs
 that is not inspection, which would reopen the need for a mechanism
 taxonomy.
+
+**First signal (2026-05-22).** The Unit-3 run (under 0.7.0) is the
+first real-run evidence. It surfaced F17/F18/F19 — design decisions
+marked [READY] on recalled counts where the basis rule (`core.md`
+§3.2) requires a search — and F21, a cross-decision contradiction.
+The 0.7.0 isolated [READY] evaluation caught some recall-proxy
+errors, missed F21 (it checked decisions singly, never pairwise), and
+once false-confirmed a [READY] that implement-start then
+contradicted; the operator caught ~2 of ~5 defects by plain review.
+Reading: F17–F19 are a basis-rule *adherence* failure — the rule
+existed and was correctly rendered; the AI ran the protocol and did
+not follow it. The rework removed the isolated evaluation, so
+post-0.8.0 that recall-proxy class has no catcher before the
+operator's review — the named, accepted residual. It is not a
+missing mechanism; adding one was the 0.7.0 reflex this rework
+reversed.
