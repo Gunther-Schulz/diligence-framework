@@ -11,7 +11,7 @@ used as defined there.
 A run is driven in one of two modes. A run is interactive by
 default; it is in auto-battle only when auto-battle is explicitly
 requested at invocation. The orchestrator detects the mode at run
-start (`core.md` §5).
+start (`core.md` §6).
 
 ### 1.1 interactive
 
@@ -20,7 +20,7 @@ and at each phase boundary, the AI presents a **closed artifact** —
 the tracker (its findings and recorded design decisions), a
 recommendation, and the menu — and nothing else. Design decisions are
 recorded in the tracker; they are never posed to the operator as
-questions or choices (`core.md` §1, §4.2). The **menu** carries only
+questions or choices (`core.md` §1, §5.2). The **menu** carries only
 loop control: the operator selects an option — continue the loop, or
 proceed to the next phase. The operator's input on a design decision
 is free-form override against the recorded tracker (`core.md` §1) —
@@ -39,12 +39,12 @@ is governed by structural control — the cycle structure and the
 [READY] gate — not by AI judgement of when to stop.
 
 A design decision recorded [CONDITIONAL] would, in interactive mode,
-hold the run until the operator resolves it (`core.md` §1, §4.2).
+hold the run until the operator resolves it (`core.md` §1, §5.2).
 Auto-battle has no operator to resolve it. Instead, when such a
 decision reaches the [READY] gate still resting on its assumption,
 auto-battle **accepts the AI's committed recommendation** — every
 design decision carries one (`core.md` §1) — and the decision is
-tagged **[AUTO-ACCEPTED]** (`core.md` §4.2): the recommendation
+tagged **[AUTO-ACCEPTED]** (`core.md` §5.2): the recommendation
 stands, the assumption it rested on was not verified, and the tag
 records exactly that. The run proceeds. Every [AUTO-ACCEPTED]
 decision is, by its tag, surfaced in the tracker for the operator's
@@ -58,7 +58,7 @@ separate effort, not yet undertaken.
 ## 2. The standardized lens set
 
 The standardized lenses are the pre-written inspection criteria the
-standardized inspection pass applies (`core.md` §3.1). The set is
+standardized inspection pass applies (`core.md` §4.1). The set is
 closed: a lens is in the set or it is not, and "did the pass apply
 all of them" is answerable.
 
@@ -86,7 +86,7 @@ Clippy's coding lens set is an example instance.
 
 ### 3.1 The tracker
 
-The tracker holds two tracks (`core.md` §4): findings and design
+The tracker holds two tracks (`core.md` §5): findings and design
 decisions. Each entry is a **fixed-shape ledger line** — a status
 tag, a one-sentence summary, and an evidence-or-basis field — and
 carries nothing else:
@@ -94,11 +94,11 @@ carries nothing else:
 - **Finding** — a status tag, a one-sentence summary of what was
   found, and its verification evidence.
 - **Design decision** — a status tag, a one-sentence summary of the
-  committed position, and its basis (`core.md` §2.4).
+  committed position, and its basis (`core.md` §3.2).
 
-The evidence and basis fields hold a §2.4 artifact — a located read,
+The evidence and basis fields hold a §3.2 artifact — a located read,
 a search result — not prose describing one; a free-text account of
-having looked is not a basis (§2.4), and in a tracker entry it is a
+having looked is not a basis (§3.2), and in a tracker entry it is a
 malformed field. An entry has no narrative field: reasoning that is
 not a citable basis does not belong in the tracker — the tracker is
 the run's ledger, not its design narrative. The standardized-pass
@@ -118,6 +118,6 @@ altered.
 ### 3.2 The standardized-pass findings artifact
 
 Each cycle's standardized inspection pass emits a findings artifact
-(`core.md` §3.1): one line for every lens in the set — a finding or a
+(`core.md` §4.1): one line for every lens in the set — a finding or a
 cited-clean reason for a lens in scope, a cited reason for one out of
 scope.

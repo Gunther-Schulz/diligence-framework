@@ -53,8 +53,8 @@ forfeits re-derivability. The re-render procedure is
 ## Files
 
 - `glossary.md` — locked term definitions. Definitions only.
-- `core.md` — model, mechanism foundations, phase specs,
-  status-state machine.
+- `core.md` — model, the mechanisms, the grounding discipline, phase
+  specs, status-state machine.
 - `modules.md` — modes, the standardized lens set (its shape; the set
   itself is instance-supplied), artifact and tracker formats.
 - `validation-watch.md` — companion, not part of the spec. Records

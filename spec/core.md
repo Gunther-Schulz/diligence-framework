@@ -1,8 +1,9 @@
 # Diligence Framework — Core
 
-The stable spine of the spec: the model, mechanism foundations, phase
-specs, and the status-state machine. Built on `glossary.md`; terms
-are used as defined there.
+The stable spine of the spec: the model, the mechanisms, the
+grounding discipline, the phase specs, the status-state machine, and
+the orchestrator. Built on `glossary.md`; terms are used as defined
+there.
 
 ---
 
@@ -55,7 +56,7 @@ produces it, implement works from it, and verify records its results
 into it.
 
 An orchestrator conducts the run — running the phases, holding their
-transitions, and honoring any loopback a phase raises (§5).
+transitions, and honoring any loopback a phase raises (§6).
 
 A run is driven in one of two modes:
 
@@ -67,11 +68,11 @@ A run is driven in one of two modes:
 The AI self-resolves every design decision it faces during a run; it
 does not pose decisions to the operator as choices to make. It
 commits to a recommendation and records the decision as a tracked
-design decision (§4.2), with its basis (§2.4) — visible, never
+design decision (§5.2), with its basis (§3.2) — visible, never
 silent. This holds for a decision to defer or not act: "defer X,
 because Y" is a recorded decision, not an absence. A decision resting
 on an assumption — including one only the operator could confirm —
-carries that assumption as its basis; per §2.4 it holds the run short
+carries that assumption as its basis; per §3.2 it holds the run short
 of [READY] until the assumption is grounded or the operator resolves
 it. The operator, seeing the recorded decisions, retains free-form
 override at any point, in either mode.
@@ -79,13 +80,13 @@ override at any point, in either mode.
 The operator's request sets the task; it may also propose a solution.
 Such a proposal is a strong input, not a locked design: that it is
 the right solution is a design premise — grounded on evidence like
-any other (§2.4), not assumed because the operator proposed it. The
+any other (§3.2), not assumed because the operator proposed it. The
 AI investigates the proposal as it would any design question —
 confirming, sharpening, or replacing it on evidence.
 
 ---
 
-## 2. Mechanism foundations
+## 2. Mechanisms
 
 ### 2.1 The two functions
 
@@ -108,9 +109,13 @@ there is no single shared template.
   (`modules.md`): its name, the question it asks, and its scope,
   which carries the trigger that brings it into a cycle.
 - A **gate** is specified directly — the condition it checks and the
-  transition it guards (the [READY] gate: §3.1, §4.3).
+  transition it guards (the [READY] gate: §4.1, §5.3).
 
-### 2.3 The un-fakeable-artifact rule
+---
+
+## 3. The grounding discipline
+
+### 3.1 The un-fakeable-artifact rule
 
 Every load-bearing artifact the protocol requires — a mechanism's
 output, and a recorded design decision — must be an artifact that
@@ -123,7 +128,7 @@ cannot be produced without doing the work it represents.
 - An inspection's finding, or its cited reason that a lens is clean,
   must cite evidence that required looking.
 - A design decision's artifact is its committed resolution and basis
-  (§4.2). An open question, or a choice posed to the operator, is the
+  (§5.2). An open question, or a choice posed to the operator, is the
   absence of a resolution — not the artifact — so the design-decision
   track cannot hold one.
 
@@ -135,11 +140,11 @@ alone: a rule whose adherence cannot be read off an artifact is not
 enforced. A load-bearing rule is specified so that following it
 produces an artifact and not following it produces none.
 
-### 2.4 The basis rule
+### 3.2 The basis rule
 
 Every load-bearing claim and every design premise carries a named
 basis — the evidence it rests on. The basis is the artifact itself
-(§2.3): a search result, a located read of the source. A free-text
+(§3.1): a search result, a located read of the source. A free-text
 claim of having looked is not a basis.
 
 A basis that resolves to recall — "assumed," "inferred," "it is
@@ -185,9 +190,9 @@ claim of bounded, contained cost does not.
 
 ---
 
-## 3. Phase specs
+## 4. Phase specs
 
-### 3.1 investigate-design
+### 4.1 investigate-design
 
 investigate-design runs as a loop of cycles and produces a locked
 design recorded in the tracker. It ends at [READY].
@@ -211,19 +216,19 @@ design recorded in the tracker. It ends at [READY].
 The standardized inspection pass runs every cycle.
 
 **Design.** Across the cycle the AI forms and updates design decisions
-(§4.2) from the cycle's findings — the design-formation the phase is
+(§5.2) from the cycle's findings — the design-formation the phase is
 named for, §1's synthesis into the evolving design. The locked design
 is the body of those decisions; it locks as they reach [VERIFIED].
 
 **Scope.** The scope — the set of elements the work will modify — is
 the foundational design decision; every other decision is designed
-within it. By §2.4 it is a completeness claim: its basis is an
+within it. By §3.2 it is a completeness claim: its basis is an
 exhaustive search of every intended target's dependents across the
 problem space, not the AI's model of it. It is established first and
 reaches [VERIFIED] only when search-established. When a later cycle
 grows the set of intended targets, the scope decision re-opens and is
 re-searched. Because [READY] requires every design decision
-[VERIFIED] — or, in auto-battle, [AUTO-ACCEPTED] (§4.3) — an
+[VERIFIED] — or, in auto-battle, [AUTO-ACCEPTED] (§5.3) — an
 unestablished scope, at neither, holds the phase.
 
 **[READY]** has two parts. From the cycle history, investigate-design
@@ -235,10 +240,10 @@ reaches [READY] only when both hold:
 
 The tracker-state conditions — every design decision [VERIFIED] (or
 [AUTO-ACCEPTED] in auto-battle), no finding left open — complete the
-gate and are specified in §4.3. [READY] permits the transition to implement; until the full
+gate and are specified in §5.3. [READY] permits the transition to implement; until the full
 gate is met, the phase is [NOT READY] and the loop continues.
 
-### 3.2 implement
+### 4.2 implement
 
 implement carries out the locked design recorded in the tracker,
 producing the work.
@@ -253,11 +258,11 @@ new design. Major new scope surfacing during implementation holds the
 phase and returns the run to investigate-design; no work is lost.
 
 implement reports completion when the locked design is carried out.
-The implement→verify transition is not gated: verify (§3.3) is itself
+The implement→verify transition is not gated: verify (§4.3) is itself
 the check on implement, so an incomplete implementation surfaces as
 verify findings rather than passing silently.
 
-### 3.3 verify
+### 4.3 verify
 
 verify checks the completed work against the locked design and the
 standardized lenses.
@@ -292,20 +297,20 @@ cited reason it is not — either holds, recorded as a cited-clean
 line, or yields a divergence from the locked design or a lens issue;
 a failed run of the executable verification is likewise an issue.
 Every divergence or issue is recorded as a **finding**, entering the
-finding track (§4.1) at [PENDING].
+finding track (§5.1) at [PENDING].
 
 verify's terminal result is **[PASSED]** — every check accounted for
 and no finding short of [VERIFIED] — or **[ISSUES FOUND]**.
 [ISSUES FOUND] returns the run to resolve those findings; verify then
-re-runs (§5).
+re-runs (§6).
 
 ---
 
-## 4. The status-state machine
+## 5. The status-state machine
 
 A status tag records the state of a finding or a design decision.
 There are two tracks. ([PASSED] and [ISSUES FOUND] — verify's phase
-result — are not a track; they are specified in §3.3.)
+result — are not a track; they are specified in §4.3.)
 
 Three tags appear in both tracks, track-scoped and with one
 consistent sense: **[PENDING]** (recorded, not yet at a terminal),
@@ -313,7 +318,7 @@ consistent sense: **[PENDING]** (recorded, not yet at a terminal),
 terminal contradicted by later evidence). The reuse is deliberate —
 one vocabulary across both tracks.
 
-### 4.1 Finding states
+### 5.1 Finding states
 
 A finding — an observation recorded by inspection — moves through:
 
@@ -336,18 +341,18 @@ A [VERIFIED] finding can then be invalidated:
 
 4. **[INVALIDATED]** — a [VERIFIED] finding contradicted by later
    evidence. An [INVALIDATED] finding reopens — it reverts to
-   [PENDING] for re-verification — and holds the phase (§4.3) until
+   [PENDING] for re-verification — and holds the phase (§5.3) until
    it does. Only a [VERIFIED] finding becomes [INVALIDATED]; one
    contradicted before [VERIFIED] is simply corrected.
 
-### 4.2 Design-decision states
+### 5.2 Design-decision states
 
 A design decision is the AI's resolved choice about what to build — a
 **committed position**, including a choice to defer or exclude. It is
-never an open question or a choice posed to the operator: per §2.3 a
+never an open question or a choice posed to the operator: per §3.1 a
 question is the absence of a resolution and yields no valid artifact,
 so the design-decision track holds none. It carries that resolution,
-a **basis** (§2.4) — the evidence the choice rests on, or, where it
+a **basis** (§3.2) — the evidence the choice rests on, or, where it
 rests on an assumption, that assumption named — and a status. A
 decision the operator could resolve is recorded [CONDITIONAL] — the
 AI's committed recommendation carrying the operator-resolvable
@@ -386,25 +391,25 @@ at the [READY] gate — with no operator available to resolve it —
 becomes [AUTO-ACCEPTED] rather than holding the run (`modules.md`
 §1.2). An [INVALIDATED] decision reopens — it reverts to [PENDING],
 and any decision that depended on it reverts with it — and holds the
-phase (§4.3) until re-formed. Only a [VERIFIED] or [AUTO-ACCEPTED]
+phase (§5.3) until re-formed. Only a [VERIFIED] or [AUTO-ACCEPTED]
 decision becomes [INVALIDATED]; one contradicted before reaching
 either is simply revised.
 
-### 4.3 Relationship to [READY]
+### 5.3 Relationship to [READY]
 
-Beyond the cycle-history condition in §3.1, the [READY] gate
+Beyond the cycle-history condition in §4.1, the [READY] gate
 requires: no finding is [INVALIDATED], no load-bearing finding is
 left below [VERIFIED], and every design decision is [VERIFIED] — or,
-in auto-battle, [VERIFIED] or [AUTO-ACCEPTED] (§4.2). An [INVALIDATED]
+in auto-battle, [VERIFIED] or [AUTO-ACCEPTED] (§5.2). An [INVALIDATED]
 finding, a load-bearing finding short of [VERIFIED], or a design
 decision short of that bar holds the phase at [NOT READY].
 
 ---
 
-## 5. Orchestrator
+## 6. Orchestrator
 
 The orchestrator conducts a run through the phase pipeline. The
-phases (§3) and the status-state machine (§4) define the work and its
+phases (§4) and the status-state machine (§5) define the work and its
 gates; the orchestrator runs the phases in order, holds the
 transitions, and manages the run's lifecycle.
 
@@ -415,21 +420,21 @@ the run are specified in `modules.md` §1.
 **Sequencing and transitions.** The orchestrator advances
 investigate-design → implement → verify, entering a phase only when
 its predecessor has reported completion. The investigate-design →
-implement transition is held by the [READY] gate (§3.1, §4.3):
+implement transition is held by the [READY] gate (§4.1, §5.3):
 implement is not entered until [READY]. Each time verify is conducted
 — on first reaching it, and on each re-run after [ISSUES FOUND] — the
 orchestrator establishes it in a context isolated from the one that
-conducted investigate-design and implement (§3.3).
+conducted investigate-design and implement (§4.3).
 
 **Loopbacks.** A phase may return the run to an earlier phase; the
 orchestrator honors the return rather than proceeding. implement
-returns to investigate-design when major new scope surfaces (§3.2);
-an [INVALIDATED] finding or design decision reopens design work (§4);
+returns to investigate-design when major new scope surfaces (§4.2);
+an [INVALIDATED] finding or design decision reopens design work (§5);
 verify ending [ISSUES FOUND] returns the run to resolve those
 findings, then re-runs.
 
 **Run lifecycle.** A run starts at investigate-design and ends when
-verify reports [PASSED]. A run's state — the tracker (§4) and the
+verify reports [PASSED]. A run's state — the tracker (§5) and the
 phase it is in — persists across interruptions; a run interrupted
 mid-flight resumes from that state rather than restarting.
 
@@ -438,6 +443,6 @@ cannot complete — it halts the run and surfaces the reason; it never
 advances on an unresolved gate. A decision that needs the operator is
 not such a case: in interactive mode it is held as [CONDITIONAL]
 until the operator resolves it; in auto-battle it becomes
-[AUTO-ACCEPTED] and the run proceeds (§4.2, `modules.md` §1.2).
+[AUTO-ACCEPTED] and the run proceeds (§5.2, `modules.md` §1.2).
 Auto-battle's remaining halt conditions are part of that mode's
 design (`modules.md` §1.2).

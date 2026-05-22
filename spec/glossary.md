@@ -44,7 +44,7 @@ inspection differs only by where the lens comes from. Two sources:
 
 **Basis** — the evidence a claim or design decision rests on: a
 search result, a located read of the source — the artifact itself.
-The basis rule is specified in `core.md` §2.4.
+The basis rule is specified in `core.md` §3.2.
 
 **Assumption** — a basis that resolves to recall — "assumed,"
 "inferred" — rather than evidence. An assumption does not ground a
@@ -53,11 +53,11 @@ decision; how it holds a run short of [READY] is specified in
 
 **Load-bearing** — descriptive of a claim or premise that a design
 decision, a recommendation, or [READY] rests on. Only load-bearing
-claims carry the basis apparatus (`core.md` §2.4).
+claims carry the basis apparatus (`core.md` §3.2).
 
 **Completeness claim** — a claim about a complete set: a scope, an
 element's dependents, an input's value-classes, a flaw class's
-instances. Its basis is a mechanical search (`core.md` §2.4).
+instances. Its basis is a mechanical search (`core.md` §3.2).
 
 ## Phases and structure
 
@@ -95,7 +95,7 @@ exactly two, in order:
 
 **Orchestrator** — the coordinating layer of a run: it detects the
 mode, conducts the phase pipeline through its transitions, and
-manages the run lifecycle. Specified in `core.md` §5.
+manages the run lifecycle. Specified in `core.md` §6.
 
 ## State
 
@@ -118,15 +118,15 @@ investigate-design phase: [READY] permits transition to implement,
 
 **[PASSED] / [ISSUES FOUND]** — verify's terminal result: [PASSED]
 when every check is accounted for and no finding is short of
-[VERIFIED], [ISSUES FOUND] otherwise. Specified in `core.md` §3.3.
+[VERIFIED], [ISSUES FOUND] otherwise. Specified in `core.md` §4.3.
 
 **Design decision** — a committed resolution: the AI's resolved
 choice about what to build, including a choice to defer or exclude.
-Its shape, states, and rules are specified in `core.md` §4.2.
+Its shape, states, and rules are specified in `core.md` §5.2.
 
 **Scope** — the set of elements a run's work will modify; the
 foundational design decision, established by search. Specified in
-`core.md` §3.1.
+`core.md` §4.1.
 
 ## Modes
 

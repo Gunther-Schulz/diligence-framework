@@ -69,7 +69,7 @@ fork, not an instance.
 - the domain's standardized **lens set** (§4)
 - the **tracker-persistence mechanism** — the framework fixes the
   tracker's form (an append-only ledger) and requires it to persist
-  across interruptions (`spec/core.md` §5, `spec/modules.md` §3.1);
+  across interruptions (`spec/core.md` §6, `spec/modules.md` §3.1);
   the instance supplies the concrete mechanism — where the tracker
   lives, how an in-progress run is found and resumed. Clippy's
   `bindings.md` is the worked example.
@@ -110,7 +110,7 @@ the domain by answering:
   (A codebase; a market; a corpus.)
 - **Scope** — what is "the set of elements the work will modify," and
   what search establishes it? Scope is a completeness claim and needs
-  a mechanical basis (`spec/core.md` §2.4) — name the domain's
+  a mechanical basis (`spec/core.md` §3.2) — name the domain's
   search. If the domain has no mechanical search for scope, that is a
   strain (§1).
 - **Verification** — what is "the domain's executable verification"
