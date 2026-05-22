@@ -54,10 +54,10 @@ fork, not an instance.
 
 - the three phases (investigate-design, implement, verify) and their
   specs
-- the two-pass cycle, and inspection / gate — the two functions
+- the two-pass cycle and inspection
 - the basis rule and the evidence-bearing-artifact rule
 - the tracker's form and the status-state machine
-- [READY] and the gates
+- [READY]
 - the two modes (interactive, auto-battle)
 - the orchestrator
 - the two values (the Purpose) — the rubric every prescription is

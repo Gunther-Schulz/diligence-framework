@@ -19,7 +19,7 @@ Three repositories, three levels of abstraction:
   architecture. Domain-agnostic and skill-agnostic.
 - **diligence-framework** — the one domain-general methodology: the
   investigate-design / implement / verify phases, the tracker, the
-  gates and status-state machine, the basis rule, the
+  status-state machine, the basis rule, the
   evidence-bearing-artifact rule. Built *using* skill-craft's mechanisms.
 - **An instance** — the framework bound to a domain and rendered into
   a working plugin. `coding-clippy` is the instance for software

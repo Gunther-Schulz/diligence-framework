@@ -14,19 +14,15 @@ terms; analytic terms are scaffolding.
 
 ---
 
-## Mechanism and function
+## Mechanism and inspection
 
 **Mechanism** — a named, defined element of the protocol that the AI
-applies during a phase. Every mechanism has exactly one function.
+applies during a phase. The framework's one reusable mechanism is
+inspection.
 
-**Function** — what a mechanism does when it runs. Exactly one of
-two:
-
-1. **Inspection** — looking through a lens at the work produced so
-   far. Produces a finding when the lens catches something, nothing
-   when it does not. Generative.
-2. **Gate** — permit or block on accumulated state. Does not look;
-   produces no findings. Gated.
+**Inspection** — looking through a lens at the work produced so far.
+Produces a finding when the lens catches something, nothing when it
+does not.
 
 **Lens** — a single defined inspection criterion: one specific
 question asked of the work already produced. All looking is lensed;
@@ -112,9 +108,9 @@ transitions between them are the status-state machine, specified in
 `core.md`.
 
 **[READY] / [NOT READY]** — the terminal state of the
-investigate-design phase: [READY] permits transition to implement,
-[NOT READY] precedes it. How [READY] is determined is specified in
-`core.md`.
+investigate-design phase: [READY] is the design judged complete and
+presented for the decision to proceed; [NOT READY] precedes it. How
+[READY] is determined is specified in `core.md`.
 
 **[PASSED] / [ISSUES FOUND]** — verify's terminal result: [PASSED]
 when every check is accounted for and no finding is short of
@@ -135,7 +131,7 @@ foundational design decision, established by search. Specified in
 1. **Interactive** — operator-driven: the operator advances the loop
    and chooses at menus.
 2. **Auto-battle** — autonomous-execution: the loop self-advances
-   under structural control, without per-cycle operator input.
+   without per-cycle operator input.
 
 **Menu** — interactive mode's advance point: the AI presents the
 tracker and a recommendation, and the operator selects an option —

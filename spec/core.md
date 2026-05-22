@@ -26,7 +26,7 @@ prescription that serves neither does not belong.
 These are two axes of one failure — hollow work (a claim with nothing
 under it) and lost work (the picture going partial or narrow). Every
 part of this spec — inspection, the tracker, the status-state
-machine, the cycle loop, the gates — exists to secure one or both.
+machine, the cycle loop — exists to secure one or both.
 
 Human inspectability of the work is a further value, but a
 lower-priority one: it does not change outcome quality. It does
@@ -46,7 +46,8 @@ A run proceeds through three phases in sequence:
 
 1. **investigate-design** — a loop of cycles that builds
    understanding of the task and the problem space and produces a
-   locked design. Ends when the [READY] gate permits.
+   locked design. Ends at [READY], when the operator, presented the
+   design, decides to proceed.
 2. **implement** — carries out the locked design, producing the work.
 3. **verify** — checks the produced work against the locked design
    and the standardized lenses.
@@ -62,8 +63,8 @@ A run is driven in one of two modes:
 
 - **interactive** — the operator advances the loop and selects at
   menus.
-- **auto-battle** — the loop self-advances under structural control,
-  without per-cycle operator input.
+- **auto-battle** — the loop self-advances without per-cycle operator
+  input.
 
 The AI self-resolves every design decision it faces during a run; it
 does not pose decisions to the operator as choices to make. It
@@ -86,30 +87,23 @@ confirming, sharpening, or replacing it on evidence.
 
 ---
 
-## 2. Mechanisms
+## 2. Inspection
 
-### 2.1 The two functions
+The framework's one reusable mechanism is **inspection**: it looks
+through a lens at the work so far and yields a finding when the lens
+catches something. The lens is ad-hoc — the AI's own task-derived
+line of inquiry — or standardized: pre-written, the standardized set
+specified by the domain instance.
 
-Every mechanism has exactly one function.
+A standardized lens is specified by the lens-entry shape
+(`modules.md`): its name, the question it asks, and its scope, which
+carries the trigger that brings it into a cycle.
 
-- **Inspection** produces. It looks through a lens at the work so
-  far and yields a finding when the lens catches something. Its lens
-  is ad-hoc (task-derived) or standardized (pre-written; the
-  standardized set is specified by the domain instance).
-- **Gate** permits or blocks. It checks accumulated state at a
-  transition point and either permits the transition or blocks it. It
-  does not look and yields no findings.
-
-### 2.2 Specifying a mechanism
-
-A mechanism is specified in the form that fits its function (§2.1) —
-there is no single shared template.
-
-- An **inspection** — a lens — is specified by the lens-entry shape
-  (`modules.md`): its name, the question it asks, and its scope,
-  which carries the trigger that brings it into a cycle.
-- A **gate** is specified directly — the condition it checks and the
-  transition it guards (the [READY] gate: §4.1, §5.3).
+The run's phase transitions — investigate-design's end at [READY],
+the loopbacks — are not mechanisms of this kind. They are not a
+mechanical check on accumulated state; they are governed by the phase
+specs (§4) and the orchestrator (§6), where what each transition
+requires is specified directly.
 
 ---
 
@@ -136,16 +130,12 @@ artifact is a claim about the run's own state — a status tag, a
 self-assessment that work is complete: there is no external truth to
 check it against.
 
-- A gate's check must require an evidence-bearing artifact. A form
-  check — "N items are present," "the section is filled in" — is
-  satisfiable whether or not the work happened, so the gate passes
-  without firing.
 - An inspection's finding, or its cited reason that a lens is clean,
   must cite evidence that required looking.
-- A design decision's artifact is its committed resolution, its basis
-  (§5.2), and its implementation decomposition (§5.2). An open
-  question, or a choice posed to the operator, is the absence of a
-  resolution — so the design-decision track cannot hold one.
+- A design decision's artifact is its committed resolution and its
+  basis (§3.2). An open question, or a choice posed to the operator,
+  is the absence of a resolution — so the design-decision track cannot
+  hold one.
 
 A weak artifact is not self-enforcing — the protocol cannot rest on
 the artifact alone. It is enforced by a **separate checker**: a
@@ -251,36 +241,24 @@ re-searched. Because [READY] requires every design decision
 [VERIFIED] — or, in auto-battle, [AUTO-ACCEPTED] (§5.3) — an
 unestablished scope, at neither, holds the phase.
 
-**[READY]** has two parts. From the cycle history, investigate-design
-reaches [READY] only when both hold:
+**[READY]** is reached when the working context judges the design
+complete — every concern resolved, every design decision at its
+terminal, and the last cycle's standardized inspection pass producing
+no material finding. The supporting facts are recorded across the run:
+every cycle has completed its standardized inspection pass; the last
+cycle's pass was clean; every design decision is [VERIFIED] — or, in
+auto-battle, [VERIFIED] or [AUTO-ACCEPTED] (§5.3); no finding is left
+open. These are the status the tracker carries (§5.3) — a notebook of
+where each concern stands — not a mechanical check the run self-passes.
 
-- every cycle has completed its standardized inspection pass, and
-- the last cycle's standardized inspection pass produced no material
-  finding — none that changes the design.
-
-The tracker-state conditions — every design decision [VERIFIED] (or
-[AUTO-ACCEPTED] in auto-battle), no finding left open — complete the
-gate and are specified in §5.3.
-
-The gate's conditions are tracker tags — but a tag is a weak
-artifact (§3.1): it claims its work is done, yet is producible by
-pattern alone, so a gate checking tags alone passes without firing
-(§3.1). The tags are made trustworthy before the gate, by an
-**isolated [READY] evaluation** — a verification of the design,
-conducted by a context that did not run the cycles. When the working
-context judges the gate met, the isolated evaluation re-derives
-rather than trusts: that each [VERIFIED] decision's basis is evidence
-and its implementation decomposition holds, that each finding is
-genuinely resolved, that every cycle's standardized pass ran. For
-whatever fails — a mis-marked decision, a recall-proxy basis, a
-missing pass — it yields a finding, reopening the entry at fault
-(§5.1, §5.2) so the loop continues. The [READY] gate then checks the
-resulting tracker state. The isolated evaluation is to the design
-what verify (§4.3) is to the implemented work — an isolated check,
-run before the gate rather than after the phase.
-
-[READY] permits the transition to implement; until the full gate is
-met, the phase is [NOT READY] and the loop continues.
+At [READY] the AI does not certify itself ready: it presents the
+design — the tracker, the recorded design decisions, and a
+recommendation — for the operator's judgment. The cycle-history facts
+(every cycle ran its standardized pass; the last was clean) are part
+of what is presented and weighed, not a self-passed gate. The
+operator's decision to proceed is the transition to implement; until
+the operator proceeds, the phase continues and the loop may run
+further cycles.
 
 ### 4.2 implement
 
@@ -397,13 +375,7 @@ decision the operator could resolve is recorded [CONDITIONAL] — the
 AI's committed recommendation carrying the operator-resolvable
 assumption — never a posed choice; the operator overrides it from the
 tracker (§1). The basis is mandatory; a decision whose basis is an
-assumption cannot reach [VERIFIED]. Completeness — that implementing
-the decision introduces no new design decision — is shown by an
-**implementation decomposition**: the concrete steps implementing it
-entails, each either mechanical or itself a tracked design decision.
-A step that is an unresolved design decision is recorded as its own
-entry and holds the parent below [VERIFIED]. The decomposition is
-mandatory for [VERIFIED], as the basis is. It moves through:
+assumption cannot reach [VERIFIED]. It moves through:
 
 1. **[OUTLINED]** — a committed direction; concrete detail not yet
    investigated.
@@ -411,10 +383,9 @@ mandatory for [VERIFIED], as the basis is. It moves through:
    investigation.
 3. **[CONDITIONAL]** — a concrete decision resting on an unverified
    assumption; the assumption is recorded with it.
-4. **[VERIFIED]** — a concrete decision, complete and locked: its
-   basis is evidence, and its implementation decomposition holds —
-   every step mechanical or itself a [VERIFIED] decision, so
-   implementing it introduces no new design decision.
+4. **[VERIFIED]** — a concrete decision, complete and locked, its
+   basis evidence, detailed enough that implementing it introduces no
+   new design decision.
 5. **[AUTO-ACCEPTED]** — a [CONDITIONAL] decision that auto-battle
    accepted on the AI's committed recommendation, the run proceeding
    without the operator who would otherwise resolve it (`modules.md`
@@ -433,33 +404,29 @@ unverified assumption becomes [CONDITIONAL]; a [CONDITIONAL] decision
 becomes [VERIFIED] when its assumption is verified, and reverts to
 [PENDING] to be re-formed if the assumption is disproved. In
 auto-battle, a [CONDITIONAL] decision still resting on its assumption
-at the [READY] gate — with no operator available to resolve it —
-becomes [AUTO-ACCEPTED] rather than holding the run (`modules.md`
-§1.2). An [INVALIDATED] decision reopens — it reverts to [PENDING],
+when the design reaches [READY] — with no operator available to
+resolve it — becomes [AUTO-ACCEPTED] rather than holding the run
+(`modules.md` §1.2). An [INVALIDATED] decision reopens — it reverts to [PENDING],
 and any decision that depended on it reverts with it — and holds the
 phase (§5.3) until re-formed. Only a [VERIFIED] or [AUTO-ACCEPTED]
 decision becomes [INVALIDATED]; one contradicted before reaching
 either is simply revised.
 
-A decision the isolated [READY] evaluation (§4.1) finds did not earn
-its [VERIFIED] tag — its basis a recall-proxy, its implementation
-decomposition incomplete — is not [INVALIDATED]: nothing contradicted
-it, the tag was simply unearned. It reverts to [PENDING], appended as
-a new line, with the disqualifying gap recorded as the finding that
-reopened it.
-
 ### 5.3 Relationship to [READY]
 
-Beyond the cycle-history condition in §4.1, the [READY] gate
-requires: no finding is [INVALIDATED], no load-bearing finding is
-left below [VERIFIED], and every design decision is [VERIFIED] — or,
-in auto-battle, [VERIFIED] or [AUTO-ACCEPTED] (§5.2). An [INVALIDATED]
+[READY] (§4.1) is the point at which the working context judges the
+design complete. The tracker state it weighs in that judgment: no
+finding is [INVALIDATED], no load-bearing finding is left below
+[VERIFIED], and every design decision is [VERIFIED] — or, in
+auto-battle, [VERIFIED] or [AUTO-ACCEPTED] (§5.2). An [INVALIDATED]
 finding, a load-bearing finding short of [VERIFIED], or a design
-decision short of that bar holds the phase at [NOT READY].
+decision short of that bar is an unresolved concern — the design is
+not complete, and the loop continues.
 
-These conditions, and §4.1's cycle-history condition, are met only
-when the isolated [READY] evaluation (§4.1) confirms them — re-derived
-from evidence, not read off the working context's own tags.
+These are the status the tracker carries — a notebook of where each
+concern stands — that the AI reads when it judges the design complete
+and presents it (§4.1). They are not gate-conditions a separate
+evaluation re-derives.
 
 ---
 
@@ -467,7 +434,7 @@ from evidence, not read off the working context's own tags.
 
 The orchestrator conducts a run through the phase pipeline. The
 phases (§4) and the status-state machine (§5) define the work and its
-gates; the orchestrator runs the phases in order, holds the
+transitions; the orchestrator runs the phases in order, holds the
 transitions, and manages the run's lifecycle.
 
 **Run start.** The orchestrator detects the run's mode (§1) and
@@ -477,12 +444,11 @@ the run are specified in `modules.md` §1.
 **Sequencing and transitions.** The orchestrator advances
 investigate-design → implement → verify, entering a phase only when
 its predecessor has reported completion. The investigate-design →
-implement transition is held by the [READY] gate (§4.1, §5.3):
-implement is not entered until [READY]. The orchestrator establishes
-two checks in a context isolated from the one that ran the work: the
-[READY] evaluation, when the working context judges the gate met
-(§4.1); and verify, each time it is conducted — on first reaching it,
-and on each re-run after [ISSUES FOUND] (§4.3).
+implement transition is [READY] (§4.1, §5.3): implement is not entered
+until the operator, presented the design, decides to proceed. The
+orchestrator establishes verify in a context isolated from the one
+that ran the work, each time verify is conducted — on first reaching
+it, and on each re-run after [ISSUES FOUND] (§4.3).
 
 **Loopbacks.** A phase may return the run to an earlier phase; the
 orchestrator honors the return rather than proceeding. implement
@@ -497,8 +463,8 @@ phase it is in — persists across interruptions; a run interrupted
 mid-flight resumes from that state rather than restarting.
 
 **Halt and surface.** When the orchestrator cannot advance — a phase
-cannot complete — it halts the run and surfaces the reason; it never
-advances on an unresolved gate. A decision that needs the operator is
+cannot complete — it halts the run and surfaces the reason; it does
+not advance past the incomplete phase. A decision that needs the operator is
 not such a case: in interactive mode it is held as [CONDITIONAL]
 until the operator resolves it; in auto-battle it becomes
 [AUTO-ACCEPTED] and the run proceeds (§5.2, `modules.md` §1.2).

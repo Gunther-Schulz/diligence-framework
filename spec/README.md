@@ -20,7 +20,7 @@ conceptual levels, decided by this test:
   to this spec.
 - **Diligence framework** — the *specifics of one structured
   methodology*: the named phases (investigate-design / implement /
-  verify), the two-pass cycle, inspection/gate, the standardized lens
+  verify), the two-pass cycle, inspection, the standardized lens
   set, the two-track tracker and status-state machine, [READY], the
   two modes, the orchestrator. The domain-agnostic, sharpened
   abstraction of proven structured-work mechanics. **This spec is

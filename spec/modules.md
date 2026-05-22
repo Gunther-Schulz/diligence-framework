@@ -34,14 +34,17 @@ re-presents the menu. The operator never loses the advance choice.
 
 ### 1.2 auto-battle
 
-The loop self-advances without per-cycle operator input. Advancement
-is governed by structural control — the cycle structure and the
-[READY] gate — not by AI judgement of when to stop.
+The loop self-advances without per-cycle operator input. Cycles run
+until the working context judges the design complete (`core.md` §4.1,
+[READY]). In interactive mode the operator is then presented the
+design and decides to proceed; auto-battle has no operator, so that
+judgement is itself the transition to implement — the operator's
+decision at [READY] is skipped.
 
 A design decision recorded [CONDITIONAL] would, in interactive mode,
 hold the run until the operator resolves it (`core.md` §1, §5.2).
 Auto-battle has no operator to resolve it. Instead, when such a
-decision reaches the [READY] gate still resting on its assumption,
+decision still rests on its assumption as the design reaches [READY],
 auto-battle **accepts the AI's committed recommendation** — every
 design decision carries one (`core.md` §1) — and the decision is
 tagged **[AUTO-ACCEPTED]** (`core.md` §5.2): the recommendation
@@ -102,15 +105,14 @@ account of having looked is not a basis (`core.md` §3.2), and in a
 tracker entry it is a malformed field. An entry has no narrative
 field: reasoning that is not a citable basis does not belong in the
 tracker — the tracker is the run's ledger, not its design narrative.
-The standardized-pass findings artifact (§3.2) and the implementation
-decomposition (§3.3) are separate per-cycle and per-decision
-artifacts, persisted alongside the tracker, not part of it.
+The standardized-pass findings artifact (§3.2) is a separate
+per-cycle artifact, not part of the tracker.
 
 The tracker is **append-only**. A new entry, and every later change
 to an entry — a new status, a corrected summary — is a new ledger
 line appended to the tracker; existing lines are never edited. Each
 line carries its entry's identifier, and an entry's current state is
-its latest line: where current state is needed — the [READY] gate, a
+its latest line: where current state is needed — at [READY], a
 resume, the closed artifact — it is the tracker reduced to the latest
 line per entry. The append-only history is the run's audit trail;
 because no line is ever rewritten, no past entry can be silently
@@ -122,28 +124,3 @@ Each cycle's standardized inspection pass emits a findings artifact
 (`core.md` §4.1): one line for every lens in the set — a finding or a
 cited-clean reason for a lens in scope, a cited reason for one out of
 scope.
-
-The artifact is **persisted** and carries its **cycle number**. It is
-a per-cycle run artifact kept alongside the tracker, not part of it
-(§3.1). Persistence is what lets the isolated [READY] evaluation
-(`core.md` §4.1) confirm that every cycle's pass ran and the last was
-clean — without it, that [READY] condition is unauditable. The
-instance supplies the persistence mechanism, as it does for the
-tracker.
-
-### 3.3 The implementation decomposition
-
-A design decision reaching for [VERIFIED] carries an **implementation
-decomposition** (`core.md` §5.2): the concrete steps implementing it
-entails, each marked *mechanical* — no design choice — or *a design
-decision*, named and tracked as its own entry. A step left unmarked,
-or marked a design decision and not yet [VERIFIED], does not support
-the parent's [VERIFIED].
-
-The decomposition is **persisted** and identifies its design
-decision, like the standardized-pass artifact (§3.2) and for the same
-reason: the isolated [READY] evaluation (`core.md` §4.1) re-derives it
-to confirm completeness, and cannot if it is not kept. It is not part
-of the tracker — the tracker entry carries the decision's status,
-summary, and basis; the decomposition is the separate artifact behind
-the completeness the [VERIFIED] tag claims.

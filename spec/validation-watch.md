@@ -33,21 +33,26 @@ before the design locks them in — per-cycle is confirmed.
 
 ---
 
-## V-2. The two-function model
+## V-2. One mechanism — inspection; transitions are operator-judged
 
-**Decision (`glossary.md`, `core.md`).** The framework's mechanisms
-are classified by one of two functions — inspection (with an ad-hoc
-or standardized lens source) and gate. The spec is structured on this
-model.
+**Decision (`glossary.md`, `core.md`).** The framework has one
+reusable mechanism: inspection (with an ad-hoc or standardized lens
+source). Phase transitions — chiefly [READY] — are not a self-passed
+gate on accumulated state; [READY] surfaces the design for the
+operator's judgement, and the other transitions are specified
+directly by the phase specs and the orchestrator.
 
-**Why uncertain.** The model is distilled from a single
-investigation. It revised repeatedly before settling — a
-generative/gate split, then a three-way open-looking / lensed / gate
-model, then the current two-function model. It is the current working
-model, not a measured or proven one.
+**Why uncertain.** This is the lean rework. An earlier model
+classified mechanisms as inspection *or* gate and had the run
+self-pass a [READY] gate on its tracker tags. A diagnosed failure —
+a cross-decision contradiction that passed three [READY] evaluations
+(F21) — showed the gate cached a verdict that went stale as the loop
+moved the design. The rework cut the gate machinery on that
+diagnosis; it is a design call from one failure, not a measured one.
 
-**Production signal to watch.** Whether mechanisms encountered in real
-runs classify cleanly as inspection or gate, and whether the
-ad-hoc/standardized lens-source distinction holds. A mechanism that
-fits neither function, or a lens that is clearly neither ad-hoc nor
-standardized, is a signal the model needs revision.
+**Production signal to watch.** Whether design defects the old
+[READY] gate aimed to catch now reach implement and verify, and
+whether catching them there is acceptably cheap — or whether they
+slip past verify too. Also whether any mechanism appears in real runs
+that is not inspection, which would reopen the need for a mechanism
+taxonomy.

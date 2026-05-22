@@ -1,8 +1,8 @@
 # Lean rework — the plan
 
-Status: planned, not implemented. Direction agreed 2026-05-22; the
-detailed design and the spec surgery are a fresh, focused pass
-working from this note + the current `spec/`.
+Status: implemented 2026-05-22. Direction agreed 2026-05-22; the
+spec surgery and its dependent fixes were carried out in a focused
+pass working from this note + the then-current `spec/`.
 
 ## Why — the diagnosis
 
