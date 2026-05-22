@@ -138,6 +138,38 @@ With the instance spec written, generate the plugin:
   clause-level diff against the source, not by re-reading the rendered
   text — the renderer is blind to its own flattening.
 
+The instance also needs its `CLAUDE.md`. It auto-loads for any
+session working on the instance repo, so it must carry the rule that
+the skill content is rendered, not authored — or a session will
+hand-edit a skill file unaware, and the instance drifts from the
+spec. Seed the `CLAUDE.md` with this section, binding `<Instance>` to
+the instance's name and `<skill-dir>` to its skill directory:
+
+```
+## The skill content is rendered, not authored
+
+<Instance> is an *instance* of the Diligence framework. The skill
+files — `<skill-dir>/SKILL.md`, `phases/`, and `references/` — are
+**rendered** from the framework spec (the `diligence-framework`
+repo, `spec/`). They are not authored here, and are never where a
+behavior change originates.
+
+A change to how <Instance> behaves goes to the framework spec first:
+committed there, then re-rendered into these files and verified in a
+separate context — the procedure is `development-process.md` in the
+`diligence-framework` repo. Hand-editing a skill file as if it were
+source breaks re-derivability: the spec and the instance drift, and
+the change cannot be reproduced for another instance.
+
+This rule covers the skill *content*. The plugin's packaging — this
+file, the READMEs, `plugin.json`, and the like — is repo-local,
+maintained in the instance repo directly.
+```
+
+Extend the `CLAUDE.md` below this section with the instance's own
+plugin-housekeeping — description sync, version discipline, component
+inventory — and any instance-specific rules.
+
 Then validate:
 
 - **Generative test** — not merely "could a skeleton be built," but:
