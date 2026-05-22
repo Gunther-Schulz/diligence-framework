@@ -76,11 +76,17 @@ fork, not an instance.
 
 "Only this" bounds the *method* — an instance binds the framework to
 a domain, it does not extend or revise the method. It does not bound
-*presentation*: the rendered plugin's wording, formatting, and any
-icons are not spec'd at any level. Presentation sits outside the
-inherit/supply structure entirely — the framework neither prescribes
-nor precludes a given look; it is the rendered plugin's own, whatever
-the instance's render produces.
+*presentation* — the instance's decorative layer: icons, a persona or
+name, visual flourish. Presentation is only this orthogonal layer;
+the *wording* of an instruction is not presentation but rendered
+function, derived from the spec.
+
+The framework prescribes no presentation: it mandates no look, and
+instances may differ freely. An instance that wants to steer its look
+records the intent in its own spec — an optional presentation section
+in `bindings.md`, the render's instance-side input. The section is
+optional and most instances leave it empty: the framework defines the
+slot, it never dictates its content.
 
 ## 3. Binding the framework to the domain
 
