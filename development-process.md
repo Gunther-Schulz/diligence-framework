@@ -129,16 +129,42 @@ load-bearing rule left as weak prose where a forcing function belongs
 — is not gated: it is debugging the procedure, legitimate on first
 sight. The over-build caution governs the first, never the second.
 
+The cost calculus differs for **foundation work** — work on the
+framework spec, skill-craft, an instance's foundations, or
+load-bearing discipline (`CLAUDE.md`, `JOURNAL.md` observations
+driving amendments), as distinct from production work (running the
+framework on a real task). Investment in the foundation amortizes
+across every future run that uses it; under-building to save session
+length or upfront design effort trades a small near-term saving for
+a recurring downstream tax. Proportionality still governs the
+*details* of an edit (what words, what sequencing); it does not gate
+whether to do foundational work at all. The framework's
+cost-asymmetry argument (`core.md` §4.1) — that an extra
+investigate-design cycle costs one cycle while an
+implement→investigate loopback is materially larger — applies to the
+meta-level work as well: foundation work that strengthens
+design-time discipline (sharpening basis-rule artifacts, lens
+articulation, forcing functions on locked decisions) pays the
+asymmetry down for every future run. When the same discipline could
+fire at either stage, design-time placement wins.
+
 ### 8. Design, then decide, then implement
 
 Surface a design and its **genuine choices** and trade-offs before
 building. Genuine includes the proper-fix option: the AI's default
 disposition is to prefer the proper fix and lead with it, weighing
 cheaper alternatives honestly against it — not to construct
-cheap-only menus. The operator decides. Only then implement — at
-the source level, re-rendered, verified. Do not accrete a design
-through implementation, and do not implement past the point the
-operator has agreed.
+cheap-only menus. Cheap variants are sometimes right (small stakes,
+throwaway scope) but rarely on foundation work (practice 7) — the
+production-run amortization changes the math. The operator decides;
+the operator's go before implementation is part of the discipline,
+even when established tenets already authorize the workstream —
+incremental steps within an authorized workstream do not need
+ceremonial confirmation, but crossing into implementation after a
+design surface does. Only then implement — at the source level,
+re-rendered, verified. Do not accrete a design through
+implementation, and do not implement past the point the operator
+has agreed.
 
 The prefer-proper-fix rule has a recurring violation shape worth
 naming: defaulting to cheap variants, deferral, or narrow option
@@ -150,56 +176,10 @@ weigh cheaper alternatives against it, not the other way around.
 Smell tests: heaviest option offered is still light; deferring real
 design work to "another session" on cost grounds; option set is all
 variants of one shape; reaching for "session length" or "bigger
-work" as deferral criterion on foundation work (cf. practice 9);
-asking for operator sign-off on a step the established tenets
-already authorize.
-
-### 9. Foundation work disposition
-
-Work on the framework spec, skill-craft, an instance's foundations,
-or load-bearing discipline (`CLAUDE.md`, `JOURNAL.md` observations
-driving amendments) operates under a different cost calculus than
-production work. Investment here amortizes across every future run
-that uses the foundation; that changes the disposition four ways.
-
-**No cost gating.** Cost (session length, upfront design effort,
-multi-file touch) is the wrong gate on foundational work. The right
-gate is design quality and whether the change is warranted. Practice
-7's proportionality still governs the *details* of an edit — not
-whether to do it. Under-building to save session length trades a
-small near-term saving for a recurring downstream tax.
-
-**Design-time catches trump implementation-time catches.** This is
-the framework's whole premise (codified for runs in `core.md`
-§4.1's cost-asymmetry argument): catching at investigate-design is
-exponentially cheaper than at implement or verify. Foundation work
-that strengthens design-time discipline — sharpening basis-rule
-artifacts, lens articulation, forcing functions on locked decisions
-— pays the asymmetry down for every future run. When the same
-discipline could fire at either stage, design-time placement wins.
-
-**Proper-full-solution as default disposition.** When the proper
-fix is real, do it. Cheap variants are sometimes right (small
-stakes, throwaway scope) but rarely on foundation work — the
-production-run amortization changes the math. Default to
-proper-full-solution; deviate only when the specific case has the
-asymmetry running the other way and the deviation is named.
-
-**Trust the tenets; do not ask ceremonially.** Operator sign-off on
-each step delays execution without surfacing new information when
-the established tenets already authorize the action. Execute the
-proper fix as the tenets prescribe; surface the result; let the
-operator override if needed — do not ask "should I?" when the
-tenets answer that question. Sharpen the tenets themselves if their
-articulation is unclear; do not rely on per-step confirmation as the
-work-around.
-
-Smell tests for the disposition failing: deferring real design work
-to "another session" on cost grounds; constructing cheap-only option
-menus when the proper fix exists (see practice 8); asking "should
-I?" on an already-authorized step; catching at implement-time what
-design-time discipline could have caught, without amending the
-design-time discipline afterward.
+work" as deferral criterion on foundation work; crossing from
+design-surface into implementation without the operator's explicit
+go; asking for sign-off on every incremental step rather than on
+implementation specifically.
 
 ## The release loop
 
