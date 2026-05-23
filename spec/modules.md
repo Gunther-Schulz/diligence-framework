@@ -211,6 +211,9 @@ kept for the run's history and for resume. Like the standardized-pass
 artifact (§3.2), it is a per-phase artifact persisted alongside the
 tracker, not filed into it.
 
-On a loopback from implement to investigate-design (`core.md` §4.2,
-§6), the impl plan is invalidated: a new plan is produced after the
-next [READY], reflecting any changes to the locked design.
+The plan is immutable across the impl phase: completion lives on
+the tracker via each dispatch unit's commit reference (`core.md`
+§4.2), not in the plan itself. Only a loopback to investigate-design
+(`core.md` §4.2, §6) invalidates the plan, in which case a new plan
+is produced after the next [READY], reflecting any changes to the
+locked design.

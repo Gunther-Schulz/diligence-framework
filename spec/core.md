@@ -323,58 +323,49 @@ new design. Major new scope surfacing during implementation holds the
 phase and returns the run to investigate-design; no work is lost.
 
 **The impl plan.** implement opens with an impl plan: the locked
-design's decisions grouped into **dispatch units**, the units'
-dependency order, and a parallel-eligibility marker on each. The
-locked design's decisions are the grouping unit — the impl plan is a
-planning artifact, not a new tracker construct.
-Parallel-eligibility is a load-bearing claim per §3.2: a unit's
-file and contract scopes are listed, and the disjointness from
-sibling units' scopes is established by the re-runnable search
-behind the claim, not by recall — silent substitution rejected here
-as elsewhere. A unit whose disjointness is not search-established is
-sequential by default. The impl plan is persisted alongside the
-tracker (`modules.md` §3.3) — a phase-start artifact kept for the
-run's history and for resume.
+design's decisions grouped into **dispatch units**, dependency-
+ordered, with a parallel-eligibility marker on each — a planning
+artifact, not a new tracker construct. Parallel-eligibility is a
+load-bearing claim per §3.2: a unit's file and contract scopes are
+listed and the disjointness from sibling units' scopes established
+by the re-runnable search behind the claim, not by recall. A unit
+whose disjointness is not search-established is sequential. The
+plan is persisted alongside the tracker (`modules.md` §3.3).
 
-**Dispatch.** implement dispatches a unit's work to a subagent —
-isolated from the run's working context — when the impl plan
-contains two or more units. A single-unit plan is implemented in
-the working context. The subagent is briefed artifact-driven,
-mirroring verify (§4.3): it loads the orchestrator's skill files,
-receives the tracker (in full, or reduced to the unit's in-scope
-decisions) and the locked contracts the unit honors, and implements
-the in-scope decisions. The subagent does not design; major new
-scope surfacing during its work halts it (below). Parallel-eligible
-units may be dispatched concurrently; the disjointness basis on
-each unit is what makes concurrent dispatch safe.
+**Dispatch.** When the impl plan has two or more units, each unit's
+work is dispatched to a subagent isolated from the run's working
+context; a single-unit plan is implemented in the working context.
+The subagent is briefed artifact-driven, mirroring verify (§4.3):
+it loads the orchestrator's skill files and receives the tracker
+(in full, or reduced to the unit's in-scope decisions) plus the
+locked contracts the unit honors. It implements the in-scope
+decisions; it does not design — major new scope halts it (below).
+Parallel-eligible units may be dispatched concurrently; the
+disjointness basis makes that safe.
 
 **Tracker writes.** The orchestrator (§6) owns the tracker append.
-A dispatched subagent does not write to the tracker directly; on
-completion or halt it returns its state — findings, the completed
-unit's commit reference, a loopback signal where applicable — and
-the orchestrator appends in deterministic order. The append-only
-model (`modules.md` §3.1) is preserved without concurrency
-machinery.
+A dispatched subagent does not write directly; on completion or
+halt it returns state — findings, the unit's commit reference, a
+loopback signal where applicable — and the orchestrator appends in
+deterministic order. The append-only model (`modules.md` §3.1) is
+preserved without concurrency machinery.
 
-**Loopback across the subagent boundary.** A subagent that finds
-major new scope halts and returns a loopback-required result with
-the finding — its location, what the locked design missed, what
-investigation is needed. On receiving loopback-required from any
-dispatched subagent, the orchestrator halts other parallel
-subagents in flight, preserves their committed work and tracker
-state, and returns the run to investigate-design with the new
-finding. The halt of in-flight subagents is required: their work
-may rest on the disjoint-scope claim the new finding contradicts.
-The pattern mirrors verify's [ISSUES FOUND] return (§4.3, §6).
+**Loopback across the subagent boundary.** A subagent finding major
+new scope halts and returns a loopback-required result with the
+finding. On receiving it, the orchestrator halts other in-flight
+parallel subagents — required because their work may rest on the
+disjoint-scope claim the new finding contradicts — preserves
+committed work and tracker state, and returns the run to
+investigate-design. The pattern mirrors verify's [ISSUES FOUND]
+return (§4.3, §6).
 
-**Checkpoint.** A dispatch unit's work product is committed
-(persistently recorded — instance-specific, e.g. a git commit for
-code) on completion; the commit reference is what the orchestrator
-appends to the tracker. The commit plus tracker line is the unit's
-persistence artifact. A run interrupted mid-implement resumes by
-reading the tracker, finding the last-completed unit, and
-dispatching the next per the impl plan (§6, Run lifecycle).
-Without the per-unit commit cadence resume must re-derive from
+**Checkpoint.** A dispatch unit's work product is committed on
+completion (instance-specific, e.g. a git commit for code) and the
+orchestrator appends the commit reference to the tracker. The
+commit plus tracker line is the unit's persistence artifact: a run
+interrupted mid-implement resumes from the tracker — the
+last-completed unit, the next per the impl plan (§6, Run
+lifecycle). Without per-unit commits, resume must re-derive from
 work-product state — a silent-substitution shape this rule closes.
 
 implement reports completion when every unit in the impl plan is
