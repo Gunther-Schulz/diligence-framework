@@ -265,10 +265,17 @@ Protocol changes this audit prompted (this commit's siblings):
   don't ask ceremonially).
 
 Dispatch self-check (Lever B from the implement-phase
-lens-application discussion — applying lenses at the dispatch
-boundary so each unit self-checks against the locked design before
-returning state) is the open design pass that compounds with the
-design-time forcing function — a per-dispatch-unit catcher for
-references introduced post-design and behaviors slipping the
-locked enumeration. Surfaced as the next design work in this
-session; not yet locked in spec.
+lens-application discussion — applying Coupled-change,
+Branch-coverage, and Failure-path at the dispatch boundary so each
+unit self-checks its diff against the locked design before returning
+state) is now locked in spec (`core.md` §4.2 "Self-check at
+dispatch boundary"; rendered in plugin v0.9.2). Compounds with the
+design-time forcing function (§3.2) as the implement-time catcher
+for references introduced post-design and behaviors slipping the
+locked enumeration. Additional production signals to watch: (a)
+whether the self-check catches what would otherwise have reached
+verify in Unit 6+ runs; (b) per-dispatch overhead remaining
+acceptable; (c) subagent findings well-shaped as ledger lines (no
+free-text drift); (d) loopback-vs-in-scope-concern classification
+working — i.e., subagents correctly distinguishing major-new-scope
+findings that halt the unit from in-scope concerns that proceed.

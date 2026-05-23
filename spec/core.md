@@ -358,6 +358,25 @@ decisions; it does not design — major new scope halts it (below).
 Parallel-eligible units may be dispatched concurrently; the
 disjointness basis makes that safe.
 
+**Self-check at dispatch boundary.** Before returning state, the
+dispatched subagent (and the working context, for a single-unit
+plan) applies the standardized lenses most relevant to write-time
+issues — Coupled-change, Branch-coverage, Failure-path
+(`modules.md` §2.2; the instance's lens set) — to its diff against
+the unit's in-scope locked design decisions. Findings are entered as
+fixed-shape ledger lines (`modules.md` §3.1) and returned with
+state; the orchestrator appends per Tracker writes below. The
+self-check compounds with the design-time forcing function for
+delete/replace/amend decisions (§3.2): the basis enumerates
+references as of [READY]; the self-check catches references and
+behaviors introduced post-design (new docstrings, new branches, new
+failure modes the unit's diff introduces). The check is
+unconditional — applied at every dispatch boundary, and by the
+working context for a single-unit plan. A self-check finding
+of major-new-scope shape triggers the loopback below; an in-scope
+concern is appended for verify's later sweep but does not halt the
+unit.
+
 **Tracker writes.** The orchestrator (§6) owns the tracker append.
 A dispatched subagent does not write directly; on completion or
 halt it returns state — findings, the unit's commit reference, a
