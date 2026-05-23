@@ -24,7 +24,11 @@ questions or choices (`core.md` §1, §5.2). The **menu** carries only
 loop control: the operator selects an option — continue the loop, or
 proceed to the next phase. The operator's input on a design decision
 is free-form override against the recorded tracker (`core.md` §1) —
-never an answer to a posed choice.
+never an answer to a posed choice. The AI may suggest *example*
+wording the operator could use — lowering friction without
+restricting the reply. Posing a binary or n-ary choice ("A or B?") is
+the line: it constrains the operator's input to selected options and
+is not permitted.
 
 The menu **persists**. It is the last element of every response until
 the operator selects continue or proceed. The operator may interject
