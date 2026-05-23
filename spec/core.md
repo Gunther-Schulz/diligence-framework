@@ -268,6 +268,26 @@ last cycle's pass left no material finding; every design decision is
 no finding is left open. These are the status the tracker carries (§5.3) — a notebook of
 where each concern stands — not a mechanical check the run self-passes.
 
+The judgment is not only absence-based — the supporting facts above
+check what the tracker *records*; the judgment must also actively
+test what the tracker does *not* record: would an implementer working
+from the tracker alone surface design decisions this cycle missed.
+The strongest single test: **fresh-session implementability** — would
+a session with only the tracker (no chat context, no current-session
+memory) implement the design without surfacing a new design decision?
+Where the answer is no — because a contract change leaves the
+implementer's first lines of code unpinned (signature, types, error
+path), or a multi-step operation has no written failure contract, or
+an X×Y matrix has empty cells, or "consumers" in scope are grep hits
+not verified — the design is not at [READY], regardless of what
+statuses the tracker carries. Another cycle is warranted.
+
+The cost is asymmetric: an extra cycle is the cost of one cycle's
+investigation; an implement→investigate loopback is materially larger
+— by the time implement hits the gap, code has been written that
+must be discarded or reworked. The asymmetry justifies a high bar:
+when in doubt, cycle.
+
 At [READY] the AI does not certify itself ready: it presents the
 design — the tracker, the recorded design decisions, and a
 recommendation — for the operator's judgment. The cycle-history facts
