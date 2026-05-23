@@ -55,6 +55,13 @@ claims carry the basis apparatus (`core.md` §3.2).
 element's dependents, an input's value-classes, a flaw class's
 instances. Its basis is a mechanical search (`core.md` §3.2).
 
+**Silent substitution** — missing or malformed evidence defaulted to
+a plausible proxy that propagates as if it were the basis: a
+recalled count where a search is needed, a free-text claim of having
+looked, a sampled subset where the whole set is the unit. The
+canonical AI failure shape the basis rule (`core.md` §3.2) rejects.
+The discipline is to surface the gap, not substitute.
+
 ## Phases and structure
 
 **Run** — a single execution of the framework on a task: the three

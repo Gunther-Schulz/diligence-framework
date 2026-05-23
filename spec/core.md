@@ -179,6 +179,16 @@ mechanical tell of a blind spot is the basis the AI cannot produce —
 a missing or recall-only basis is the flag, whether or not the claim
 ever felt uncertain.
 
+The rule's specific bullets below reject one shape, named: **silent
+substitution** — missing or malformed evidence defaulted to a
+plausible proxy that propagates as if it were the basis. The proxy
+might be a recalled count where a search is needed, a free-text
+claim of having looked, a sampled subset where the whole set is the
+unit, a near-miss read short of the construct's close. Each is an
+instance of the same failure: substituting plausibility for evidence
+without surfacing the gap. The rule's discipline is to surface the
+gap, not substitute.
+
 The rule has two edges:
 
 - **Basis-naming.** Every load-bearing claim and design premise names
