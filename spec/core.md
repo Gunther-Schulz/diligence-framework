@@ -214,6 +214,21 @@ search of "everywhere else" is built to miss. A claim
   it. "I sampled," "I read the artifact," "I declared the scope" are
   proxies: each passes while the true unit goes unexamined.
 
+A design decision involving **replacement, removal, or amendment of
+an existing artifact** carries an implicit completeness claim: that
+all references to (and load-bearing behaviors of) the affected
+artifact have been accounted for. The basis must therefore include
+the re-runnable search enumerating references to the affected
+artifact, AND — for replacements introducing a successor — an
+explicit enumeration of behaviors preserved or dropped at the
+replacement. A delete/replace/amend decision whose basis is just "X
+is replaced by Y" without the references search and (where
+applicable) the behavioral-parity enumeration is missing its
+true-unit basis; it cannot reach [VERIFIED]. This is the forcing
+function for Coupled-change adherence: the lens's question becomes
+load-bearing on the decision's own basis artifact, not on a separate
+cycle's standardized pass alone.
+
 A secondary source — a sub-agent report, a prior session's notes, an
 audit summary — is not itself a basis. A direct citation it carries
 (the located artifact with its verbatim content) relays the artifact
@@ -408,8 +423,13 @@ every standardized lens — applied where it is in scope, or given a
 cited reason it is not — either holds, recorded as a cited-clean
 line, or yields a divergence from the locked design or a lens issue;
 a failed run of the executable verification is likewise an issue.
-Every divergence or issue is recorded as a **finding**, entering the
-finding track (§5.1) at [PENDING].
+Any non-failure output the executable verification surfaces —
+warnings, deprecations, style notes from linters or type checkers —
+is also a finding unless the project has explicitly de-prioritized
+that output class with a cited rationale; an unflagged warning
+treated as "context only" is the silent-substitution shape (§3.2)
+the rule rejects. Every divergence or issue is recorded as a
+**finding**, entering the finding track (§5.1) at [PENDING].
 
 verify's terminal result is **[PASSED]** — every check accounted for
 and no finding short of [VERIFIED] — or **[ISSUES FOUND]**.
