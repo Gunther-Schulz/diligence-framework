@@ -243,3 +243,64 @@ acceptable; (c) subagent findings well-shaped as ledger lines (no
 free-text drift); (d) loopback-vs-in-scope-concern classification
 working — i.e., subagents correctly distinguishing major-new-scope
 findings that halt the unit from in-scope concerns that proceed.
+
+---
+
+## V-7. Design-decision premise basis — paths, filenames, completeness counts
+
+**Decision (`core.md` §3.2).** The basis rule requires every
+load-bearing claim and every design premise to carry a named basis.
+Applied uniformly: findings cite evidence, design decisions cite
+basis. The rule's text does not separately enumerate paths,
+filenames, or completeness counts embedded within design
+decisions — these are covered by "every design premise" generally.
+
+**Why uncertain.** A real-run incident (coding-clippy unit-10
+file-split refactor, 2026-05-24) surfaced a class of [READY]
+escape where the rule was loaded but unevenly applied:
+design-decision premises that name a path/filename ("move X to
+**new file** `overtime_settlement_persistence.py`") have an
+implicit completeness claim — "no existing nearby module is
+suitable" — that gets less rigorous basis-rule application than
+explicit findings do. Cycle 2 declared [READY] with this claim
+ungrounded; cycle 3 surfaced the existing
+`services/autobet/overtime_settlement.py` module that would have
+been the natural home, requiring D3 to be re-formed. Same shape
+on cross-reference completeness: cycle 2 listed 3 sites, cycle 3
+found 7.
+
+The fresh-session implementability test (`core.md` §4.1) PASSED
+at cycle 2 — a fresh session reading the tracker would have
+implemented the design *as specified*, never surfacing a new
+design decision. The test catches **clear-but-incomplete**
+designs; it does not catch **clear-but-wrong-target** designs
+where the implementation lands cleanly but in the wrong
+location.
+
+**Production signal to watch.** Whether instance lens sets
+adding a Target-locality lens (Clippy v0.9.9, DANEEL v0.2.1 —
+"for any design decision naming a new file/module/package as
+target, the basis must include a re-runnable grep of the
+parent directory establishing no existing module is suitable")
+catch the failure class at cycle-2 cost rather than
+cycle-3-after-operator-pushback cost. If recurrent
+clear-but-wrong-target escapes happen in instances WITHOUT a
+Target-locality lens, the framework spec's §3.2 basis rule
+should add an explicit sub-clause for design-decision premise
+basis (paths, filenames, completeness counts) — sharpening the
+rule's wording so the discipline does not require the
+domain-specific lens as the only catcher.
+
+If the Target-locality lens cleanly catches this class without
+spec changes, the framework's basis rule wording is adequate —
+the gap was lens-set coverage in instances, not rule
+articulation. Either signal informs the framework spec's
+amendment discipline.
+
+**First signal (2026-05-24).** The coding-clippy unit-10 run is
+the first observed instance of this escape class. The
+operator's catch at cycle-2 [READY] presentation made cycle 3
+happen and surfaced F17 + F14 expansion. Target-locality lens
+added to Clippy + DANEEL same day. Next clippy runs are the
+first opportunity to observe the lens catching the failure
+shape at cycle-2 cost.
