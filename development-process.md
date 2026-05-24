@@ -154,6 +154,18 @@ genuine uncertainty about a design choice's correctness =
 validation-watch material; classifiable fix whose form is
 already in hand = practice-8 n=1 commit material.
 
+**Entry hygiene.** Validation-watch entries are scoped to their
+own titled question. An observation that doesn't bear on that
+question is either its own V-N entry (if it's genuine uncertainty
+about a separate design choice) or doesn't belong in
+validation-watch at all (if it's classifiable per the three forms,
+or operator-side tracking, or a gap in some other doc). A
+footnote-style observation tagging along inside an unrelated V-N
+is a **stowaway** — same root failure as the deferral journal
+(validation-watch used as a catch-all), different mechanism. The
+entry's scope is its title; observations outside that scope earn
+their own entry or live elsewhere.
+
 ### 9. Design, then decide, then implement
 
 Surface a design and its **genuine choices** and trade-offs before

@@ -39,7 +39,7 @@ before the design locks them in — per-cycle is confirmed.
 reusable mechanism: inspection (with an ad-hoc or standardized lens
 source). Phase transitions — chiefly [READY] — are not a self-passed
 gate on accumulated state; [READY] surfaces the design for the
-operator's judgement, and the other transitions are specified
+operator's judgment, and the other transitions are specified
 directly by the phase specs and the orchestrator.
 
 **Why uncertain.** This is the lean rework. An earlier model
@@ -170,11 +170,7 @@ structurally different from the 0.7.0 isolated eval: operator-invoked
 surface during implementation" simulation (not cached verdict),
 output to the operator (not cached in the tracker). If false-[READY]s
 do not recur, the named self-assessment is sufficient and no new
-mechanism is warranted. A separate failure shape — *smuggled
-premises* inside [VERIFIED] decision bodies (multi-sentence narrative
-that buries unverified architectural premises) — is an adherence gap
-on the existing `modules.md` §3.1 "no narrative field" rule, not a
-protocol gap; tracked operator-side.
+mechanism is warranted.
 
 ---
 

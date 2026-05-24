@@ -263,7 +263,7 @@ counts, classifications — not impressions):
   each as an *escape* (implement or verify recorded it past [READY])
   or an *operator catch* (caught at [READY] presentation, before
   proceeding). For each: name which investigate-design check (a
-  specific lens, the basis rule, the [READY] judgement) should have
+  specific lens, the basis rule, the [READY] judgment) should have
   caught it and why it didn't; or state "no existing check covers
   this class."
 - **Cost.** Where did this run's effort go: token-heavy or
