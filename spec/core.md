@@ -630,28 +630,19 @@ orchestrator establishes verify in a context isolated from the one
 that ran the work, each time verify is conducted — on first reaching
 it, and on each re-run after [ISSUES FOUND] (§4.3).
 
-**Dispatch in implement.** When implement's impl plan (§4.2) contains
-two or more dispatch units, the orchestrator dispatches each unit's
-work to a subagent isolated from the run's working context.
-Parallel-eligible units — each carrying a search-established
-disjointness basis (§3.2, §4.2) — may be dispatched concurrently.
-The orchestrator owns the tracker append: a dispatched subagent
-returns its state on completion or halt — findings, the unit's
-commit reference, a loopback signal where applicable — and the
-orchestrator appends in deterministic order. The append-only model
-(`modules.md` §3.1) is preserved without concurrency machinery. A
-single-unit impl plan is implemented in the working context with no
-dispatch.
+**Dispatch in implement.** The orchestrator carries out the impl-phase
+dispatch protocol specified in §4.2: dispatching units to subagents
+when the impl plan has two or more units, owning the tracker append,
+honoring the loopback shape across the subagent boundary. The
+mechanics live in §4.2.
 
 **Loopbacks.** A phase may return the run to an earlier phase; the
-orchestrator honors the return rather than proceeding. implement
-returns to investigate-design when major new scope surfaces (§4.2) —
-including when a dispatched subagent surfaces it: the orchestrator
-halts other parallel subagents in flight, preserves their committed
-work and tracker state, and returns the run with the new finding. An
-[INVALIDATED] finding or design decision reopens design work (§5);
-verify ending [ISSUES FOUND] returns the run to resolve those
-findings, then re-runs.
+orchestrator honors the return rather than proceeding. The specific
+returns are specified at their source: implement → investigate-design
+on major new scope (§4.2, including the dispatched-subagent boundary
+case); [INVALIDATED] finding or design decision reopens design work
+(§5); verify ending [ISSUES FOUND] returns the run to resolve those
+findings, then re-runs (§4.3).
 
 **Run lifecycle.** A run starts at investigate-design and ends when
 verify reports [PASSED]. A run's state — the tracker (§5) and the
