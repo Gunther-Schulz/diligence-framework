@@ -56,14 +56,11 @@ tracked design decision (§5.2) with its basis (§3.2) — visible,
 never silent. **Committed recommendations default to the
 thorough-fix shape — the option that addresses the situation at
 its actual scope, not pre-clipped on perceived cost. Cost is the
-operator's judgment, surfaced via free-form override (interactive)
-or visible in the [AUTO-ACCEPTED] tag at post-run review
-(auto-battle).** "Defer X, because Y" is itself a recorded
+operator's judgment.** "Defer X, because Y" is itself a recorded
 decision, not an absence. A decision resting on an assumption —
 including one only the operator could confirm — carries that
-assumption as its basis and is recorded [CONDITIONAL]; at [READY],
-unresolved [CONDITIONAL]s become [AUTO-ACCEPTED] in both modes
-(§5.2). The operator retains free-form override at any point.
+assumption as its basis and is recorded [CONDITIONAL] (§5.2). The
+operator retains free-form override at any point.
 
 The operator's request sets the task; it may also propose a solution.
 Such a proposal is a strong input, not a locked design: that it is
@@ -155,7 +152,7 @@ The rule rejects **silent substitution**: missing or malformed
 evidence defaulted to a plausible proxy that propagates as if it
 were the basis. Surface the gap, do not substitute.
 
-The rule has two edges:
+#### 3.2.1 The two edges
 
 - **Basis-naming.** Every load-bearing claim and every design
   premise names its basis or stands as an assumption. This
@@ -184,6 +181,8 @@ The rule has two edges:
   whole) has the whole construct as its unit; its basis is a
   read to the construct's visible close.
 
+#### 3.2.2 Replacement, removal, or amendment as completeness claim
+
 A design decision involving **replacement, removal, or amendment
 of an existing artifact** carries an implicit completeness claim:
 that all references to (and load-bearing behaviors of) the
@@ -195,12 +194,16 @@ the decision is missing its true-unit basis and cannot reach
 [VERIFIED]. This is the forcing function for Coupled-change
 adherence.
 
+#### 3.2.3 Secondary sources
+
 A secondary source — a sub-agent report, a prior session's notes, an
 audit summary — is not itself a basis. A direct citation it carries
 (the located artifact with its verbatim content) relays the artifact
 and can stand as a basis; its interpretation, synthesis, or
 recommendation cannot, and is re-grounded against the actual artifact
 before anything rests on it.
+
+#### 3.2.4 Scope: load-bearing only
 
 Only load-bearing claims and premises carry the basis apparatus; a
 claim of bounded, contained cost does not.
@@ -247,6 +250,8 @@ re-searched. Because [READY] requires every design decision
 [VERIFIED] or [AUTO-ACCEPTED] (§5.3) — applies in both modes — an
 unestablished scope, at neither, holds the phase.
 
+#### 4.1.1 [READY] — judgment criteria
+
 **[READY]** is reached when the working context judges the design
 complete — every concern resolved, every design decision at its
 terminal, and the last cycle's standardized inspection pass producing
@@ -270,15 +275,7 @@ chat context, no current-session memory) implement the design
 without surfacing a new design decision? If not, another cycle is
 warranted regardless of recorded statuses.
 
-The AI recommends cycle-another whenever the fresh-session
-implementability test fails, or a lens in scope was not applied
-in the cycle that touched its scope. Cost-asymmetry does not
-enter the recommendation; per §1, the operator judges cost.
-**The recommendation's justification enumerates observations** —
-open findings, [PENDING] decisions, lens-applications still
-required, fresh-session-implementability gaps — not costs
-(effort, budget, time, "cheaper than"). A justification framed
-in cost comparison is malformed.
+#### 4.1.2 [READY] — artifact-produced result line
 
 **[READY]'s judgment is artifact-produced.** The fresh-session
 implementability test produces a named result line in the closed
@@ -289,15 +286,26 @@ is malformed; the [READY] declaration is unenforced. In
 auto-battle the result line is recorded in the tracker for
 post-run review.
 
+#### 4.1.3 [READY] — cycle-another recommendation
+
+The AI recommends cycle-another whenever the fresh-session
+implementability test fails, or a lens in scope was not applied
+in the cycle that touched its scope. Cost-asymmetry does not
+enter the recommendation; per §1, the operator judges cost.
+**The recommendation's justification enumerates observations** —
+open findings, [PENDING] decisions, lens-applications still
+required, fresh-session-implementability gaps — not costs
+(effort, budget, time, "cheaper than"). A justification framed
+in cost comparison is malformed.
+
 At [READY] the AI does not certify itself ready: it presents the
 design — the tracker, the recorded design decisions, and a
-recommendation — for the operator's judgment. The cycle-history facts
-(the standardized lens set accounted for whole; the last cycle's pass
-clean) are part of what is presented and weighed, not a self-passed
-gate. The
-operator's decision to proceed is the transition to implement; until
-the operator proceeds, the phase continues and the loop may run
-further cycles.
+recommendation — for the operator's judgment. The cycle-history
+facts (the standardized lens set accounted for whole; the last
+cycle's pass clean) are part of what is presented and weighed,
+not a self-passed gate. The operator's decision to proceed is
+the transition to implement; until the operator proceeds, the
+phase continues and the loop may run further cycles.
 
 ### 4.2 implement
 
