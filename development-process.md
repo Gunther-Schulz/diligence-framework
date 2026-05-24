@@ -169,7 +169,7 @@ their own entry or live elsewhere.
 ### 9. Design, then decide, then implement
 
 Surface a design and its **genuine choices** and trade-offs before
-building. Genuine includes three things: (a) the **thorough-fix
+building. Genuine includes four things: (a) the **thorough-fix
 option** (per `core.md` §1) — name it, lead with it, weigh
 cheaper alternatives against it (not cheap-only menus); (b) for
 any new rule, its **mitigation classification** per practice 8
@@ -178,11 +178,26 @@ skill-craft's "Judgment calls as design risk"); (c) for any new
 terminology proposed, **terminology quality** per skill-craft's
 "Naked judgment in rule statements" anti-pattern — no term whose
 meaning rests on AI judgment rather than observable property;
-framework vocabulary collisions are flagged and replaced.
+framework vocabulary collisions are flagged and replaced; (d) the
+**amendment-discipline decision sequence** per skill-craft
+PROCEDURE.md ("Amendment discipline"): existing rule already
+addresses → revise in place; absorbable by extending an existing
+rule's scope → extend; existing rule becomes redundant → reduce
+/ merge; only if none → add new. A design that proposes a new
+clause without surfacing this sequence is malformed.
+
+**AI-tightness.** The framework targets AI consumption. Each new
+clause is sized to load-bearing content: cross-references
+(`§X.Y`, `file.md`) substitute for explanation; restating-with-
+different-emphasis is bloat (skill-craft anti-pattern "Procedure
+drift through incremental patches"). WHY-rationale prose the AI
+can infer from anchored cross-references is omitted. A new clause
+whose word-count is dominated by explanation rather than rule is
+malformed.
 
 The AI takes operator wording as intent, not literal text;
 improves where the intent supports a better expression. A design
-surface omitting any of the three is malformed. Incremental steps
+surface omitting any of (a)-(d) is malformed. Incremental steps
 within an authorized workstream do not need ceremonial
 confirmation, but crossing into implementation after a design
 surface does. Only then implement — at the source level,
@@ -224,7 +239,16 @@ A change runs the same loop:
      decision (next-commit fix or accept-with-rationale); nit →
      surface for optional address.
    - the whole document a substantive edit touched, for coherence
-     (practice 6).
+     (practice 6);
+   - **cross-spec coherence** when the commit touches 2+ spec files
+     OR when an instance render makes a rule visible in more than
+     one home — does the spec read as a coherent set across files,
+     or has accretion fragmented a concept across multiple homes
+     (e.g., a rule in `core.md` §3.2 elaborated in `modules.md`
+     §3.1 elaborated again in instance `foundations.md`)? The
+     check looks for the same rule restated in multiple places
+     with different framing; the amendment-discipline reduce/merge
+     step (practice 9 (d)) is applied to consolidate.
 6. **Release the instance** — version-bump the plugin, commit and
    push to remote, then **pull the marketplace clone for each
    affected instance** so the local Claude install reads the new

@@ -458,24 +458,17 @@ finding track (§5.1) at [PENDING].
 
 verify's terminal result is **[PASSED]** — every check accounted for
 and no finding short of [VERIFIED] — or **[ISSUES FOUND]**. The
-terminal result is recorded as an **evidence-bearing artifact**
-(§3.1): the result line is paired with a **finding-status ledger**
-enumerating every recorded finding's current status ([VERIFIED] /
-[PENDING] / [INVALIDATED]). A [PASSED] declaration alongside any
-finding short of [VERIFIED] in the ledger is a malformed artifact —
-the contradiction is mechanically detectable at operator-review or
-by a checker. The ledger is not a summary; it is the load-bearing
-shape that prevents the rule from being read off prose alone.
+result is recorded as an evidence-bearing artifact (§3.1): the result
+line is paired with a **finding-status ledger** enumerating every
+recorded finding's current status. A [PASSED] alongside any finding
+short of [VERIFIED] is a malformed artifact.
 
-[ISSUES FOUND] returns the run to resolve those findings; verify then
-re-runs (§6). The re-run takes one of two shapes per the closing
-fix's classification at the orchestrator's re-dispatch boundary: a
-**fresh verify pass** (full re-attest of the three checks) when the
-fix changes load-bearing behavior, or a **delta verify** (confirm the
-named finding closed in the diff + minimal regression that nothing
-else moved) when the fix is **behavior-preserving** as defined by
-the instance. The classification is recorded in the tracker; an
-un-classified re-dispatch defaults to fresh verify pass.
+[ISSUES FOUND] returns the run; verify re-runs (§6) as either a
+**fresh verify pass** (full re-attest) when the fix changes
+load-bearing behavior, or a **delta verify** (confirm finding closed
++ minimal regression) when the fix is **behavior-preserving**
+(instance-defined). Classification recorded in tracker; un-classified
+defaults to fresh.
 
 ---
 
@@ -565,27 +558,13 @@ trigger is operator proceed-without-override; auto-battle trigger
 is mode-absence-of-operator (`modules.md` §1.1, §1.2). An
 [INVALIDATED] decision reverts to [PENDING], and any decision
 that depended on it reverts with it; the phase holds (§5.3)
-until re-formed.
-
-**Amendment of a [VERIFIED] or [AUTO-ACCEPTED] decision is
-contradiction.** Any change to a [VERIFIED] or [AUTO-ACCEPTED]
-decision's recorded **resolution** — its target naming, scope
-boundaries, completeness counts, or basis evidence-source — is,
-per §3.2, contradiction of the basis that supported the prior
-verification. The decision flips through [INVALIDATED] →
-[PENDING]; the phase holds at [NOT READY] (§5.3) until
-re-verification; the cycle-another recommendation is forced
-(§4.1.3) on the cycle that landed the amendment. A silent
-in-place edit to a [VERIFIED] decision's resolution — same
-status, different recorded resolution than its prior verification
-rested on — is a malformed artifact: the status-flip is the
-load-bearing record of the contradiction, and an unchanged
-[VERIFIED] tag alongside an amended resolution is the
-silent-substitution shape (§3.2). Basis-only refinement
-(`modules.md` §3.1 sub-annotation: same status, same summary,
-strengthened basis from further evidence grounding what previously
-rested on a weaker basis) is *not* amendment — the resolution is
-unchanged.
+until re-formed. **Contradiction includes amendment of recorded
+resolution** (target naming, scope, completeness counts, basis
+source); any such change to a [VERIFIED]/[AUTO-ACCEPTED] decision
+flips through [INVALIDATED]→[PENDING] (forces cycle-another
+§4.1.3). Silent in-place edit (same status, changed resolution)
+is a malformed artifact. Basis-only refinement (`modules.md` §3.1
+sub-annotation, resolution unchanged) is not amendment.
 
 A design decision's basis can be broken by another decision,
 not only by external evidence. When a decision is locked or its
