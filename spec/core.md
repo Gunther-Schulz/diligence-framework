@@ -317,14 +317,12 @@ another cycle is warranted, regardless of what statuses the tracker
 carries.
 
 An extra cycle catches gaps before they harden into
-implement-loopback (materially larger — by the time implement hits
-the gap, code has been written that must be discarded or reworked).
-The AI's recommendation defaults to thoroughness: recommend
-cycle-another when there's genuine concern about design completeness
-or a gap that wasn't yet investigated. Cost-asymmetry is context the
-operator weighs when accepting the recommendation; it does not enter
-the AI's recommendation construction. Per §1: AI surfaces best;
-operator judges cost.
+implement-loopback (materially larger — code written against the gap
+must be discarded or reworked). The AI recommends cycle-another
+whenever the fresh-session implementability test (above) fails, or a
+lens in scope was not applied in the cycle that touched its scope.
+Cost-asymmetry does not enter the AI's recommendation construction.
+Per §1: AI surfaces best; operator judges cost.
 
 **[READY]'s judgment is artifact-produced.** The fresh-session
 implementability test above produces a named result line in the
