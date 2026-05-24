@@ -166,10 +166,10 @@ practice 7's structural-quality gate (mechanical criteria /
 structural enforcement / safety net per skill-craft's "Judgment
 calls as design risk"); and (c) for any new terminology proposed
 (operator's first draft or AI's own), **terminology quality** per
-skill-craft's anti-pattern catalog — moralistic terms ("proper",
-"right", "appropriate"), vague positive valence ("good", "clean",
-"natural"), AI-judgment-coded terms ("best by your judgment"), and
-framework vocabulary collisions are flagged and replaced. The AI
+skill-craft's "Moralistic, vague, or AI-judgment-coded terminology"
+anti-pattern — the principle being *no term whose meaning rests on
+the AI's own judgment rather than an observable property*; framework
+vocabulary collisions are flagged and replaced. The AI
 takes operator wording as intent, not literal text; improves where
 the intent supports a better expression. A design surface that omits
 any of the three is malformed; operator review should send it back.
