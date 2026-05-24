@@ -69,6 +69,35 @@ purpose:
 5. **Commands and code set apart.** Search commands, file paths,
    tracker citations are presented as code, not buried in prose.
 
+**Template.** Concretely, the closed artifact contains these named
+sections in this order. Each section is required; missing a section
+makes the artifact malformed:
+
+1. **State summary** — counts (findings + decisions by status, per
+   *State leads*); the last cycle's standardized-pass status (clean
+   or line items); the fresh-session implementability result line
+   (PASSED / FAILED, per `core.md` §4.1); named blockers preventing
+   [READY] (drawn from open [PENDING] decisions and weak-basis
+   entries).
+2. **Inventories** — findings and design decisions as scannable
+   one-per-line ledger entries (per *Scannable inventories*).
+3. **Persisted artifacts** — citations to where detail lives (the
+   tracker file path, the standardized-pass artifact path) per
+   *Pointer, not duplicate*.
+4. **Recommendation** — the AI's next-step proposal,
+   thorough-fix-shaped per `core.md` §1, with rationale and any
+   "not recommended because…" callouts; for each open [CONDITIONAL],
+   the AI's committed default surfaced crisply (per *Recommendation
+   separate from menu*).
+5. **Menu** — continue / proceed only; plain; no inline annotations.
+
+A response missing any section, or presenting them out of order, is
+a malformed closed artifact. Operator review at presentation is the
+catcher (in interactive mode); in auto-battle no closed artifact is
+presented, but the [AUTO-ACCEPTED] decisions + fresh-session result
+line + tracker entries serve the same surface-and-catch function at
+post-run review.
+
 The result is a two-tier read: a skim gets state + recommendation +
 blockers in seconds; a deep read goes into the persisted artifacts.
 
