@@ -233,3 +233,76 @@ the tracker via each dispatch unit's commit reference (`core.md`
 (`core.md` §4.2, §6) invalidates the plan, in which case a new plan
 is produced after the next [READY], reflecting any changes to the
 locked design.
+
+## 4. Post-run review
+
+An optional final step after verify reports [PASSED]: surface what
+the protocol missed or got wrong in this run, to inform the next
+iteration. This is the framework's empirical-validation procedure —
+the input that drives the next amendment cycle
+(`development-process.md`).
+
+### 4.1 When and how
+
+After verify reports [PASSED] the run is complete. The operator
+**may** request a post-run review. The AI does not prompt for it;
+the operator decides when a run warrants the analysis.
+
+### 4.2 Output, no persistence
+
+Conduct the review in the session — output to the operator. Do
+**not** persist the review or its findings to a file in the
+project. Persisting prior-run analysis would pollute future runs
+(a later run reading prior-run conclusions is biased by them) and
+clutter the project tree. The operator carries forward what matters
+by their own means.
+
+### 4.3 Standing questions
+
+Four questions, each phrased **artifact-forcing** (specific quotes,
+counts, classifications — not impressions):
+
+- **Misses.** List every design defect the run produced. Classify
+  each as an *escape* (implement or verify recorded it past [READY])
+  or an *operator catch* (caught at [READY] presentation, before
+  proceeding). For each: name which investigate-design check (a
+  specific lens, the basis rule, the [READY] judgement) should have
+  caught it and why it didn't; or state "no existing check covers
+  this class."
+- **Cost.** Where did this run's effort go: token-heavy or
+  time-heavy regions, repeated work, fixed-shape attestation? Name
+  any work the protocol forced but the run didn't need — quote the
+  procedure parts.
+- **Gaps.** Did the AI add any ad-hoc check, step, or instruction
+  not in the protocol this run? For each: quote the ad-hoc work
+  verbatim, name the gap it was covering, and say whether the gap
+  is particular to this task or generalizable across runs.
+- **Attribution.** Tag every finding by what surfaced it — a
+  standardized lens / ad-hoc investigation / the basis rule forcing
+  a search / a cycle re-examination / verify. Counts.
+
+### 4.4 Artifact-forcing throughout
+
+A generic "did the protocol help" yields sycophantic mush. A forced
+artifact yields data that can be wrong and checked. Use:
+"quote it verbatim", "give the count", "classify into one of N",
+"diff against retained run X."
+
+### 4.5 What outcomes mean
+
+The review surfaces; the operator decides what to do. The
+framework's triage applies (`development-process.md` practice 1):
+
+- A **render gap** — the instance file does not faithfully carry
+  the spec → re-render.
+- A **spec gap** — the render is faithful and was followed, and it
+  still broke → a finding for the framework spec.
+- An **adherence gap** — a faithful render of an unambiguous,
+  evidence-bearing rule, violated anyway → the irreducible residual
+  the verify, operator, and loopback backstops carry.
+
+### 4.6 What this is not
+
+A general code review. A confidence check. A graded report. The
+review's only job is to surface what the *protocol* missed or got
+wrong, in a form the operator can act on.
