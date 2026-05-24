@@ -292,9 +292,17 @@ surrounding conventions are context, not authority — where they
 diverge from the locked design, the design governs. The work is derived from the
 design first; existing patterns are evaluated for fit afterward.
 
-Discovery in implement is minimal — a small local clarification, not
-new design. Major new scope surfacing during implementation holds the
-phase and returns the run to investigate-design; no work is lost.
+Discovery in implement is minimal. A new finding during
+implementation is **major new scope** (and triggers loopback) if
+any of:
+
+1. Touches a file or contract not in the unit's listed scope
+2. Changes a locked contract's signature, types, or error path
+3. Introduces a new design decision (per §5.2)
+4. Crosses a sibling unit's scope (breaks the disjointness basis)
+
+Otherwise it is a **local clarification** — recorded in the
+tracker; the unit proceeds. No work is lost when loopback fires.
 
 **The impl plan.** implement opens with an impl plan: the locked
 design's decisions grouped into **dispatch units**, dependency-
@@ -311,8 +319,11 @@ work is dispatched to a subagent isolated from the run's working
 context; a single-unit plan is implemented in the working context.
 The subagent is briefed artifact-driven, mirroring verify (§4.3):
 it loads the orchestrator's skill files and receives the tracker
-(in full, or reduced to the unit's in-scope decisions) plus the
-locked contracts the unit honors. It implements the in-scope
+plus the locked contracts the unit honors. The default is the
+full tracker; reduction to the unit's in-scope decisions is
+permitted only when the orchestrator cites a concrete cause
+(e.g., tracker size exceeds the subagent's context budget),
+recorded as the basis (§3.2) for the reduction. It implements the in-scope
 decisions; it does not design — major new scope halts it (below).
 Parallel-eligible units may be dispatched concurrently; the
 disjointness basis makes that safe.
@@ -342,14 +353,25 @@ loopback signal where applicable — and the orchestrator appends in
 deterministic order. The append-only model (`modules.md` §3.1) is
 preserved without concurrency machinery.
 
-**Loopback across the subagent boundary.** A subagent finding major
-new scope halts and returns a loopback-required result with the
-finding. On receiving it, the orchestrator halts other in-flight
-parallel subagents — required because their work may rest on the
-disjoint-scope claim the new finding contradicts — preserves
-committed work and tracker state, and returns the run to
-investigate-design. The pattern mirrors verify's [ISSUES FOUND]
-return (§4.3, §6).
+**Loopback across the subagent boundary.** A subagent finding
+major new scope halts and returns a loopback-required result with
+four fields:
+
+- **trigger** — the artifact, code site, or signal the subagent
+  encountered
+- **scope** — what's outside the locked design (specific element,
+  contract, or behavior)
+- **basis** — the re-runnable search or read that surfaced it
+  (per §3.2)
+- **affected_decisions** — locked design decisions invalidated or
+  extended (cited by §5.2 identifier)
+
+On receiving it, the orchestrator halts other in-flight parallel
+subagents (their work may rest on the disjoint-scope claim the
+new finding contradicts), preserves committed work and tracker
+state, and returns the run to investigate-design with the
+four-field result feeding the new cycle. The pattern mirrors
+verify's [ISSUES FOUND] return (§4.3, §6).
 
 **Checkpoint.** A dispatch unit's work product is committed on
 completion (instance-specific, e.g. a git commit for code) and the
@@ -401,11 +423,15 @@ cited reason it is not — either holds, recorded as a cited-clean
 line, or yields a divergence from the locked design or a lens issue;
 a failed run of the executable verification is likewise an issue.
 Any non-failure output the executable verification surfaces —
-warnings, deprecations, style notes from linters or type checkers —
-is also a finding unless the project has explicitly de-prioritized
-that output class with a cited rationale; an unflagged warning
-treated as "context only" is the silent-substitution shape (§3.2)
-the rule rejects. Every divergence or issue is recorded as a
+warnings, deprecations, style notes from linters or type
+checkers — is also a finding unless the project has explicitly
+de-prioritized that output class. **De-prioritization** requires
+either: a project config artifact (linter ignore file,
+suppression comment with reason) naming the class; OR a tracker
+entry recording the class + reason. A loose "we don't worry
+about that" without an artifact is not a de-prioritization; the
+output is a finding. An unflagged warning treated as "context
+only" is the silent-substitution shape (§3.2) the rule rejects. Every divergence or issue is recorded as a
 **finding**, entering the finding track (§5.1) at [PENDING].
 
 verify's terminal result is **[PASSED]** — every check accounted for
