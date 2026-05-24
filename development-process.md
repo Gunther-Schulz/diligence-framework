@@ -119,81 +119,46 @@ future need.
 
 A failure surfacing invites a fix. The gate on the fix is its
 **structural form**, not its occurrence count. Per skill-craft's
-"Judgment calls as design risk" (`PROCEDURE.md`), every rule the AI
-must follow has one of three forms: **mechanical criteria** (computed
-from observable evidence), **structural enforcement** (artifact-shape
+"Judgment calls as design risk", every rule the AI must follow
+has one of three forms: **mechanical criteria** (computed from
+observable evidence), **structural enforcement** (artifact-shape
 forcing function), or **safety net** (accept the AI will sometimes
-fail; catch downstream). A proposed fix in pure prose form — an "AI
-must X" rule with none of the three backing it — is malformed; it
-adds an unenforced suggestion (skill-craft anti-pattern: "Naked
-judgment call"; "Procedure drift through incremental patches" /
-adversarial tone). Both adding a new mechanism and fixing an existing
-instruction are gated by this: can the fix be classified as one of
-the three forms? If yes, it earns its place at n=1 — wait-for-
-recurrence is the wrong gate (the recurrence isn't what makes the
-fix valid; the structural form is). If no, the fix isn't ready —
-keep iterating on form, or accept the failure shape isn't tractable
-for codification at all (operator catch remains the catch).
+fail; catch downstream). A fix in pure prose form is malformed —
+it adds an unenforced suggestion. Both new mechanisms and fixes
+to existing rules are gated by this classification: if classifiable
+as one of the three, it earns its place at n=1; if not, keep
+iterating on form, or accept the failure shape isn't tractable
+for codification (operator catch remains).
 
-The cost calculus differs for **foundation work** — work on the
-framework spec, skill-craft, an instance's foundations, or
-load-bearing discipline (`CLAUDE.md`, `JOURNAL.md` observations
-driving amendments), as distinct from production work (running the
-framework on a real task). Investment in the foundation amortizes
-across every future run that uses it; under-building to save session
-length or upfront design effort trades a small near-term saving for
-a recurring downstream tax. Proportionality still governs the
-*details* of an edit (what words, what sequencing); it does not gate
-whether to do foundational work at all. The framework's
-cost-asymmetry argument (`core.md` §4.1) — that an extra
-investigate-design cycle costs one cycle while an
-implement→investigate loopback is materially larger — applies to the
-meta-level work as well: foundation work that strengthens
-design-time discipline (sharpening basis-rule artifacts, lens
-articulation, forcing functions on locked decisions) pays the
-asymmetry down for every future run. When the same discipline could
-fire at either stage, design-time placement wins.
+**Foundation work** (framework spec, skill-craft, instance
+foundations, load-bearing discipline) is judged at full discipline
+— proportionality governs the details of an edit, not whether to
+do foundational work at all. Under-building the foundation trades
+a small near-term saving for a recurring downstream tax. When the
+same discipline could fire at either stage, design-time placement
+wins.
 
 ### 8. Design, then decide, then implement
 
 Surface a design and its **genuine choices** and trade-offs before
 building. Genuine includes three things: (a) the **thorough-fix
-option** — the AI's default disposition is to prefer the thorough
-fix and lead with it, weighing cheaper alternatives honestly
-against it (not to construct cheap-only menus); (b) for any new rule
-the AI must follow, the rule's **mitigation classification** per
-practice 7's structural-quality gate (mechanical criteria /
-structural enforcement / safety net per skill-craft's "Judgment
-calls as design risk"); and (c) for any new terminology proposed
-(operator's first draft or AI's own), **terminology quality** per
-skill-craft's "Moralistic, vague, or AI-judgment-coded terminology"
-anti-pattern — the principle being *no term whose meaning rests on
-the AI's own judgment rather than an observable property*; framework
-vocabulary collisions are flagged and replaced. The AI
-takes operator wording as intent, not literal text; improves where
-the intent supports a better expression. A design surface that omits
-any of the three is malformed; operator review should send it back.
-Cheap variants are sometimes right (small stakes, throwaway scope)
-but rarely on foundation work (practice 7) — the production-run
-amortization changes the math. The operator decides; the operator's
-go before implementation is part of the discipline, even when
-established tenets already authorize the workstream — incremental
-steps within an authorized workstream do not need ceremonial
+option** (per `core.md` §1) — name it, lead with it, weigh
+cheaper alternatives against it (not cheap-only menus); (b) for
+any new rule, its **mitigation classification** per practice 7
+(mechanical criteria / structural enforcement / safety net per
+skill-craft's "Judgment calls as design risk"); (c) for any new
+terminology proposed, **terminology quality** per skill-craft's
+"Naked judgment in rule statements" anti-pattern — no term whose
+meaning rests on AI judgment rather than observable property;
+framework vocabulary collisions are flagged and replaced.
+
+The AI takes operator wording as intent, not literal text;
+improves where the intent supports a better expression. A design
+surface omitting any of the three is malformed. Incremental steps
+within an authorized workstream do not need ceremonial
 confirmation, but crossing into implementation after a design
 surface does. Only then implement — at the source level,
-re-rendered, verified. Do not accrete a design through
-implementation, and do not implement past the point the operator
-has agreed.
-
-The thorough-fix rule has a recurring violation shape: defaulting
-to cheap variants or deferral, recovering only on operator pushback.
-Catching requires explicit construction — name the thorough-fix
-option first; weigh cheaper alternatives against it, not the other
-way around. Smell tests: heaviest option offered still light;
-deferring real design work to "another session" on cost grounds;
-option set is all variants of one shape; crossing from
-design-surface into implementation without the operator's explicit
-go.
+re-rendered, verified.
 
 ## The release loop
 

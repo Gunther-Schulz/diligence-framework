@@ -64,8 +64,8 @@ out-of-order sections make the artifact malformed:
 5. **Menu** — continue / proceed only; plain; no inline
    annotations.
 
-Search commands, file paths, tracker citations are presented as
-code, not buried in prose.
+**Presentation.** Search commands, file paths, tracker citations
+are presented as code, not buried in prose.
 
 Operator review at presentation is the catcher (interactive
 mode); in auto-battle no closed artifact is presented, but the
