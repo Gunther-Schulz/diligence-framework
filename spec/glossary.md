@@ -101,6 +101,21 @@ exactly two, in order:
 mode, conducts the phase pipeline through its transitions, and
 manages the run lifecycle. Specified in `core.md` §6.
 
+**Working context** — the AI's context that conducts
+investigate-design and implement. Distinct from verify's isolated
+context (`core.md` §4.3) — verify is established by the orchestrator
+in a context separate from the one that produced the work. The
+working context judges design completeness at [READY] (`core.md`
+§4.1).
+
+**Operator** — the human directing the run. In interactive mode,
+advances the loop via the menu (`modules.md` §1.1), resolves
+[CONDITIONAL] decisions via free-form override against the tracker,
+and decides at [READY]. In auto-battle mode, absent during the run;
+reviews the completed run's tracker (including [AUTO-ACCEPTED]
+tags). The framework's role-separation principle is *AI surfaces
+best, operator judges cost* (`core.md` §1).
+
 ## State
 
 **Tracker** — the structured state record of an investigation: its
@@ -111,9 +126,18 @@ The primary state of the investigate-design phase.
 a status tag.
 
 **Status tag** — a bracketed marker on a finding or a design
-decision recording its state. The full set and the
-transitions between them are the status-state machine, specified in
-`core.md`.
+decision recording its state. The full set:
+**[PENDING]** (recorded, not yet at terminal — both tracks),
+**[PARTIALLY VERIFIED]** (finding mid-verification),
+**[VERIFIED]** (verified terminal — both tracks),
+**[INVALIDATED]** (verified terminal contradicted by later
+evidence — both tracks),
+**[OUTLINED]** (decision: committed direction, detail not yet
+investigated),
+**[CONDITIONAL]** (decision: rests on unverified assumption),
+**[AUTO-ACCEPTED]** (decision: AI's committed recommendation taken
+as default at [READY] when operator did not override — both modes).
+Transitions and per-tag rules specified in `core.md` §5.
 
 **[READY] / [NOT READY]** — the terminal state of the
 investigate-design phase: [READY] is the design judged complete and
