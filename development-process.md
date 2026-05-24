@@ -130,6 +130,20 @@ as one of the three, it earns its place at n=1; if not, keep
 iterating on form, or accept the failure shape isn't tractable
 for codification (operator catch remains).
 
+**Validation-watch is not a deferral journal.** `spec/validation-
+watch.md` records observations about framework design choices
+made under *genuine uncertainty* — choices the framework
+couldn't classify cleanly at decision time. Writing a V-N entry
+whose Production-Signal section reads "if recurrent X, then
+change Y" — where Y is a classifiable fix (mechanical criteria /
+structural enforcement / safety net) earning its place at n=1 —
+is cost-gating dressed as epistemic humility. The fix earns its
+place now; the V-N entry, if written, records the observation
+that produced the fix, not the deferral of the fix. Distinguish:
+genuine uncertainty about a design choice's correctness =
+validation-watch material; classifiable fix whose form is
+already in hand = practice 7's n=1 commit material.
+
 **Foundation work** (framework spec, skill-craft, instance
 foundations, load-bearing discipline) is judged at full discipline
 — proportionality governs the details of an edit, not whether to
