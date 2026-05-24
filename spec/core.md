@@ -386,9 +386,8 @@ disjointness basis makes that safe.
 **Self-check at dispatch boundary.** Before returning state, the
 dispatched subagent (and the working context, for a single-unit
 plan) applies the standardized lenses most relevant to write-time
-issues — Coupled-change, Branch-coverage, Failure-path
-(`modules.md` §2.2; the instance's lens set) — to its diff against
-the unit's in-scope locked design decisions. Findings are entered as
+issues — the instance specifies which ones (`modules.md` §2.2) —
+to its diff against the unit's in-scope locked design decisions. Findings are entered as
 fixed-shape ledger lines (`modules.md` §3.1) and returned with
 state; the orchestrator appends per Tracker writes below. The
 self-check compounds with the design-time forcing function for

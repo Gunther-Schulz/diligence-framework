@@ -221,60 +221,24 @@ Whether per-unit commits become natural cadence or chafe (too coarse
 / too fine). (5) Whether verify's task remains tractable when reading
 code from multiple impl subagents.
 
-**First signal (2026-05-23).** Unit 5 implement phase, mid-flight at
-slice 4a complete (Slices 1, 2, 3, 4a committed locally; tests passing
-through 4a; ~3000 lines across 4b–5 remaining). AI ad-hoc surfaced
-the remaining volume and recommended session checkpoint + resume next
-session. Decomposition was clean (slices 4b and 4c are plausibly
-parallel-eligible: both implement the Protocol locked in 4a, operate
-on disjoint runner files). Resume-from-tracker observed working in
-practice (fresh-prompt "Run Clippy per docs/MULTI_STRATEGY_ARCHITECTURE.md"
-properly continues mid-Unit-5). Unit 5 resume is the first real test
-of the dispatched protocol — slices 4b/4c the parallel candidate.
+**First signal (2026-05-23).** A real instance run hit mid-impl
+session-budget exhaustion with ad-hoc per-slice commit + resume
+recommendation. Decomposition was clean; resume-from-tracker observed
+working in practice. Instance-specific detail (findings, slice
+numbers, commit references) lives in the instance's run tracker
+(`.clippy/runs/`), not here. Lessons abstracted into the protocol
+changes named in subsequent V-N entries.
 
-**Verify-cycle audit outcomes (2026-05-23, Unit 5 post-run review).**
-Finding-by-finding classification of F-V1 through F-V13 against the
-existing lens set / rule set:
-- **8 adherence gaps on existing rules**: Coupled-change × 5 (F-V3,
-  F-V8, F-V11, F-V12, partial F-V9), Branch-coverage × 1 (F-V10),
-  Failure-path × 1 (F-V13), §5.2 cross-decision basis-break × 1
-  (F-V1).
-- **2 real lens-coverage gaps** at replacement sites — behavioral
-  coupling not articulated in Coupled-change as written (F-V2
-  paper-bets parity, F-V5 bet_calc threading).
-- **3 verify-policy gaps** on linter warnings (F-V4, F-V6, F-V9 —
-  ruff F841 + B905) — spec was ambiguous on whether warnings count
-  as findings.
-- **1 false alarm** (F-V7).
-
-Protocol changes this audit prompted (this commit's siblings):
-- `core.md` §3.2: basis-rule extended — delete/replace/amend
-  decisions must carry the references search + behavioral-parity
-  enumeration as basis (forcing function for the Coupled-change
-  adherence recurrence).
-- `core.md` §4.3: clarified that non-failure output (linter
-  warnings, deprecations) counts as a finding unless explicitly
-  de-prioritized — closes the spec ambiguity that allowed
-  ruff-caught items to slip as "context only."
-- Instance `lenses.md` Coupled-change: extended question to cover
-  behavioral coupling at replacement, not just reference coupling.
-- `development-process.md`: practice 8 extended with the recurring
-  prefer-proper-fix violation caution; new practice 9 codifying
-  foundation-work disposition (no cost gating; design-time trumps
-  implementation-time; proper-full-solution default; trust tenets,
-  don't ask ceremonially).
-
-Dispatch self-check (Lever B from the implement-phase
-lens-application discussion — applying Coupled-change,
-Branch-coverage, and Failure-path at the dispatch boundary so each
-unit self-checks its diff against the locked design before returning
-state) is now locked in spec (`core.md` §4.2 "Self-check at
-dispatch boundary"; rendered in plugin v0.9.2). Compounds with the
-design-time forcing function (§3.2) as the implement-time catcher
-for references introduced post-design and behaviors slipping the
-locked enumeration. Additional production signals to watch: (a)
+**Dispatch self-check** (Lever B from the implement-phase
+lens-application discussion — applying the instance's standardized
+lenses at the dispatch boundary so each unit self-checks its diff
+against the locked design before returning state) is now locked in
+spec (`core.md` §4.2 "Self-check at dispatch boundary"). Compounds
+with the design-time forcing function (§3.2) as the implement-time
+catcher for references introduced post-design and behaviors slipping
+the locked enumeration. Additional production signals to watch: (a)
 whether the self-check catches what would otherwise have reached
-verify in Unit 6+ runs; (b) per-dispatch overhead remaining
+verify in subsequent runs; (b) per-dispatch overhead remaining
 acceptable; (c) subagent findings well-shaped as ledger lines (no
 free-text drift); (d) loopback-vs-in-scope-concern classification
 working — i.e., subagents correctly distinguishing major-new-scope
