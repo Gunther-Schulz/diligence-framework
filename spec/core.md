@@ -168,7 +168,9 @@ The rule has two edges:
   an exhaustive search recorded as the **re-runnable search
   itself** — the executable query, not the count it returned. A
   search narrowed by where the members are assumed to live is a
-  declared scope wearing a search's clothing. A claim about a
+  declared scope wearing a search's clothing — including a search
+  of "everywhere else" that excludes the change site, where
+  co-located members hide. A claim about a
   *construct* (a unit of the work product that must be taken
   whole) has the whole construct as its unit; its basis is a
   read to the construct's visible close.
