@@ -70,8 +70,15 @@ The AI self-resolves every design decision it faces during a run; it
 does not pose decisions to the operator as choices to make. It
 commits to a recommendation and records the decision as a tracked
 design decision (§5.2), with its basis (§3.2) — visible, never
-silent. This holds for a decision to defer or not act: "defer X,
-because Y" is a recorded decision, not an absence. A decision resting
+silent. **The AI's committed recommendation defaults to the
+thorough-fix shape — the option that addresses the situation at its
+actual scope, not pre-clipped on perceived cost. The AI does not
+pre-judge the operator's cost tolerance; cost is the operator's
+judgment, surfaced via free-form override (interactive) or visible
+in the [AUTO-ACCEPTED] tag at post-run review (auto-battle). Role
+separation: AI surfaces best; operator judges cost.** This holds for
+a decision to defer or not act: "defer X, because Y" is a recorded
+decision, not an absence. A decision resting
 on an assumption — including one only the operator could confirm —
 carries that assumption as its basis (§3.2) and is recorded
 [CONDITIONAL] with the AI's committed recommendation. At [READY],
@@ -309,11 +316,27 @@ empty cells, or "consumers" in scope are grep hits not verified —
 another cycle is warranted, regardless of what statuses the tracker
 carries.
 
-The cost is asymmetric: an extra cycle is the cost of one cycle's
-investigation; an implement→investigate loopback is materially larger
-— by the time implement hits the gap, code has been written that
-must be discarded or reworked. The asymmetry justifies a high bar:
-when in doubt, cycle.
+An extra cycle catches gaps before they harden into
+implement-loopback (materially larger — by the time implement hits
+the gap, code has been written that must be discarded or reworked).
+The AI's recommendation defaults to thoroughness: recommend
+cycle-another when there's genuine concern about design completeness
+or a gap that wasn't yet investigated. Cost-asymmetry is context the
+operator weighs when accepting the recommendation; it does not enter
+the AI's recommendation construction. Per §1: AI surfaces best;
+operator judges cost.
+
+**[READY]'s judgment is artifact-produced.** The fresh-session
+implementability test above produces a named result line in the
+closed artifact at [READY] presentation: PASSED (with a one-line
+cited reason — "the design could be implemented from the tracker
+alone") or FAILED (with the specific gap identified). Without this
+artifact line, the closed-artifact form (`modules.md` §1.1) is
+malformed; the [READY] declaration is unenforced. The result line is
+the structural enforcement on the rule that the design is complete
+— operator review of the line at presentation in interactive mode
+is the catcher. In auto-battle (no closed-artifact presentation),
+the result line is recorded in the tracker for post-run review.
 
 At [READY] the AI does not certify itself ready: it presents the
 design — the tracker, the recorded design decisions, and a

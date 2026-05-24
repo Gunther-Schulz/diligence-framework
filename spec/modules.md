@@ -54,6 +54,7 @@ purpose:
    closed artifact references them — it does not paragraph-summarize.
    Detail lives once, in its persisted home.
 4. **Recommendation separate from menu.** The AI's next-step proposal
+   (thorough-fix-shaped per `core.md` §1; not pre-clipped on cost)
    and its rationale (including any "not recommended because…" calls)
    live in their own section. The menu carries only the loop-control
    options (continue / proceed), plain, at the very end — no inline
