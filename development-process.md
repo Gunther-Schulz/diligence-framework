@@ -187,9 +187,7 @@ rule's scope → extend; existing rule becomes redundant → reduce
 clause without surfacing this sequence is malformed.
 
 **AI-tightness** per skill-craft "Procedure drift" anti-pattern
-(AI-tightness check sub-clause). Framework spec targets AI
-consumption; WHY-rationale prose the AI infers from anchored
-cross-references is bloat. Applies per-edit.
+(AI-tightness check sub-clause). Applies per-edit.
 
 The AI takes operator wording as intent, not literal text;
 improves where the intent supports a better expression. A design
@@ -236,11 +234,10 @@ A change runs the same loop:
      surface for optional address.
    - the whole document a substantive edit touched, for coherence
      (practice 6);
-   - **cross-spec coherence** when the commit touches 2+ spec files
-     OR when an instance render makes a rule visible in more than
-     one home. Applies skill-craft's amendment-discipline multi-file
-     extension (`PROCEDURE.md`): scan every home; restated rule
-     with different framing across N files is the reduce/merge case.
+   - **cross-spec coherence** per skill-craft "Amendment discipline"
+     multi-file extension (`PROCEDURE.md`). Trigger: commit touches
+     2+ spec files OR instance render makes a rule visible in more
+     than one home.
 6. **Release the instance** — version-bump the plugin, commit and
    push to remote, then **pull the marketplace clone for each
    affected instance** so the local Claude install reads the new
