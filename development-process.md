@@ -211,10 +211,21 @@ A change runs the same loop:
    requires one:
    - the render against its source (practice 2);
    - every dependent of a contract change (practice 4);
-   - a changed skill file against skill-craft's full review;
-   - a changed framework-spec section against skill-craft's
-     protocol-quality lens (a spec is not a skill — its
-     skill-structure checks do not apply);
+   - a changed skill file against skill-craft's full review
+     (Layer 1 plugin structure + Layer 2 protocol conventions +
+     Layer 4 evolution disciplines + all anti-patterns);
+   - a changed framework-spec section (`spec/*.md`,
+     `development-process.md`) against skill-craft's Layer 2
+     principles + Layer 4 disciplines + all anti-patterns. Layer 1
+     skill-structure checks (frontmatter, file layout, SKILL.md
+     trigger format) do NOT apply to specs because specs are not
+     skills — but every other skill-craft rule does. This is
+     skill-craft's self-review mandate adopted for the framework:
+     after committing any framework canonical file, dispatch a
+     fresh-context subagent to apply the mandate's 5 checks
+     (`skill-craft/plugin/skills/skill-craft/PROCEDURE.md`,
+     "Self-review mandate"), restricting Check #1's "canonical
+     rules" iteration to Layer 2 + Layer 4 + anti-patterns.
    - the whole document a substantive edit touched, for coherence
      (practice 6).
 6. **Release the instance** — version-bump the plugin, commit,
