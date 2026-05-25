@@ -209,8 +209,17 @@ A change runs the same loop:
    and why.
 4. **Re-render** the affected instance files from the corrected spec
    — faithfully, clause by clause.
-5. **Verify** — each check below, in a separate context where it
-   requires one:
+5. **Verify** — each check below is dispatched (separate context
+   where required); discharge before step 6:
+
+   ```
+   - [ ] All applicable checks below dispatched, with evidence
+         (subagent ID or "N/A: reason") recorded?
+     - NO → CANNOT proceed to step 6.
+     - YES → Evidence: [per-check]
+   ```
+
+   Checks:
    - the render against its source (practice 2);
    - every dependent of a contract change (practice 4);
    - a changed skill file against skill-craft's full review

@@ -161,12 +161,13 @@ additional sentence carries a cited rationale or premise (the
 basis-rule discipline applies within the summary, not only at the
 basis field). An entry has no narrative field: floating uncited
 reasoning does not belong in the tracker — the tracker is the run's
-ledger, not its design narrative. **Derivation walk-throughs** —
-multi-step prose tracing *how* a conclusion follows from the
-citations ("X at line A calls Y, which acquires Z at line B,
-therefore…") — are the AI's working context, not basis content.
-Record citation + load-bearing conclusion; the inference between
-citations is reasoning, not evidence.
+ledger, not its design narrative. A basis sentence is **citation +
+load-bearing conclusion** — the cited artifact (file:line, grep,
+observable) and the specific claim it establishes. **Derivation
+walk-throughs** — multi-step prose tracing *how* a conclusion
+follows from citations ("X at line A calls Y, which acquires Z at
+line B, therefore…") — are working context: record the conclusion,
+omit the steps.
 The standardized-pass findings artifact (§3.2) is a separate
 per-cycle artifact, not part of the tracker.
 
