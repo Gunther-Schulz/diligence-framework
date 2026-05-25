@@ -100,9 +100,16 @@ design reaches [READY] is recorded [AUTO-ACCEPTED] in both modes
 decision is, by its tag, surfaced in the tracker for the operator's
 review of the completed run.
 
-Auto-battle's remaining halt conditions — when a phase genuinely
-cannot complete, such as a verify loop that will not converge — are
-a separate effort, not yet undertaken.
+Verify [ISSUES FOUND] in auto-battle triggers automatic loopback to
+investigate-design (`core.md` §4.3, §6). The convergence exception:
+a verify finding that re-surfaces an existing [AUTO-ACCEPTED] design
+decision in the tracker — the same gap, now observed in the work —
+does not trigger loopback. The finding is appended to the tracker as
+a re-surfacing notation alongside the original [AUTO-ACCEPTED] tag,
+and the run completes. The AI's prior judgment to defer the gap is
+preserved for the operator's post-run review of cost. Other halt
+conditions — phases that genuinely cannot complete on causes other
+than [ISSUES FOUND] — remain a separate effort, not yet undertaken.
 
 ## 2. The standardized lens set
 

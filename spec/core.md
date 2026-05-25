@@ -464,12 +464,16 @@ line is paired with a **finding-status ledger** enumerating every
 recorded finding's current status. A [PASSED] alongside any finding
 short of [VERIFIED] is a malformed artifact.
 
-[ISSUES FOUND] returns the run; verify re-runs (§6) as either a
-**fresh verify pass** (full re-attest) when the fix changes
-load-bearing behavior, or a **delta verify** (confirm finding closed
-+ minimal regression) when the fix is **behavior-preserving**
-(instance-defined). Classification recorded in tracker; un-classified
-defaults to fresh.
+[ISSUES FOUND] returns the run to investigate-design (§6 loopback).
+The fix runs through the full procedure: investigate-design →
+implement → verify. There is no in-place shortcut at verify-terminal
+— no fix-in-implement bypass and no accept-as-followup at the
+verify boundary in either mode. The re-run is either a **fresh
+verify pass** (full re-attest) when the fix changes load-bearing
+behavior, or a **delta verify** (confirm finding closed + minimal
+regression) when the fix is **behavior-preserving** (instance-
+defined). Classification recorded in tracker; un-classified defaults
+to fresh.
 
 ---
 
@@ -625,8 +629,9 @@ orchestrator honors the return rather than proceeding. The specific
 returns are specified at their source: implement → investigate-design
 on major new scope (§4.2, including the dispatched-subagent boundary
 case); [INVALIDATED] finding or design decision reopens design work
-(§5); verify ending [ISSUES FOUND] returns the run to resolve those
-findings, then re-runs (§4.3).
+(§5); verify ending [ISSUES FOUND] returns the run to
+investigate-design — the single locus for fix resolution; the fix
+runs through the full procedure before verify re-runs (§4.3).
 
 **Run lifecycle.** A run starts at investigate-design and ends when
 verify reports [PASSED]. A run's state — the tracker (§5) and the
