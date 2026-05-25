@@ -120,20 +120,34 @@ spec triage applies.
 
 ### Q7. Validation-watch cross-check
 
-> For each open V-N in `spec/validation-watch.md` (excluding
-> RESOLVED): walk the V-N's production signal against this run's
-> tracker. Classify each as **confirms** (cite the evidence),
-> **refutes** (cite the evidence), or **no relevant evidence in
-> this run**.
+> For each V-N in `spec/validation-watch.md`, read the entry's
+> Status line and respond per state:
+>
+> - **WATCHING**: walk the production signal against this run's
+>   tracker. Classify as **confirms** (cite the evidence),
+>   **refutes** (cite the evidence), or **no relevant evidence in
+>   this run**.
+> - **FIX-SHIPPED**: walk for **load-bearing instances** of the
+>   mitigation. Classify as **mitigation load-bearing** (cite the
+>   finding the mitigation caught + counter-factual: would this
+>   have escaped the pre-mitigation protocol?), **mitigation not
+>   exercised this run** (failure shape didn't surface), or
+>   **mitigation evaded** (a finding escaped that the mitigation
+>   should have caught — INVALIDATED trigger).
+> - **RESOLVED**: skip — already validated; only re-walk if a
+>   later recurrence surfaces in Q1-Q4 findings.
+> - **INVALIDATED**: skip — already known to need new analysis.
 
 Q7 actively closes the watch loop. The "outcomes land" routing
 below picks up signals passively — it captures only Q1-Q4
 findings that happen to bear on a V-N. Q7 forces the per-entry
 walk so signals accumulate systematically rather than waiting
 for fortuitous correlations. "No relevant evidence" across many
-V-Ns is itself useful signal — a watch entry nobody exercises
-warrants its own scrutiny. The operator decides which V-Ns to
-update from the walk's findings.
+WATCHING entries is itself useful signal — a watch entry nobody
+exercises warrants its own scrutiny. A **mitigation load-bearing**
+finding on a FIX-SHIPPED entry is the positive evidence needed to
+promote it to RESOLVED. The operator decides which V-Ns to
+transition from the walk's findings.
 
 ### Q2. Value attribution
 

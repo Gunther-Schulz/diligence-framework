@@ -9,9 +9,56 @@ The spec stays pure prescription; the uncertainty is tracked here.
 Production signals come from any instance's real runs — Clippy's, or
 a future sibling's.
 
+## Entry lifecycle
+
+Each V-N entry carries a **Status** with one of four values:
+
+- **WATCHING** — uncertainty exists; no structural fix shipped yet.
+  Production signal is being watched. If the signal observes per
+  `development-process.md` practice 8 (classifiable structural
+  fix), ship the fix at n=1 and transition to FIX-SHIPPED.
+
+- **FIX-SHIPPED** — structural fix in spec, dated + commit-cited.
+  Still watching, but now for **load-bearing instances** of the
+  mitigation: a post-run review identifies a finding the
+  mitigation actively caught that would have escaped under the
+  pre-mitigation protocol. One observed instance is sufficient
+  evidence the mitigation works.
+
+- **RESOLVED** — at least one load-bearing instance observed via
+  post-run review. Closing requires **positive evidence** (active
+  catch counter-factually shown to require the mitigation), not
+  mere absence-of-recurrence — absence is indistinguishable from
+  "failure shape didn't surface this run." Once RESOLVED, the
+  entry is dormant unless later recurrence reopens it as
+  INVALIDATED.
+
+- **INVALIDATED** — production signal recurred under the
+  fix-shipped spec. The mitigation didn't hold. Requires new
+  analysis; the entry doesn't move forward without a fresh
+  structural fix proposal.
+
+**Transitions:**
+- WATCHING → FIX-SHIPPED at fix-ship commit
+- FIX-SHIPPED → RESOLVED on first observed load-bearing instance
+- FIX-SHIPPED → INVALIDATED on first recurrence under new spec
+- RESOLVED → INVALIDATED on later recurrence
+
+**Post-run review (Q7) reads status and responds per state.**
+FIX-SHIPPED entries are walked for `mitigation load-bearing` /
+`mitigation not exercised` / `mitigation evaded` classification.
+RESOLVED entries are skipped. WATCHING entries follow the original
+production-signal walk.
+
+A V-N's structural design — Decision, Why uncertain, Production
+signal to watch, Resolution (when FIX-SHIPPED or beyond) — remains
+unchanged. Status is a single line at the top of the entry.
+
 ---
 
 ## V-1. Standardized lens timing — per-cycle incremental
+
+**Status: WATCHING.**
 
 **Decision (`core.md`).** Standardized lenses are applied every
 cycle, incrementally: each cycle's standardized inspection pass
@@ -34,6 +81,8 @@ before the design locks them in — per-cycle is confirmed.
 ---
 
 ## V-2. One mechanism — inspection; transitions are operator-judged
+
+**Status: WATCHING.**
 
 **Decision (`glossary.md`, `core.md`).** The framework has one
 reusable mechanism: inspection (with an ad-hoc or standardized lens
@@ -77,6 +126,8 @@ reversed.
 
 ## V-3. The tracker does not mark a finding's inspection source
 
+**Status: WATCHING.**
+
 **Decision (`modules.md` §3.1).** A tracker finding is a status tag,
 a one-sentence summary, and its evidence — it does not record whether
 it came from an ad-hoc inspection or a standardized lens. Findings
@@ -107,6 +158,8 @@ kept out of finding form).
 ---
 
 ## V-4. Standardized pass — in-scope per cycle, whole set at [READY]
+
+**Status: WATCHING.**
 
 **Decision (`core.md` §4.1, `modules.md` §3.2).** Each cycle's
 standardized inspection pass emits a line only for the lenses in
@@ -140,6 +193,54 @@ return.
 ---
 
 ## V-5. [READY] self-assessment vs external check
+
+**Status: FIX-SHIPPED (2026-05-25, commit pending).** The recurrence
+the production-signal watched for was observed in the unit-14 run
+(beat-the-books project): cycle 3 declared [READY], operator chose
+Continue, cycle 4 surfaced material design corrections (F31-F36 +
+D9/D10 amendments). The diagnosis (AI in the working context
+answered the fresh-session test from the same recall pool that
+wrote the design) confirmed self-assessment alone is insufficient.
+
+**Resolution.** Two layered mitigations now in spec:
+
+1. **§4.1.2 sharpened — per-implementer-step external evidence.**
+   The fresh-session-implementability test artifact requires
+   file:line citations from re-reading source per implementer
+   step, not paraphrases of the tracker. Structural enforcement at
+   the AI's self-test moment — forces re-reading (or fabrication,
+   which is harder) to satisfy the PASSED artifact.
+
+2. **§4.1.4 added — convergence cycle.** [READY] requires one more
+   cycle after the AI's self-test passes, producing zero D-track
+   deltas. A full cycle (investigation + standardized inspection
+   passes) with enumerated new surfaces, not lens-clean re-attest.
+   Catches what the self-test misses by switching the working
+   context from self-assessment mode to fresh investigation mode.
+
+**Alternative considered: V-5's original prescribed candidate —
+operator-invoked subagent-at-[READY] external check.** Not chosen
+because (a) the unit-14 failure shape was recall, not frame, and
+the convergence cycle directly addresses recall via fresh
+investigation; (b) the convergence cycle reuses existing cycle
+machinery rather than adding a new mechanism; (c) operator's
+empirical workflow already includes an extra cycle on every run —
+the convergence cycle codifies this. The external subagent remains
+the defined escalation candidate if **frame-lock failures** emerge
+(cycles produce material findings but all reinforce a wrong frame
+— a different failure shape that fresh investigation alone might
+not catch). Frame-lock has not been observed yet; per practice 8,
+the external subagent earns its place at n=1 if observed.
+
+**Closing criterion (FIX-SHIPPED → RESOLVED).** A post-run review
+identifies a run where the convergence cycle was load-bearing — it
+surfaced a D-track delta that would have escaped under the
+pre-fix self-test-only protocol. One observed instance is
+sufficient.
+
+**Original observation preserved below for audit trail.**
+
+---
 
 **Decision (`core.md` §4.1, v0.8.7 + v0.8.9).** The [READY] judgment
 is sharpened — a presence-based fresh-session-implementability test
@@ -175,6 +276,8 @@ mechanism is warranted.
 ---
 
 ## V-6. Implementation decomposition + impl-phase subagent topology
+
+**Status: WATCHING.**
 
 **Decision (`core.md` §4.2, §6; `modules.md` §3.3).** The impl phase
 opens with an impl plan: dispatch units derived from the locked
@@ -229,7 +332,23 @@ changes named in subsequent V-N entries.
 
 ## V-7. Design-decision premise basis — paths, filenames, completeness counts
 
-**Status: RESOLVED (2026-05-24, commit c5e7ad9).**
+**Status: FIX-SHIPPED (2026-05-24, commit c5e7ad9).** Downgraded
+from RESOLVED 2026-05-25 per the new lifecycle: a fix shipped to
+spec is FIX-SHIPPED, not RESOLVED, until a post-run review
+identifies a load-bearing instance of the mitigation. The
+structural fix is in spec; positive evidence of the fix actively
+catching a finding that would have escaped pre-fix has not yet
+been recorded.
+
+**Closing criterion (FIX-SHIPPED → RESOLVED).** A post-run review
+identifies a run where the §3.2 embedded-claims sharpening or the
+Target-locality lens was load-bearing — caught a path / filename /
+count claim that the pre-fix protocol would have allowed to slip
+into [READY].
+
+**Original observation preserved below for audit trail.**
+
+---
 
 This entry's "if recurrent X, then sharpen the rule" framing was
 itself the cost-gating-as-epistemic-humility shape that
@@ -290,6 +409,8 @@ Target-locality lens.)
 
 ## V-8. Dispatch self-check at the impl-phase subagent boundary
 
+**Status: WATCHING.**
+
 **Decision (`core.md` §4.2 "Self-check at dispatch boundary").**
 Each dispatched subagent applies the instance's standardized lenses
 against its own diff before returning state. The check compounds with
@@ -317,6 +438,8 @@ in-scope concerns that proceed.
 ---
 
 ## V-9. Verify-terminal loopback destination and auto-battle convergence
+
+**Status: WATCHING.**
 
 **Decision (`core.md` §4.3, §6; `modules.md` §1.2).** Verify [ISSUES
 FOUND] returns the run to investigate-design — the single locus for
@@ -364,3 +487,48 @@ exception). (c) Whether auto-battle converges under the rule in
 practice — no observed infinite verify-loopback loops. (d) Whether
 the close-with-re-surfacing-notation creates useful post-run review
 material or noise.
+
+---
+
+## V-10. D-track delta as convergence criterion
+
+**Status: WATCHING.**
+
+**Decision (`core.md` §4.1.4).** The convergence cycle test for
+[READY] uses **D-track delta = 0** as the mechanical convergence
+criterion: a cycle producing no new design decisions and no
+amendments to existing ones is "converged." F-track entries
+(findings) alone don't count as material — only D-track entries
+do, since design decisions are the load-bearing artifact that
+implement reads.
+
+**Why uncertain.** D-track delta is a *proxy* for "material" —
+operator-named at the design moment. The proxy is mechanical and
+artifact-observable (delta the two cycles' D-track), which is the
+class-1 mitigation skill-craft prefers. But the question whether
+D-delta correctly captures *materiality* — every material change
+in the design appears as a D-track entry — is empirical.
+
+Possible misses:
+- Findings whose implication for the design is real but doesn't
+  trigger a D-track update (the AI judges the finding doesn't
+  invalidate any decision but later implementation reveals it
+  did).
+- Amendments expressed as evidence-only sub-annotations
+  (`modules.md` §3.1 basis-only refinement) — these are
+  intentionally not new peer-level ledger lines; the convergence
+  test would read this as "no D-track delta" even though the
+  basis strengthening might be material.
+
+**Production signal to watch.** Post-implement reviews where new
+design decisions surface in implement OR verify that should have
+been caught in investigate-design, **and** the convergence-test
+cycle(s) for that run produced zero D-track deltas. That'd be
+evidence the D-delta proxy is missing real materiality. If
+observed: the convergence criterion needs broadening — possibly
+to include basis-only sub-annotations on already-[VERIFIED]
+decisions, or to add an F-track materiality classifier.
+
+Absence-of-recurrence does not close this; only positive
+load-bearing evidence per the lifecycle (or refutation evidence
+that proxy misses) updates state.
