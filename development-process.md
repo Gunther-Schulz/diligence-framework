@@ -171,8 +171,8 @@ their own entry or live elsewhere.
 Surface a design and its **genuine choices** and trade-offs before
 building. Genuine includes four things:
 
-- (a) **thorough-fix option** (`core.md` §1): name it, lead with it;
-  not cheap-only menus
+- (a) **thorough-fix option** (`spec/core.md` §1): name it, lead with
+  it, weigh cheaper alternatives against it; not cheap-only menus
 - (b) **mitigation classification** for any new rule (practice 8)
 - (c) **terminology quality** for any new terms (skill-craft's
   "Naked judgment in rule statements")
