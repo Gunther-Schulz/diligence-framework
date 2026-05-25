@@ -95,15 +95,10 @@ the presentation and proceeds directly — the same default-take of
 the AI's recommendation, just without the operator-present-to-attest.
 
 A [CONDITIONAL] decision still resting on its assumption when the
-design reaches [READY] is recorded [AUTO-ACCEPTED] (`core.md` §5.2)
-in both modes. Interactive: the operator's proceed-selection without
-override on the open [CONDITIONAL] is the trigger (the closed-
-artifact form per §1.1 rule #4 surfaces the AI's recommendation, so
-proceed-select is an informed accept). Auto-battle: mode-absence-of-
-operator is the trigger. The tag records the same thing in either
-case — the recommendation stands; the assumption was not verified.
-Every [AUTO-ACCEPTED] decision is, by its tag, surfaced in the
-tracker for the operator's review of the completed run.
+design reaches [READY] is recorded [AUTO-ACCEPTED] in both modes
+(triggers + semantics per `core.md` §5.2 #5). Every [AUTO-ACCEPTED]
+decision is, by its tag, surfaced in the tracker for the operator's
+review of the completed run.
 
 Auto-battle's remaining halt conditions — when a phase genuinely
 cannot complete, such as a verify loop that will not converge — are
@@ -216,7 +211,7 @@ the [VERIFIED] decisions it implements (by their tracker
 identifiers).
 
 Parallel-eligibility is a load-bearing claim per `core.md` §3.2: the
-unit's file and contract scopes are listed, and the disjointness
+unit's element and contract scopes are listed, and the disjointness
 from sibling units' scopes is established by the re-runnable search
 behind the claim — the executable query, not the asserted
 disjointness or a recalled enumeration. A unit whose disjointness is

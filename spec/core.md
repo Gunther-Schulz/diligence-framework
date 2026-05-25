@@ -163,9 +163,8 @@ were the basis. Surface the gap, do not substitute.
   embedded claim carries the basis-rule requirement *separately*
   from the surrounding statement: the surrounding claim's basis
   does not cover the embedded one. The basis is a re-runnable
-  artifact at decision-lock time (grep, file:line read, located
-  reference for a cited rule), not recall. An embedded claim
-  with no separate basis is an assumption and cannot reach
+  artifact at decision-lock time (§3.2), not recall. An embedded
+  claim with no separate basis is an assumption and cannot reach
   [VERIFIED].
 - **True-unit basis.** A basis must cover the claim's true unit,
   not a coarser proxy. A claim about a *complete set* (a scope,
@@ -321,8 +320,8 @@ Discovery in implement is minimal. A new finding during
 implementation is **major new scope** (and triggers loopback) if
 any of:
 
-1. Touches a file or contract not in the unit's listed scope
-2. Changes a locked contract's signature, types, or error path
+1. Touches an element or contract not in the unit's listed scope
+2. Changes a locked contract's members (the instance defines what counts)
 3. Introduces a new design decision (per §5.2)
 4. Crosses a sibling unit's scope (breaks the disjointness basis)
 
@@ -553,10 +552,8 @@ found to rest on an unverified assumption becomes [CONDITIONAL];
 a [CONDITIONAL] decision becomes [VERIFIED] when its assumption
 is verified, and reverts to [PENDING] if the assumption is
 disproved. A [CONDITIONAL] decision still resting on its
-assumption at [READY] becomes [AUTO-ACCEPTED] — interactive
-trigger is operator proceed-without-override; auto-battle trigger
-is mode-absence-of-operator (`modules.md` §1.1, §1.2). An
-[INVALIDATED] decision reverts to [PENDING], and any decision
+assumption at [READY] becomes [AUTO-ACCEPTED] (triggers per #5).
+An [INVALIDATED] decision reverts to [PENDING], and any decision
 that depended on it reverts with it; the phase holds (§5.3)
 until re-formed. **Contradiction includes amendment of recorded
 resolution** (target naming, scope, completeness counts, basis
@@ -583,13 +580,10 @@ not in the work product.
 design complete. The tracker state it weighs in that judgment: no
 finding is [INVALIDATED], no load-bearing finding is left below
 [VERIFIED], and every design decision is [VERIFIED] or
-[AUTO-ACCEPTED] (§5.2). The [AUTO-ACCEPTED] terminal applies in both
-modes — interactive mode reaches it by the operator's proceed-
-selection without override on open [CONDITIONAL]s, auto-battle by
-mode-absence-of-operator. An [INVALIDATED] finding, a load-bearing
-finding short of [VERIFIED], or a design decision short of that bar
-is an unresolved concern — the design is not complete, and the loop
-continues.
+[AUTO-ACCEPTED] (§5.2 — triggers per §5.2 #5). An [INVALIDATED]
+finding, a load-bearing finding short of [VERIFIED], or a design
+decision short of that bar is an unresolved concern — the design is
+not complete, and the loop continues.
 
 These are the status the tracker carries — a notebook of where each
 concern stands — that the AI reads when it judges the design complete
