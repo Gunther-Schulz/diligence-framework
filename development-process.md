@@ -328,13 +328,22 @@ A change runs the same loop:
            changed-file list, instruction to load SKILL.md +
            PROCEDURE.md + references/anti-patterns.md from
            `skill-craft/plugin/skills/skill-craft/`?
-       - NO → CANNOT commit.
+       - NO → CANNOT proceed to commit.
        - YES → Evidence: [loaded-references manifest from subagent]
      ```
-     Recovery: blocking → don't commit; fix the change first
-     (re-dispatch review on the fix). Notable → operator amend
-     decision before commit. Nit → operator decides whether to
-     address before commit.
+     Recovery:
+     1. Blocking — AI fixes (or reverts) without operator round-trip.
+     2. Notable / nit — AI surfaces each to operator with
+        recommendation; operator decides per finding (fix-now /
+        accept-with-rationale / defer-to-observations); AI applies.
+
+     Accept-with-rationale records as an `Accepted-finding:` line
+     in the commit message body citing the finding's file:line
+     and the operator's reason; commit-body-only because the
+     audit trail must live in git history permanently. Defer-to-
+     observations logs to the relevant OBSERVATIONS.md (of the
+     corpus the finding cites). AI commits only after every
+     finding has a recorded disposition.
    - the whole document a substantive edit touched, for coherence
      (practice 6);
    - **cross-spec coherence** per skill-craft "Amendment discipline"
