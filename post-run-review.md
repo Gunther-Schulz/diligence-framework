@@ -83,6 +83,57 @@ investigating it surfaced the §5.2 detection gap and produced
 v0.8.2. This is the most directly-actionable signal for protocol
 completeness.
 
+### Q5. Tracker integrity
+
+> For this run's tracker: was append-only honored at the ledger
+> layer (no edits to existing ledger lines — quote any apparent
+> edit); were cycle numbers continuous across the run including
+> any loopback re-entries (list the sequence); were finding and
+> decision identifiers unique with no collisions (list any
+> duplicates); did header updates stay within the header
+> carve-out (mutable run-state — status, phase, terminal — not
+> edits to ledger lines)?
+
+Q5 checks the tracker rules' actual adherence. The tracker is
+the run's audit trail (`spec/modules.md` §3.1); silent violations
+corrupt the record. Each clause is artifact-forceable (quotes,
+lists, counts). A violation triages as adherence-class unless
+the spec's wording allowed the violating reading — then it is a
+spec gap.
+
+### Q6. Verify-phase audit
+
+> For this run's verify: was the recorded context "isolated"
+> (quote the result line's context tag); were all three checks
+> accounted for — planned-vs-actual, standardized lenses,
+> executable verification — with no check silently absent (cite
+> each); on [ISSUES FOUND], did the loopback route to
+> investigate-design (quote the next-cycle entry); if in
+> auto-battle and the convergence exception fired, did the
+> finding's evidence field cite the [AUTO-ACCEPTED] decision by
+> tracker identifier?
+
+Q6 checks verify-phase discipline (`spec/core.md` §4.3). Verify
+is the framework's primary catcher; its discipline failing means
+the catcher itself is failing. Mechanical checks; adherence vs
+spec triage applies.
+
+### Q7. Validation-watch cross-check
+
+> For each open V-N in `spec/validation-watch.md` (excluding
+> RESOLVED): walk the V-N's production signal against this run's
+> tracker. Classify each as **confirms** (cite the evidence),
+> **refutes** (cite the evidence), or **no relevant evidence in
+> this run**. Walk every open V-N — "no evidence" across many
+> V-Ns is itself useful signal.
+
+Q7 actively closes the watch loop. The "outcomes land" routing
+below picks up signals passively — it captures only Q1-Q4
+findings that happen to bear on a V-N. Q7 forces the per-entry
+walk so signals accumulate systematically rather than waiting
+for fortuitous correlations. The operator decides which V-N's
+to update from the walk's findings.
+
 ### Q2. Value attribution
 
 > Tag every finding F1..Fn by what surfaced it — a standardized
