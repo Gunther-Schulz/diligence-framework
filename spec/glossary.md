@@ -87,6 +87,48 @@ the first cycle to [READY].
 
 **Cycle** — one iteration of the investigate-design loop.
 
+**Convergence cycle** — a full cycle (investigation pass +
+standardized inspection pass) run after the working context judges
+the §4.1.1 supporting facts met and the §4.1.2 fresh-session test
+PASSED. [READY] requires the convergence cycle to produce zero
+D-track deltas (`core.md` §4.1.4). The investigation pass must
+enumerate new surfaces investigated this cycle, cited as file:line
+or grep queries not present in any prior cycle's investigation-
+pass artifact this run; a convergence cycle that only re-attests
+prior findings is malformed.
+
+**Cycle-another (recommendation)** — the AI's recommendation to
+run another investigate-design cycle rather than transition to
+implement (`core.md` §4.1.3). Triggered when the fresh-session
+implementability test fails, a lens in scope was not applied in
+the cycle that touched its scope, or the convergence cycle
+surfaces D-track deltas. Justified by enumeration of observations,
+not by cost comparison.
+
+**Loopback** — a phase returning the run to an earlier phase
+rather than proceeding (`core.md` §6 Loopbacks). Three trigger
+points: implement → investigate-design on major new scope (§4.2);
+verify [ISSUES FOUND] → investigate-design (§4.3); an
+[INVALIDATED] finding or design decision reopens design work
+(§5). Each carries a defined return-shape; the orchestrator
+honors the return rather than proceeding.
+
+**Major new scope** — an implementation-phase finding classified
+as returning the run rather than proceeding within the current
+unit's locked design. Closed four-clause definition (`core.md`
+§4.2): (1) touches an element or contract not in the unit's
+listed scope; (2) changes a locked contract's members; (3)
+introduces a new design decision; (4) crosses a sibling unit's
+scope. Otherwise a local clarification (recorded; unit proceeds).
+
+**Self-check (at dispatch boundary)** — a check the dispatched
+impl-phase subagent (and the working context, for a single-unit
+plan) applies to its own diff before returning state, using the
+instance's standardized lenses most relevant to write-time issues
+(`core.md` §4.2). Compounds with the design-time forcing function
+(§3.2); catches references and behaviors introduced post-design.
+A self-check finding of major-new-scope shape triggers loopback.
+
 **Pass** — one of the two activities within a cycle. Every cycle has
 exactly two, in order:
 
@@ -176,6 +218,59 @@ parallel-eligibility marker. Produced at implement-phase start;
 persisted alongside the tracker. Specified in `core.md` §4.2 and
 `modules.md` §3.3.
 
+**Production signal** — a real-run observation that confirms or
+refutes a watch entry's hypothesis about an uncertain design
+choice (`validation-watch.md` preamble). Validation-watch entries
+record uncertain decisions and what signal would prompt revisiting
+them; production signals come from any instance's real runs.
+
+**Watch-entry lifecycle states** — the four states a
+`validation-watch.md` entry carries on its Status line
+(`validation-watch.md` preamble Entry lifecycle): **WATCHING**
+(uncertainty exists, no fix yet; signal being watched);
+**FIX-SHIPPED** (structural fix in spec; watching for a
+load-bearing instance of the mitigation); **RESOLVED**
+(load-bearing instance observed via post-run review — positive
+evidence the mitigation works); **INVALIDATED** (production
+signal recurred under the fix-shipped spec; mitigation didn't
+hold; requires new analysis). Distinct from the [INVALIDATED]
+status tag above — the status tag is a finding/decision state in
+the tracker; the lifecycle state is a watch-entry state in
+validation-watch.md.
+
+**Load-bearing instance** — a finding the watch entry's
+mitigation actively caught that would have escaped under the
+pre-mitigation protocol (`validation-watch.md` preamble Entry
+lifecycle). The positive-evidence criterion for FIX-SHIPPED →
+RESOLVED transitions — distinct from absence-of-recurrence
+(which is indistinguishable from "failure shape didn't surface
+this run").
+
+**Recall pool** — the working context's accumulated set of
+already-recorded findings and design decisions when answering a
+self-test (`core.md` §4.1.4 + V-5). The failure shape that allows
+false-[READY]s: the AI answers the fresh-session implementability
+test from recall of what the tracker contains rather than from
+re-reading external evidence. The convergence cycle (§4.1.4)
+breaks the recall pool by switching modes to fresh investigation;
+§4.1.2's per-step external evidence requirement forces re-reading
+at the self-test moment.
+
+**False-[READY]** — a [READY] declaration that subsequent work
+surfaces material design gaps for (`validation-watch.md` V-5).
+Caught by operator at the closed-artifact review (Continue
+override), by the convergence cycle (§4.1.4), or — when both
+miss — by implement-loopback or verify [ISSUES FOUND].
+
+**Convergence exception (auto-battle verify [ISSUES FOUND])** —
+the rule that prevents auto-battle from infinite-looping on a
+finding the AI already chose to defer at investigate-design time
+(`modules.md` §1.2; V-9). A verify finding whose evidence field
+cross-references an existing [AUTO-ACCEPTED] decision by tracker
+identifier does not trigger loopback; the run completes with the
+re-surfacing notation. Without the explicit cross-reference, the
+finding triggers loopback as a new gap.
+
 ## Modes
 
 **Mode** — how a run drives the phases. The framework has two:
@@ -189,3 +284,25 @@ persisted alongside the tracker. Specified in `core.md` §4.2 and
 tracker and a recommendation, and the operator selects an option —
 continue, or proceed to the next phase — or free-form overrides.
 Specified in `modules.md` §1.1.
+
+## Triage and review classifications
+
+**Render gap / spec gap / adherence gap** — the closed triage
+classification of post-run review findings
+(`development-process.md` practice 1; used in `modules.md` §4 and
+`post-run-review.md` Where outcomes land). A **render gap** is
+the instance file not faithfully carrying the spec → re-render.
+A **spec gap** is the render faithful, the AI followed it, and
+it still broke → sharpen the spec. An **adherence gap** is a
+faithful render of an unambiguous evidence-bearing rule violated
+anyway — the irreducible residual the verify, operator, and
+loopback backstops carry.
+
+**Escape / operator catch** — the closed pair classifying Q1
+design-defect findings in post-run review (`post-run-review.md`
+Q1). An **escape** is a defect recorded past [READY] by
+implement-phase loopback or verify [ISSUES FOUND] (both
+investigate-design checks and the [READY] presentation missed).
+An **operator catch** is a defect caught at the [READY]
+presentation, before the run proceeded (investigate-design
+missed but the [READY] presentation worked as designed).

@@ -199,6 +199,32 @@ confirmation, but crossing into implementation after a design
 surface does. Only then implement — at the source level,
 re-rendered, verified.
 
+### 10. New terminology needs a glossary entry
+
+When an edit introduces a new defined-shorthand term to the
+corpus — a term used as if it has a fixed meaning, especially
+when used in multiple homes — add the entry to `spec/glossary.md`
+in the same commit (or surface as a follow-up if scope-bounded
+by operator). A term used as load-bearing without a glossary
+entry is the same failure shape as a naked-judgment rule
+(skill-craft anti-patterns): the AI pattern-completes the term's
+meaning per use site, producing inconsistent interpretations
+across the corpus.
+
+This applies symmetrically to audits: when reviewing a commit,
+check whether any new terms entered the corpus without glossary
+coverage. Quick test — grep the commit's diff for capitalized or
+hyphenated multi-word phrases used in noun position; cross-check
+against glossary. Examples that surfaced this way: F-track,
+D-track, convergence cycle, lifecycle states.
+
+Glossary entries take the form already established in
+`spec/glossary.md`: a definition tied to a spec citation, plus
+where applicable a closed-set enumeration. Terms imported from
+skill-craft or other framework-adjacent corpora may either be
+defined locally (when usage is framework-specific) or
+cross-referenced (when the canonical definition lives there).
+
 ## The release loop
 
 A change runs the same loop:
