@@ -181,9 +181,9 @@ meaning rests on AI judgment rather than observable property;
 framework vocabulary collisions are flagged and replaced; (d) the
 **amendment-discipline decision sequence** per skill-craft
 PROCEDURE.md ("Amendment discipline"): existing rule already
-addresses → revise in place; absorbable by extending an existing
-rule's scope → extend; existing rule becomes redundant → reduce
-/ merge; only if none → add new. A design that proposes a new
+addresses → revise in place; existing content becomes redundant
+or mergeable → reduce / merge; absorbable by extending → extend;
+only if none → add new. A design that proposes a new
 clause without surfacing this sequence is malformed.
 
 **AI-tightness** per skill-craft "Procedure drift" anti-pattern
