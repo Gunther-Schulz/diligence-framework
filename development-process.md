@@ -94,18 +94,10 @@ Re-read the exact current text of a passage before editing it —
 stale assumptions about wording cause failed edits. Check
 `git status` and `git log` before claiming the state of a repo.
 Never assert current state from memory or from a document written
-earlier; verify against the live source.
-
-**Applies to the process itself.** This document and any rule-
-corpus hook (e.g. the global `~/.claude/CLAUDE.md` "Rule-corpus
-edits" hook calling for skill-craft invocation before an edit)
-operate **per edit cycle**, not per session. A system reminder
-noting an earlier-session or earlier-turn skill invocation does
-not discharge the hook for a new edit cycle. Re-load the relevant
-process material — this document, the active hook's named skill —
-at the start of each edit cycle on the triad. Paraphrasing the
-procedure from session memory is the same failure shape as
-asserting code state from memory: ground from the live source.
+earlier; verify against the live source. This applies to the
+process itself **per edit cycle**, not per session: a system
+reminder noting an earlier-turn skill invocation does not
+discharge a rule-corpus hook for a new edit.
 
 ### 6. Integrate, don't insert
 
