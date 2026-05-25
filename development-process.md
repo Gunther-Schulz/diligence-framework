@@ -260,9 +260,21 @@ A change runs the same loop:
    - Practice-4 dependent audit → [grep evidence cited] OR [N/A: cited reason]
    - Skill-craft full review on changed skill files → [subagent ID, verdict] OR [N/A: cited reason]
    - Skill-craft self-review on framework-spec section → [subagent ID, verdict] OR [N/A: cited reason]
+   - Skill-craft self-review on commits to skill-craft canonical files (PROCEDURE.md, SKILL.md, references/*.md per skill-craft's own Layer 4 mandate) → [subagent ID, verdict] OR [N/A: no skill-craft canonical file in diff — cite paths]
    - Practice-6 whole-document coherence → [subagent ID, verdict] OR [in-context check cited] OR [N/A: cited reason]
    - Cross-spec multi-file coherence → [subagent ID, verdict] OR [N/A: cited reason]
    ```
+
+   **N/A reasons must be mechanically verifiable from the commit
+   diff** (e.g., "no file under instance render paths changed —
+   cite paths"; "diff is single file at <path>"; "no other corpus
+   file references this rule by name — grep cited"). Judgment-
+   based N/A reasons ("prior reviewer covers this," "this is a
+   small change," "the change applies an existing recommendation,"
+   "I judged the check redundant") are insufficient — a judgment
+   N/A indicates the check applies; dispatch it. The N/A escape
+   exists to skip checks that are *observably* inapplicable, not
+   to compress effort on checks that are arguably-applicable.
 
    Checks:
    - the render against its source (practice 2);
