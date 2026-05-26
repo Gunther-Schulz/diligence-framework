@@ -284,14 +284,20 @@ Required columns:
 
 - **Severity** — blocking / notable / nit / observation
 - **Location** — file:line citation
-- **Concern** — one-sentence summary
-- **Discipline cited** — the framework or skill-craft discipline
-  naming the failure shape (AI-tightness, Unverified render from
-  source, Naked judgment, Procedure drift, Skip-rationalization,
-  etc.)
+- **Concern** — one-sentence summary; names the discipline via
+  the failure-shape's wording (e.g., "common-word qualifier"
+  invokes Naked-judgment; "render fidelity gap" invokes
+  Unverified-render-from-source; "skip-rationalization shape"
+  invokes that anti-pattern). Discipline-citation collapses into
+  the Concern wording, not a separate column.
 - **First-judge disposition** — fix-now / keep-as-is /
   observation-only + one-line reasoning
-- **Operator override** — blank for the second judge
+
+Operator's second-judge happens in conversation flow — the
+operator's next message overrides any disposition (per-row,
+blanket approval, redirect, etc.). No separate table column is
+required; the table presents the AI's dispositions for the
+operator to react to.
 
 PASS without findings collapses to one row ("Overall: PASS, all
 checks green"). Nits and observations marked "no action" still
