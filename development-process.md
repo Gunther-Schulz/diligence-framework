@@ -215,19 +215,26 @@ building. Genuine includes four things:
   "Naked judgment in rule statements")
 - (d) **amendment-discipline decision sequence** (skill-craft
   PROCEDURE.md "Amendment discipline")
+- (e) **no-ship test** (additive changes only) — surface what
+  happens without this addition: an existing mechanism that
+  covers the case, acceptance as known gap, or acceptance of
+  the current burden as functional. Weigh the cost of NOT
+  shipping against shipping (skill-craft anti-patterns
+  "Additive reflex").
 
-A design surface omitting any of (a)-(d) is malformed.
+A design surface omitting any of (a)-(d) is malformed. For
+additive changes, omitting (e) is malformed.
 
 **AI-tightness** per skill-craft "Procedure drift" anti-pattern
 (AI-tightness check sub-clause). Applies per-edit.
 
 The AI takes operator wording as intent, not literal text;
 improves where the intent supports a better expression. A design
-surface omitting any of (a)-(d) is malformed. Incremental steps
-within an authorized workstream do not need ceremonial
-confirmation, but crossing into implementation after a design
-surface does. Only then implement — at the source level,
-re-rendered, verified.
+surface omitting any of (a)-(d) — or (e), for additive changes —
+is malformed. Incremental steps within an authorized workstream
+do not need ceremonial confirmation, but crossing into
+implementation after a design surface does. Only then implement —
+at the source level, re-rendered, verified.
 
 ### 10. New terminology needs a glossary entry
 
