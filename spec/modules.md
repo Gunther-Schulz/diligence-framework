@@ -48,8 +48,12 @@ out-of-order sections make the artifact malformed:
    [READY] (the convergence cycle's investigation-pass artifact
    citation + zero-D-delta confirmation per `core.md` §4.1.4),
    named blockers preventing [READY] (open [PENDING] decisions
-   and weak-basis ledger entries). Decision-relevant content
-   first; detail follows.
+   and weak-basis ledger entries), **operator-flagged findings**
+   (count + F# identifiers, auto-populated from `[FLAG]`
+   annotations per §3.1; empty when none), **impl plan preview
+   at [READY]** (unit count + sequential or
+   parallel-eligible-by-disjointness, per `core.md` §4.2).
+   Decision-relevant content first; detail follows.
 2. **Inventories** — findings and decisions as scannable
    one-per-line ledger entries with status tag and identifier at
    start; not paragraph-prose summaries.
@@ -174,6 +178,16 @@ are working context, not basis: record the conclusion, omit the
 steps.
 The standardized-pass findings artifact (§3.2) is a separate
 per-cycle artifact, not part of the tracker.
+
+A finding may carry a `[FLAG]` annotation — a tag separate from
+the verification-status tag indicating the finding requires
+operator attention at the next closed-artifact presentation.
+Format: `F<N> [<status>] [FLAG] <summary> — basis: ...`. The
+annotation is orthogonal to verification state; `[VERIFIED]
+[FLAG]` and `[PENDING] [FLAG]` are both valid. The closed
+artifact's State summary auto-aggregates flagged findings
+(§1.1); the annotation is the un-fakeable artifact for that
+aggregation.
 
 A design decision may carry, as an optional sub-line under its peer
 entry, a structured **considered** field — one line per alternative

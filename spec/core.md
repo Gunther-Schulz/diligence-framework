@@ -381,15 +381,18 @@ any of:
 Otherwise it is a **local clarification** — recorded in the
 tracker; the unit proceeds. No work is lost when loopback fires.
 
-**The impl plan.** implement opens with an impl plan: the locked
-design's decisions grouped into **dispatch units**, dependency-
-ordered, with a parallel-eligibility marker on each — a planning
-artifact, not a new tracker construct. Parallel-eligibility is a
-load-bearing claim per §3.2: a unit's element and contract scopes are
-listed and the disjointness from sibling units' scopes established
-by the re-runnable search behind the claim, not by recall. A unit
-whose disjointness is not search-established is sequential. The
-plan is persisted alongside the tracker (`modules.md` §3.3).
+**The impl plan.** The impl plan is produced at [READY]
+presentation — the locked design's decisions grouped into
+**dispatch units**, dependency-ordered, with a
+parallel-eligibility marker on each — so the operator sees the
+unit list at the decision moment (`modules.md` §1.1 State
+summary). A planning artifact, not a new tracker construct.
+Parallel-eligibility is a load-bearing claim per §3.2: a unit's
+element and contract scopes are listed and the disjointness from
+sibling units' scopes established by the re-runnable search
+behind the claim, not by recall. A unit whose disjointness is
+not search-established is sequential. The plan is persisted
+alongside the tracker (`modules.md` §3.3).
 
 **Dispatch.** When the impl plan has two or more units, each unit's
 work is dispatched to a subagent isolated from the run's working
