@@ -267,6 +267,20 @@ the tracker via each dispatch unit's commit reference (`core.md`
 is produced after the next [READY], reflecting any changes to the
 locked design.
 
+**Dispatch-brief schema.** Each dispatch carries a brief to its
+subagent that follows a closed-section form: (a) **load
+instructions** — the orchestrator's skill files to read; (b)
+**tracker reference** — full tracker, or the cited reduction
+(`core.md` §4.2); (c) **unit scope** — the [VERIFIED] decisions
+this unit implements (by tracker identifier), plus the unit's
+element and contract scopes; (d) **return-state expectations** —
+the fixed-shape ledger lines for new findings (§3.1), the unit's
+commit reference, and any loopback signal. Section (a) is uniform
+across dispatches within a run and lives in the instance's
+`phases/implement.md` as a reusable template the subagent loads
+on dispatch; sections (b)/(c)/(d) carry per-unit parameters
+written into each brief.
+
 ## 4. Post-run review
 
 An optional analysis step: surface what the protocol missed or got
