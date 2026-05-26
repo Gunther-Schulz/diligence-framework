@@ -1,6 +1,6 @@
-# Diligence Framework — Validation Watch
+# Anneal Framework — Validation Watch
 
-Companion to the Diligence-framework spec; not part of it. The spec
+Companion to the Anneal-framework spec; not part of it. The spec
 states fixed decisions. Some were made best-effort, under genuine
 uncertainty. This doc records those — the decision, why it was
 uncertain, and the production signal that would prompt revisiting it.

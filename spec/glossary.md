@@ -1,4 +1,4 @@
-# Diligence Framework — Glossary
+# Anneal Framework — Glossary
 
 Locked definitions. Each term has exactly one definition; every spec
 section uses terms as defined here. Where a term names a closed set,

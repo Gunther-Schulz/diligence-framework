@@ -1,4 +1,4 @@
-# Diligence Framework — Core
+# Anneal Framework — Core
 
 The stable spine of the spec: the model, the mechanisms, the
 grounding discipline, the phase specs, the status-state machine, and

@@ -1,4 +1,4 @@
-# Diligence Framework
+# Anneal Framework
 
 > Convert AI confidence into AI evidence.
 
@@ -55,7 +55,7 @@ it does not advance the run.
 ## Architecture
 
 ```
-       Diligence framework (spec/)
+       Anneal framework (spec/)
                   ↓
             renders to
                   ↓
@@ -85,7 +85,7 @@ binding and lens set.
 - [`spec/`](./spec/) — the framework specification. The domain-
   agnostic source of truth instances are rendered from.
 - [`instantiation-guide.md`](./instantiation-guide.md) — how to
-  derive a new Diligence-based plugin for your domain.
+  derive a new Anneal-based plugin for your domain.
 - [`development-process.md`](./development-process.md) — how this
   repo and its instances evolve.
 

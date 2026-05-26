@@ -1,4 +1,4 @@
-# Diligence Framework — Modules
+# Anneal Framework — Modules
 
 The framework's revisable modules — modes, the standardized lens set,
 artifact formats. Built on `core.md` and `glossary.md`; terms are

@@ -1,6 +1,6 @@
-# Diligence Framework — Specification README
+# Anneal Framework — Specification README
 
-This directory is the Diligence-framework specification: the
+This directory is the Anneal-framework specification: the
 domain-agnostic method an instance is generated from. This file
 specifies the spec itself — its architecture, file layout, and
 conventions.
@@ -18,7 +18,7 @@ conceptual levels, decided by this test:
   (how to build a workflow skill, a judgment skill, and so on). All
   generic skill-design. Lives in the `skill-craft` plugin, external
   to this spec.
-- **Diligence framework** — the *specifics of one structured
+- **Anneal framework** — the *specifics of one structured
   methodology*: the named phases (investigate-design / implement /
   verify), the two-pass cycle, inspection, the standardized lens
   set, the two-track tracker and status-state machine, [READY], the
@@ -31,11 +31,11 @@ conceptual levels, decided by this test:
 
 The line between the first two: skill-craft says how to build *a*
 workflow skill (define phases, gate transitions, use menus); the
-Diligence framework *is* one — its specific phases, cycle, and
+Anneal framework *is* one — its specific phases, cycle, and
 mechanisms named. Generic skill-design is skill-craft; a named
-methodology's specifics are the Diligence framework. The two are
+methodology's specifics are the Anneal framework. The two are
 siblings, not nested — skill-craft is meta (how to build any skill),
-the Diligence framework is object-level (a methodology for doing
+the Anneal framework is object-level (a methodology for doing
 work); the framework is built *using* skill-craft, not part of it.
 
 The line between the framework and an instance: the framework's
@@ -63,7 +63,7 @@ forfeits re-derivability. The re-render procedure is
 - `README.md` — this file.
 
 `../instantiation-guide.md` is a separate companion: how to derive a
-new Diligence-based plugin for a domain.
+new Anneal-based plugin for a domain.
 
 ## Entry conventions
 
@@ -125,7 +125,7 @@ earns its place, or it does not enter.
 A proposed concept runs three filters:
 
 1. **Level.** The three-level test above — is the concept skill-craft
-   (how to build any skill), the Diligence framework (a specific of
+   (how to build any skill), the Anneal framework (a specific of
    this methodology), or instance (a domain binding)? Only a
    framework-level concept enters this spec; the others belong
    elsewhere.

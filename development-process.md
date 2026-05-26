@@ -1,7 +1,7 @@
 # Development process
 
 This document is the development process for evolving the
-**diligence-framework**, **skill-craft**, and the framework's
+**anneal-framework**, **skill-craft**, and the framework's
 **instances** (such as `coding-clippy`). It covers development work
 *on* these repos — distinct from `instantiation-guide.md`, which
 covers deriving a new instance from the framework.
@@ -17,7 +17,7 @@ Three repositories, three levels of abstraction:
   structural-enforcement mechanisms (forcing functions, blocking
   gates, observable checkpoints, menus), protocol conventions, skill
   architecture. Domain-agnostic and skill-agnostic.
-- **diligence-framework** — the one domain-general methodology: the
+- **anneal-framework** — the one domain-general methodology: the
   investigate-design / implement / verify phases, the tracker, the
   status-state machine, the basis rule, the
   evidence-bearing-artifact rule. Built *using* skill-craft's mechanisms.

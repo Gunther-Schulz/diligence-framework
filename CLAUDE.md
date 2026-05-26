@@ -1,8 +1,8 @@
-# Diligence framework — repo-local instructions
+# Anneal framework — repo-local instructions
 
 ## Development process grounding
 
-Before any rule-corpus edit cycle on the triad (diligence-framework
+Before any rule-corpus edit cycle on the triad (anneal-framework
 spec, skill-craft canonical, or instance renders), read
 `development-process.md` in full — per edit cycle, not per
 session. Practice 5 forecloses operating from summary or
@@ -12,7 +12,7 @@ it applies.
 
 ## Rule-corpus edits
 
-When editing skill-craft, diligence-framework spec, or instance
+When editing skill-craft, anneal-framework spec, or instance
 skills (clippy / daneel / etc.): invoke the `skill-craft` skill
 via the Skill tool BEFORE the edit.
 

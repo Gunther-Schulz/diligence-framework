@@ -1,6 +1,6 @@
-# Deriving a Diligence-based plugin
+# Deriving a Anneal-based plugin
 
-The Diligence framework is domain-agnostic. A working tool is an
+The Anneal framework is domain-agnostic. A working tool is an
 *instance* of it — the framework bound to a domain. Clippy is the
 instance for software engineering; a marketing-strategy tool would be
 a sibling. This guide is how to derive a new instance.
@@ -32,7 +32,7 @@ Check three things:
 
 - **Open-ended.** The work needs investigation and design, not just
   execution of a known procedure. A fixed procedure is a workflow
-  skill, not a Diligence instance.
+  skill, not a Anneal instance.
 - **Verifiable outcome.** "Done" can be checked against evidence, not
   asserted — verify needs something to run or check.
 - **Recurring blind-spots.** The domain has a body of mistakes an
@@ -178,16 +178,16 @@ the instance's name and `<skill-dir>` to its skill directory:
 ```
 ## The skill content is rendered, not authored
 
-<Instance> is an *instance* of the Diligence framework. The skill
+<Instance> is an *instance* of the Anneal framework. The skill
 files — `<skill-dir>/SKILL.md`, `phases/`, and `references/` — are
-**rendered** from the framework spec (the `diligence-framework`
+**rendered** from the framework spec (the `anneal-framework`
 repo, `spec/`). They are not authored here, and are never where a
 behavior change originates.
 
 A change to how <Instance> behaves goes to the framework spec first:
 committed there, then re-rendered into these files and verified in a
 separate context — the procedure is `development-process.md` in the
-`diligence-framework` repo. Hand-editing a skill file as if it were
+`anneal-framework` repo. Hand-editing a skill file as if it were
 source breaks re-derivability: the spec and the instance drift, and
 the change cannot be reproduced for another instance.
 
