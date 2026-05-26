@@ -262,6 +262,56 @@ sub-clause provides a **mechanical** secondary criterion (grep
 the diff for capitalized or hyphenated multi-word phrases in
 noun position; cross-check against glossary).
 
+### 11. Subagent findings: table the first-judge disposition
+
+When a subagent returns ranked findings with severity
+classifications on a rule-corpus edit, present them to the
+operator as a ranked table — not narrated in prose. The AI is the
+**first judge** (applies disposition with reasoning); the operator
+is the **second judge** (override authority). The subagent
+detects; the AI disposes; the operator audits the disposition.
+Operator-catch as the *detection* mechanism is the failure shape
+this practice forecloses, not introduces.
+
+Required columns:
+
+- **Severity** — blocking / notable / nit / observation
+- **Location** — file:line citation
+- **Concern** — one-sentence summary
+- **Discipline cited** — the framework or skill-craft discipline
+  naming the failure shape (AI-tightness, Unverified render from
+  source, Naked judgment, Procedure drift, Skip-rationalization,
+  etc.)
+- **First-judge disposition** — fix-now / keep-as-is /
+  observation-only + one-line reasoning
+- **Operator override** — blank for the second judge
+
+PASS without findings collapses to one row ("Overall: PASS, all
+checks green"). Nits and observations marked "no action" still
+appear in the table — the operator may disagree.
+
+Prose summaries hide the per-finding structure that lets the
+second judge intervene. Narrating "subagent PASS with one nit
+(handled)" loses the operator's check on whether the nit was
+correctly disposed.
+
+Scope: subagents whose output shape is **ranked findings with
+severity classifications** (skill-craft self-review, cross-spec
+coherence review, render-fidelity review, etc.). General-purpose
+Agent calls for search, lookup, or codebase exploration return
+informational data, not severity-ranked findings — they do not
+trigger this presentation rule.
+
+This rule classifies as **structural enforcement** per practice 8:
+the table itself is the un-fakeable artifact — its presence in
+the response is the check. A secondary **mechanical** criterion
+applies — the required-columns enumeration is computed from the
+findings (every finding produces exactly those columns; missing
+columns are observable). Same shape as practice 10: structural
+(table presence) primary, mechanical (column completeness)
+secondary. Prose-only presentation of findings is the failure
+shape this rule forecloses.
+
 ## The release loop
 
 A change runs the same loop:
