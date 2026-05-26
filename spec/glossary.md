@@ -137,7 +137,8 @@ exactly two, in order:
    character: ad-hoc inspection.)
 2. **Standardized inspection pass** — the AI applies the standardized
    lenses whose scope the cycle's work touched to what the
-   investigation pass produced.
+   investigation pass produced. Artifact shape and citation
+   requirements per `modules.md` §3.2.
 
 **Orchestrator** — the coordinating layer of a run: it detects the
 mode, conducts the phase pipeline through its transitions, and

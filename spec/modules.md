@@ -237,9 +237,14 @@ new observation → peer-level entry.
 
 Each cycle's standardized inspection pass emits a findings artifact
 (`core.md` §4.1): one line for each lens whose scope the cycle touched
-— a finding, or a cited-clean reason. A lens out of scope that cycle
-is not lined; the standardized set is accounted for whole once, at
-[READY] (`core.md` §4.1).
+— a finding, or a cited-clean reason. **Each line cites this-cycle
+basis: a this-cycle tracker entry (F# from this cycle's investigation
+pass, or D# from this cycle's design work) or a surface (file:line,
+grep query) introduced in this cycle. A line whose only basis is
+prior-cycle entries is malformed — its lens was not touched this
+cycle.** A lens out of scope that cycle is not
+lined; the standardized set is accounted for whole once, at [READY]
+(`core.md` §4.1).
 
 ### 3.3 The impl plan
 

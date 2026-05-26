@@ -228,11 +228,10 @@ design recorded in the tracker. It ends at [READY].
    Findings are recorded in the tracker.
 2. **Standardized inspection pass.** Apply each standardized lens
    whose scope this cycle's investigation touched — incremental, over
-   what this cycle produced. The pass emits a line for each in-scope
-   lens: a finding, or a one-line cited reason it is clean. A lens out
-   of scope this cycle is not lined — the set is not re-attested every
-   cycle; it is accounted for whole once, at [READY]. (The
-   standardized lens set is specified by the domain instance.)
+   what this cycle produced. The pass emits the standardized-pass
+   findings artifact (`modules.md` §3.2 carries the artifact-shape
+   and citation requirements). The standardized lens set is
+   specified by the domain instance.
 
 The standardized inspection pass runs every cycle.
 
