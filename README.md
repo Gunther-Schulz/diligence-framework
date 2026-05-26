@@ -17,6 +17,20 @@ The framework is domain-agnostic, and *instantiated* for a domain:
 Clippy is the Diligence framework bound to software engineering; a
 sibling instance could bind it to another domain.
 
+## How a cycle works
+
+Each cycle has two passes — investigation (the AI looks at
+relevant surfaces with task-derived lenses) and standardized
+inspection (the pre-written lens set applied to what the cycle's
+work touched). Design work — committing positions on what to
+build — interleaves within the cycle, not as a separate pass.
+Findings land in the F-track; design decisions in the D-track.
+The cycle ends when both tracks settle and the standardized
+pass is clean; otherwise the AI recommends another cycle,
+justified by what's still open (findings, pending decisions,
+lens-applications still required). Cost is the operator's
+judgment, not the AI's.
+
 ## This repo
 
 - `spec/` — the Diligence-framework specification: the domain-agnostic
