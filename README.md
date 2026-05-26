@@ -1,5 +1,7 @@
 # Diligence Framework
 
+## Iterate on understanding, not output.
+
 A structured method for taking a complex, open-ended task to a
 verified outcome — converting AI confidence into AI evidence.
 
