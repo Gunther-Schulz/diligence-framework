@@ -437,14 +437,17 @@ A change runs the same loop:
    claude plugin update <plugin>@<marketplace>
    ```
    Repeat for every affected instance (clippy / daneel /
-   campaign-craft / ...). **A session restart is required to
-   activate a new version** — `/reload-plugins` suffices only
-   for same-version skill/hook/setting changes (see skill-craft
-   `references/plugin-engineering.md` "Activation" for the
-   two-pin model). Without these steps the release is committed
-   and pushed but not deployed locally. The AI completes pull +
-   plugin-update as part of the release and surfaces the
-   restart-required state to the operator — restart is the only
-   operator handoff.
+   campaign-craft / ...). **Operator runs `/reload-plugins` to
+   activate the new version** — `claude plugin update` bumps the
+   installed pin; `/reload-plugins` re-reads the pin so subsequent
+   skill invocations resolve to the new installPath (see skill-
+   craft `references/plugin-engineering.md` "Activation" for the
+   two-pin model and the in-flight-skill caveat). Without these
+   steps the release is committed and pushed but not active in
+   the running session. The AI completes pull + `claude plugin
+   update` as part of the release and surfaces the reload-required
+   state to the operator — `/reload-plugins` is the only operator
+   handoff for the version bump itself; session restart is needed
+   only when hook errors from a prior load persist.
 7. **Persist outcomes** — real-run findings and deferred ideas in the
    instance's status log; process changes back into this document.
