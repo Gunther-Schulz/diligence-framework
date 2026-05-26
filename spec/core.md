@@ -62,6 +62,17 @@ including one only the operator could confirm — carries that
 assumption as its basis and is recorded [CONDITIONAL] (§5.2). The
 operator retains free-form override at any point.
 
+**Operator-expected action bound.** The operator's protocol-
+expected actions are bounded to (a) **menu selection** at
+closed-artifact presentations and (b) **free-form interjection**
+(question, comment, or override against the tracker). Auto-battle
+removes (a) and (b) entirely. The spec does NOT design AI behavior
+expecting operator detection, inspection, sanity-check, audit, or
+any other operator-active work beyond (a)/(b). Where an artifact's
+enforcement would otherwise require operator-detection, the
+enforcement form is malformed — AI discipline or a fresh-context
+checker (verify, convergence cycle §4.1.4) carries it.
+
 The operator's request sets the task; it may also propose a solution.
 Such a proposal is a strong input, not a locked design: that it is
 the right solution is a design premise — grounded on evidence like
@@ -123,11 +134,11 @@ check it against.
 
 A weak artifact is not self-enforcing — the protocol cannot rest on
 the artifact alone. It is enforced by a **separate checker**: a
-context that did not produce the artifact re-derives it, or the
-operator inspects it. The artifact still earns its place — it makes
-faking require fabrication, and gives the checker something concrete
-to check — but the guarantee comes from the checker, not the
-artifact.
+context that did not produce the artifact re-derives it (verify's
+isolated subagent §4.3, the convergence cycle §4.1.4). The
+artifact still earns its place — it makes faking require
+fabrication, and gives the checker something concrete to check —
+but the guarantee comes from the checker, not the artifact.
 
 This rule reaches the protocol's behavioral rules, not its
 mechanisms alone: a rule whose adherence cannot be read off an

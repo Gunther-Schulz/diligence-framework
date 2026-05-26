@@ -77,11 +77,11 @@ out-of-order sections make the artifact malformed:
 **Presentation.** Search commands, file paths, tracker citations
 are presented as code, not buried in prose.
 
-Operator review at presentation is the catcher (interactive
-mode); in auto-battle no closed artifact is presented, but the
-[AUTO-ACCEPTED] decisions + fresh-session result line + tracker
-entries serve the same surface-and-catch function at post-run
-review.
+The closed artifact surfaces the design for the operator's
+menu/free-form decision moment (interactive mode); in auto-battle
+no closed artifact is presented — the [AUTO-ACCEPTED] decisions +
+fresh-session result line + tracker entries persist for the
+operator's review if and when invoked.
 
 ### 1.2 auto-battle
 

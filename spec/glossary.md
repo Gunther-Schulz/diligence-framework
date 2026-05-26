@@ -263,9 +263,12 @@ at the self-test moment.
 
 **False-[READY]** — a [READY] declaration that subsequent work
 surfaces material design gaps for (`validation-watch.md` V-5).
-Caught by operator at the closed-artifact review (`another cycle`
-override), by the convergence cycle (§4.1.4), or — when both
-miss — by implement-loopback or verify [ISSUES FOUND].
+Caught structurally by the convergence cycle (§4.1.4) and per-step
+external evidence (`core.md` §4.1.2); or — when both miss — by
+implement-loopback or verify [ISSUES FOUND]. The operator's
+`another cycle` override at the closed-artifact review is a
+residual path (operator's free-form interjection), not the named
+enforcement form.
 
 **Convergence exception (auto-battle verify [ISSUES FOUND])** —
 the rule that prevents auto-battle from infinite-looping on a

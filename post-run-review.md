@@ -83,10 +83,7 @@ means the design phase missed but the `[READY]` presentation caught
 (protocol-as-designed); an escape means both missed (caught only by
 implement-loopback or verify — the most expensive catch). Each
 non-zero count names a concrete blind spot, triaged per
-`development-process.md` practice 1. The operator sanity-checks the
-design-defect-vs-new-scope calls — the run has a mild incentive to
-file its own catches as "new scope" rather than "design defect."
-
+`development-process.md` practice 1.
 ### Q3. Grind — cost
 
 > Where did this run's effort go: token-heavy or time-heavy regions,
