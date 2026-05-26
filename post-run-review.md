@@ -1,6 +1,6 @@
 # Post-run review
 
-Companion to `spec/validation-watch.md`; not part of the spec. The
+Companion to `dev-notes/validation-watch.md`; not part of the spec. The
 framework's empirical-validation procedure: when a session has run
 the instance on a real task, review the run against the spec. The
 review's deviations are triaged (`development-process.md` practice
@@ -152,7 +152,7 @@ spec triage applies.
 
 ### Q7. Validation-watch cross-check
 
-> For each V-N in `spec/validation-watch.md`, read the entry's
+> For each V-N in `dev-notes/validation-watch.md`, read the entry's
 > Status line and respond per state:
 >
 > - **WATCHING**: walk the production signal against this run's

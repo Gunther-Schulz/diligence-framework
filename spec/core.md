@@ -363,7 +363,7 @@ cycle's outputs (investigation pass artifact + zero-D-delta
 status) form part of the [READY] artifact** alongside §4.1.2's
 fresh-session result line.
 
-Per V-5 (`spec/validation-watch.md`) — the mechanism breaks the
+Per V-5 (`dev-notes/validation-watch.md`) — the mechanism breaks the
 recall-pool failure shape that allows false-[READY]s, by switching
 the working context from self-assessment mode to fresh
 investigation mode.

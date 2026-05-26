@@ -46,7 +46,7 @@ A deviation found by running the instance is triaged. A *render gap*
 render. A *spec gap* — the render is faithful, the AI followed it,
 and it still broke → a finding for the framework or the instance
 spec. A *conformant success* — followed and worked → a positive
-signal, logged to `spec/validation-watch.md`. The subtle case is a
+signal, logged to `dev-notes/validation-watch.md`. The subtle case is a
 faithful render the AI did *not* follow: do not call it a render gap
 by reflex. First test the rule for underspecification — if it was
 loose enough to admit the violating reading, it fails the framework's

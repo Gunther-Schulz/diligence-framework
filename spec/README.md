@@ -57,10 +57,11 @@ forfeits re-derivability. The re-render procedure is
   specs, status-state machine.
 - `modules.md` — modes, the standardized lens set (its shape; the set
   itself is instance-supplied), artifact and tracker formats.
-- `validation-watch.md` — companion, not part of the spec. Records
-  fixed decisions made under uncertainty and the production signal to
-  watch.
 - `README.md` — this file.
+
+`../dev-notes/validation-watch.md` is a maintainer-side companion:
+records fixed decisions made under uncertainty and the production
+signal to watch. Not part of the spec.
 
 `../instantiation-guide.md` is a separate companion: how to derive a
 new Anneal-based plugin for a domain.
@@ -85,8 +86,8 @@ decided," or carry tradeoffs.
 
 A decision made best-effort under genuine uncertainty is still stated
 as fixed. The uncertainty is recorded separately in
-`validation-watch.md` — the decision, why it was uncertain, and the
-production signal that would prompt revisiting it. The spec is
+`../dev-notes/validation-watch.md` — the decision, why it was
+uncertain, and the production signal that would prompt revisiting it. The spec is
 best-effort on current information and revised through production
 learning, but that provisional nature is understood, never written
 into the spec.

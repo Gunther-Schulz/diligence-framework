@@ -9,6 +9,17 @@ The spec stays pure prescription; the uncertainty is tracked here.
 Production signals come from any instance's real runs — Clippy's, or
 a future sibling's.
 
+**n=1 convention.** Closing criteria are n=1 — one observed instance
+is sufficient evidence to transition. The post-run review's
+self-review surfaces n=1 evidence per run. Multi-run thresholds
+("3+ consecutive runs", "n≥2 distinct shapes", "5+ runs show
+absence of recurrence", etc.) are cost-gating dressed as epistemic
+humility (per `development-process.md` practice 8) — they defer
+classifiable fixes that the lifecycle is designed to process on
+first observation. RESOLUTION requires one load-bearing instance;
+INVALIDATION requires one recurrence under the fixed spec; entries
+are not held open waiting for repetitions.
+
 ## Entry lifecycle
 
 Each V-N entry carries a **Status** with one of four values:
@@ -580,20 +591,20 @@ mismatch, decision-to-step translation gap) that §4.1.4's
 convergence cycle did not catch. If observed: §4.1.2 is
 independently load-bearing.
 
-The contrary signal: three consecutive runs where §4.1.4's
-convergence cycles produce non-zero D-track deltas (catches) and
-§4.1.2 runs clean on the resulting trackers. In that case, §4.1.2
-is redundancy candidate; the spec-change shape is designed at
-observation time per practice 8.
+The contrary signal: one run where §4.1.4's convergence cycle
+produces non-zero D-track deltas (catches) and §4.1.2 runs clean
+on the resulting tracker. In that case, §4.1.2 is redundancy
+candidate; the spec-change shape is designed at observation time
+per practice 8.
 
 **Closing criterion (WATCHING → RESOLVED).** A post-run review
 identifies a run where §4.1.2 surfaced a translation-gap catch
 §4.1.4's convergence cycle did not. One observed instance is
 sufficient.
 
-Alternative closure (WATCHING → INVALIDATED): three consecutive
-runs where §4.1.4's convergence cycles produced non-zero D-track
-deltas and §4.1.2 ran clean on the resulting trackers.
+Alternative closure (WATCHING → INVALIDATED): one run where
+§4.1.4's convergence cycle produced non-zero D-track deltas and
+§4.1.2 ran clean on the resulting tracker.
 
 ---
 
@@ -752,16 +763,18 @@ runs:
 - Whether the absence of formalization causes AI confusion or
   drift about what to put in the header
 
-**Closing criterion (WATCHING → RESOLVED via codify).** 3+
-consecutive runs (single instance) OR 1 cross-instance recurrence
-of the same emergent field set with consistent semantics —
-codify at instance-level (`references/tracker.md` extension) or
-framework-level (`modules.md` §3.1 extension) per scope.
+**Closing criterion (WATCHING → RESOLVED via codify).** One run
+where the emergent fields appear with content that semantically
+matches the prior emergence (Protocol version stamp; Cycles
+complete count) — codify at instance-level
+(`references/tracker.md` extension) or framework-level
+(`modules.md` §3.1 extension) per scope. One cross-instance
+recurrence is equivalent positive evidence.
 
-**Alternative closure (WATCHING → INVALIDATED).** 5+ runs show
-emergent fields don't recur consistently — accept instance
-freedom as design intent; document as observation, no
-codification.
+**Alternative closure (WATCHING → INVALIDATED).** One run shows
+the emergent field set drifted (different fields, different
+semantics) from the prior emergence — accept instance freedom as
+design intent; document as observation, no codification.
 
 ---
 
@@ -808,15 +821,16 @@ shape (same categorical pattern), Form 1 earns its place. If
 the lens-noise pattern is one-off (only methodology-design
 runs), Form 2 may be sufficient.
 
-**Closing criterion (WATCHING → RESOLVED via sharpening).** 3+
-runs show ≥50% cited-clean-re-attest or out-of-scope lens-lines
-with consistent categorical pattern. Ship Form 1 or Form 2 per
-the observed shape.
+**Closing criterion (WATCHING → RESOLVED via sharpening).** One
+run shows ≥50% cited-clean-re-attest or out-of-scope lens-lines
+in a recognizable categorical pattern (code-change /
+refactor-only / methodology-design / audit-only). Ship Form 1 or
+Form 2 per the observed shape.
 
-**Alternative closure (WATCHING → INVALIDATED).** 5+ runs show
-no recurring lens-noise pattern beyond cost-of-discipline noise
-that varies per-run. Accept current per-lens lining as design
-intent.
+**Alternative closure (WATCHING → INVALIDATED).** One run shows
+the lens-noise pattern was one-off (specific to its categorical
+context) and does not generalize. Accept current per-lens lining
+as design intent.
 
 ---
 
@@ -859,8 +873,10 @@ implement-loopback, post-run review Q-set, or operator's
 free-form override at presentation. The shape of the
 incoherence is the analytical handle; per Unit-4 §5.2 evidence,
 specific shapes get specific structural fixes, not a generic
-coherence audit. **n>=2 distinct shapes** would suggest a
-class-level mechanism is warranted.
+coherence audit. **One observed shape** earns its specific
+structural fix at n=1; a second distinct shape (different cause,
+different fix) under the new spec would suggest a class-level
+mechanism is warranted instead of per-shape sharpening.
 
 Per `development-process.md` practice 8, this V-N is legitimate
 (Y not classifiable upfront — fix form depends on the specific
@@ -921,3 +937,55 @@ Per `development-process.md` practice 8, this V-N is legitimate
 shape that surfaces), not deferral-journal. The proposing context
 was a cross-framework comparison with GSD's verifier, not an
 observed Clippy incident.
+
+---
+
+## V-18. 5-part design-decision body shape — trivial decisions over-structured?
+
+**Status: WATCHING.**
+
+**Decision (`core.md` §5.2, commit e12eec5).** Design decision
+body specifies (a) target, (b) shape, (c) acceptance criteria,
+(d) side effects/failure modes, (e) basis. Adopted to prevent
+code-block pollution in design decisions (Unit-11 tracker showed
+D2/D8/D11 with full Python/SQL bodies).
+
+**Why uncertain.** The 5-part structure is sized for complex
+decisions (Unit-11 D2 four-reducer signature; D5 calibration repo
+contract; D8 validator spec). For trivial decisions — deferrals
+("defer X to Unit Y because Z"), single-line acknowledgments,
+version-pin assertions — the 5 named slots read heavy; risk of
+checklist-driven slot-filling rather than thinking-driven
+body-shaping.
+
+Two mitigation paths considered but rejected:
+
+- Trivial-decisions exception ("5 slots when non-trivial; basis
+  alone for trivial") → introduces Naked-judgment qualifier
+  ("trivial") — the anti-pattern this corpus has been sharpening
+  against
+- "Content not format" clarification → defensible but
+  Additive-reflex default ("do nothing on ambiguous rule-need")
+  and the rule's "specifies" wording is already loose
+
+Cross-session reasoning (2026-05-27): "the 5-part shape is more
+often a help than a hindrance, so the net is positive even with
+the over-structuring tax."
+
+**Production signal to watch.** Future tracker runs — do trivial
+decisions naturally compress to one sentence (all 5 slots present
+implicitly), or do they get boilerplate-filled (5 sequential
+paragraphs even when content is trivial)?
+
+- Compression flag: one run shows trivial decisions in
+  one-sentence form with all 5 slots present implicitly → R2
+  working as designed → RESOLVED.
+- Boilerplate flag: one run shows trivial decisions with 5
+  sequential mostly-empty paragraphs → R2 needs sharpening →
+  candidate fix is the "content not format" clarification, OR a
+  trivial-decision exception with mechanical criterion (not
+  naked-judgment "trivial").
+
+Per `development-process.md` practice 8, this V-N is legitimate
+(Y not classifiable upfront — fix form depends on whether
+boilerplate or compression dominates), not deferral-journal.
