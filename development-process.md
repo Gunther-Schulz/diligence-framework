@@ -53,9 +53,23 @@ loose enough to admit the violating reading, it fails the framework's
 evidence-bearing standard (`spec/core.md` §3.1, that violating a
 load-bearing rule produces no artifact) and is a *spec gap*: sharpen
 the rule. Only a faithful render of an already-unambiguous,
-evidence-bearing rule, violated anyway, is a true *adherence gap* —
-not a render fix but the irreducible residual the verify, operator,
-and loopback backstops carry.
+evidence-bearing rule, violated anyway, is a true *adherence gap*.
+**An adherence gap is a failure indicator, not a designed
+disposition** — verify, operator, and loopback backstops are
+partial recovery, not the intended discipline. Each observed
+adherence gap requires enumerating the three structural-enforcement
+forms against the failure shape, with the enumeration recorded as
+the discharge artifact. Each form is named with one of: (a) the
+form's candidate fix-shape for this failure, OR (b) a cited reason
+the form fails against the failure shape's specific attribute. The
+three forms are mechanical criteria, structural enforcement
+artifact, and safety net (per skill-craft `PROCEDURE.md` "Judgment
+calls as design risk" / practice 8). If at least one form earns
+its place per practice 8 at n=1, ship that fix (spec-gap
+conversion). Only an enumeration showing all three forms fail —
+each with its cited failure-shape attribute — discharges to
+"residual accepted"; that acceptance is recorded as observation
+(not as resolution), with the per-form failure reasons as basis.
 
 ### 2. Rendering is lossy — renderer ≠ verifier
 
@@ -159,8 +173,9 @@ the AI will sometimes fail; catch downstream). A fix in pure prose form is malfo
 it adds an unenforced suggestion. Both new mechanisms and fixes
 to existing rules are gated by this classification: if classifiable
 as one of the three, it earns its place at n=1; if not, keep
-iterating on form, or accept the failure shape isn't tractable
-for codification (operator catch remains).
+iterating on form, or — only via practice 1's three-form
+enumeration discharge with cited per-form failure reasons — accept
+the residual (recorded as observation, not as resolution).
 
 **Validation-watch is not a deferral journal.** `spec/validation-
 watch.md` records observations about framework design choices

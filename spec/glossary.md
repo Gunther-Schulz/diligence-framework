@@ -298,8 +298,10 @@ the instance file not faithfully carrying the spec → re-render.
 A **spec gap** is the render faithful, the AI followed it, and
 it still broke → sharpen the spec. An **adherence gap** is a
 faithful render of an unambiguous evidence-bearing rule violated
-anyway — the irreducible residual the verify, operator, and
-loopback backstops carry.
+anyway — a failure indicator requiring practice 1's three-form
+structural-enforcement enumeration; residual accepted only after
+enumeration shows all three forms fail with cited per-form failure
+reasons.
 
 **Escape / operator catch** — the closed pair classifying Q1
 design-defect findings in post-run review (`post-run-review.md`

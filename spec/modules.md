@@ -329,8 +329,10 @@ framework's triage applies (`development-process.md` practice 1):
 - A **spec gap** — the render is faithful and was followed, and it
   still broke → a finding for the framework spec.
 - An **adherence gap** — a faithful render of an unambiguous,
-  evidence-bearing rule, violated anyway → the irreducible residual
-  the verify, operator, and loopback backstops carry.
+  evidence-bearing rule, violated anyway → failure indicator
+  requiring practice 1's three-form structural-enforcement
+  enumeration; residual accepted only after enumeration shows all
+  three forms fail with cited per-form failure reasons.
 
 ### 4.6 What this is not
 
