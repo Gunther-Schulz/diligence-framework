@@ -1,0 +1,200 @@
+#!/usr/bin/env python3
+"""
+commit-msg hook — validates the Step-5 discharge artifact for rule-corpus commits.
+
+Per anneal-framework development-process.md step 5 (release loop):
+- Detects if the commit touches rule-corpus files (spec/, development-process.md,
+  plugin/skills/, references/*.md)
+- If so, requires a Step-5 discharge artifact in the commit message
+- Validates each of the 7 required checks is present
+- Pattern-fails on rationalize-away-as-covered shapes ("folded into",
+  "subsumed by", "covered by [other check]") — per the closed-set rule
+  shipped in commit df61abc
+- Pattern-warns on judgment-based N/A reasons without mechanical citation
+
+Bypass: `git commit --no-verify` (visible in audit; explicit operator
+action required).
+"""
+
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+RULE_CORPUS_PATTERN = re.compile(
+    r"^(spec/.+\.md|development-process\.md|plugin/skills/.+\.md|"
+    r"\.claude-plugin/.+|plugin/\.claude-plugin/.+)$"
+)
+
+REQUIRED_CHECKS = [
+    "Render fidelity",
+    "Practice-4 dependent audit",
+    "Skill-craft full review on changed skill files",
+    "Skill-craft self-review on framework-spec section",
+    "Skill-craft self-review on commits to skill-craft canonical files",
+    "Practice-6 whole-document coherence",
+    "Cross-spec multi-file coherence",
+]
+
+FOLD_INTO_PATTERNS = [
+    re.compile(r"folded into", re.IGNORECASE),
+    re.compile(r"subsumed by", re.IGNORECASE),
+    re.compile(
+        r"covered by\s+(other (check|reviewer|subagent)|"
+        r"render[- ]?fidelity|cross[- ]?spec|skill[- ]?craft|prior)",
+        re.IGNORECASE,
+    ),
+]
+
+JUDGMENT_NA_PATTERNS = [
+    re.compile(r"\bsmall change\b", re.IGNORECASE),
+    re.compile(r"prior reviewer covers", re.IGNORECASE),
+    re.compile(r"\bwell[- ]grounded\b", re.IGNORECASE),
+    re.compile(r"in[- ]context should be enough", re.IGNORECASE),
+    re.compile(r"\bI judged\b", re.IGNORECASE),
+    re.compile(r"\bjudged.{0,20}redundant\b", re.IGNORECASE),
+    re.compile(r"\bthis is a small\b", re.IGNORECASE),
+]
+
+NA_LINE_PATTERN = re.compile(r"N/A:", re.IGNORECASE)
+
+
+def red(s: str) -> str:
+    return f"\033[31m{s}\033[0m"
+
+
+def green(s: str) -> str:
+    return f"\033[32m{s}\033[0m"
+
+
+def yellow(s: str) -> str:
+    return f"\033[33m{s}\033[0m"
+
+
+def get_changed_files() -> list[str]:
+    """Files staged for commit (cached)."""
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return [f for f in result.stdout.splitlines() if f]
+
+
+def is_rule_corpus_commit(files: list[str]) -> tuple[bool, list[str]]:
+    """True if any file in diff matches rule-corpus patterns."""
+    matching = [f for f in files if RULE_CORPUS_PATTERN.match(f)]
+    return bool(matching), matching
+
+
+def validate_discharge(msg: str) -> list[str]:
+    """Run all discharge-artifact validations. Returns list of error messages."""
+    errors = []
+
+    # 1. Discharge present
+    if "Step-5 discharge" not in msg:
+        errors.append(
+            "Missing Step-5 discharge artifact in commit message.\n"
+            "  See development-process.md step 5 for the required template.\n"
+            "  Format: 'Step-5 discharge for commit [pending]:' followed by\n"
+            "  one line per check in [subagent ID, verdict] / [N/A: ...] / "
+            "[in-context check cited] form."
+        )
+        return errors  # No point checking further if discharge absent
+
+    # 2. All required checks listed
+    missing_checks = [c for c in REQUIRED_CHECKS if c not in msg]
+    if missing_checks:
+        errors.append(
+            f"Discharge artifact missing required checks:\n"
+            + "\n".join(f"    - {c}" for c in missing_checks)
+        )
+
+    # 3. No fold-into rationalizations
+    fold_into_hits = []
+    for pat in FOLD_INTO_PATTERNS:
+        for m in pat.finditer(msg):
+            line_start = msg.rfind("\n", 0, m.start()) + 1
+            line_end = msg.find("\n", m.end())
+            if line_end == -1:
+                line_end = len(msg)
+            line = msg[line_start:line_end]
+            fold_into_hits.append(line.strip())
+
+    if fold_into_hits:
+        errors.append(
+            "Fold-into rationalization detected (per development-process.md "
+            "step 5, 'A \"folded-into\" or \"subsumed\" form is never one of "
+            "those — it is the rationalize-away-as-covered shape'):\n"
+            + "\n".join(f"    {l}" for l in fold_into_hits)
+        )
+
+    # 4. Judgment-based N/A reasons (warn, not block — secondary heuristic)
+    warnings = []
+    lines = msg.splitlines()
+    for i, line in enumerate(lines):
+        if NA_LINE_PATTERN.search(line):
+            # Check this line and the next 2 for judgment patterns
+            window = "\n".join(lines[i : i + 3])
+            for jpat in JUDGMENT_NA_PATTERNS:
+                if jpat.search(window):
+                    warnings.append(
+                        f"Possible judgment-based N/A near line {i + 1}: '{line.strip()}'"
+                    )
+                    break
+
+    if warnings:
+        print(yellow("WARNINGS (not blocking):"))
+        for w in warnings:
+            print(yellow(f"  ⚠ {w}"))
+        print(yellow(
+            "  N/A reasons must cite mechanical evidence "
+            "(paths, grep, diff fragments)."
+        ))
+        print()
+
+    return errors
+
+
+def main() -> int:
+    msg_file = Path(sys.argv[1])
+    msg = msg_file.read_text()
+
+    # Skip merges, reverts, fixups
+    first_line = msg.splitlines()[0] if msg.splitlines() else ""
+    if first_line.startswith(("Merge ", "Revert ", "fixup!", "squash!", "amend!")):
+        return 0
+
+    changed = get_changed_files()
+    is_corpus, corpus_files = is_rule_corpus_commit(changed)
+
+    if not is_corpus:
+        # No rule-corpus files — discharge not required
+        return 0
+
+    print(f"Rule-corpus commit detected ({len(corpus_files)} file(s)):")
+    for f in corpus_files:
+        print(f"  - {f}")
+    print()
+
+    errors = validate_discharge(msg)
+
+    if errors:
+        print(red("✗ Discharge artifact validation FAILED:"))
+        print()
+        for err in errors:
+            print(red(f"  {err}"))
+            print()
+        print(red(
+            "Commit blocked. Fix the discharge artifact and re-commit.\n"
+            "Bypass (visible in audit): git commit --no-verify"
+        ))
+        return 1
+
+    print(green("✓ Discharge artifact validation passed."))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
