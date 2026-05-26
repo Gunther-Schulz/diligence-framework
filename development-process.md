@@ -374,9 +374,16 @@ A change runs the same loop:
    the check applies — dispatch it.** Rationalizations the AI
    constructs for not dispatching ("this is a small change," "prior
    reviewer covers this," "the change is well-grounded," "in-
-   context should be enough here") are the very signal that the
-   check is in scope. The doubt IS the evidence. This pattern is
-   the recurring failure shape behind partial Step-5 discharge.
+   context should be enough here," "folded into [other check],"
+   "covered by [other reviewer]," "subsumed by [other check]") are
+   the very signal that the check is in scope. The doubt IS the
+   evidence. This pattern is the recurring failure shape behind
+   partial Step-5 discharge. **Each check's acceptable forms are
+   exhaustive**: exactly those named in its template line —
+   `[subagent ID, verdict]` or `[N/A: mechanically-verifiable cited
+   reason]` (or `[in-context check cited]` for practice-6). A
+   "folded-into" or "subsumed" form is never one of those — it is
+   the rationalize-away-as-covered shape.
 
    **In-context check artifact (practice-6 specific).** The
    "[in-context check cited]" option in the discharge artifact
