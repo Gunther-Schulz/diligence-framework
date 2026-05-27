@@ -494,6 +494,17 @@ A change runs the same loop:
    the cycle-18 gate, AI commits AND pushes to remote in the same
    step. Clear message stating what changed and why; the Step-4
    discharge artifact in the commit body per the form above.
+
+   **Brevity.** Commit body is concise: 1-3 sentence intro
+   (what + why); one line per changed file (path + what, skip
+   per-file rationale); each discharge check terse — mechanical
+   N/A reasons brief (e.g., "no plugin/skills/* in diff"), PASS
+   lines cite subagent ID + outcome (e.g., "subagent X,
+   PASS-with-N-fix-nows applied"). Per-finding detail lives in
+   the conversation's findings table, not the commit body. The
+   discharge artifact's job is to enumerate the checks ran +
+   their mechanically-verifiable verdicts, not to retell the
+   per-finding analysis.
 6. **Release the instance** — version-bump the plugin, commit and
    push to remote, then for each affected instance **pull the
    marketplace clone and run `claude plugin update`**:
