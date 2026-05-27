@@ -23,7 +23,7 @@ from pathlib import Path
 
 RULE_CORPUS_PATTERN = re.compile(
     r"^(spec/.+\.md|development-process\.md|post-run-review\.md|"
-    r"instantiation-guide\.md|plugin/skills/.+\.md|"
+    r"instantiation-guide\.md|foundation\.md|plugin/skills/.+\.md|"
     r"\.claude-plugin/.+|plugin/\.claude-plugin/.+)$"
 )
 

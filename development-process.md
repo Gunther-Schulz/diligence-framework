@@ -11,36 +11,11 @@ adopt it before doing development work here.
 
 ## The three levels
 
-Three contracts hold the architecture:
-
-1. **Framework arbitrariness.** The anneal-framework spec is
-   domain-agnostic by construction; it must instantiate equally
-   well for any domain — software engineering, debugging,
-   marketing, research, or any other. A rule that leaks domain
-   assumptions (specific languages, tooling, problem-domain
-   vocabulary) is malformed at framework level. Test: would this
-   rule still apply rendered into an instance for an unrelated
-   domain? Operationalized: skill-craft PROCEDURE.md
-   "Domain-independence check"; triaged: practice 1.
-
-2. **Render completeness.** Every load-bearing rule in the
-   plugin originates in one of two specs: the framework spec
-   (the methodology) or the instance spec (the domain bindings).
-   The plugin is the rendered output of these two specs;
-   structural mechanisms (closed enums, gated checks, "must"
-   verbs, un-fakeable artifacts) survive as structural, not
-   flattened to prose. A plugin clause with no spec origin is
-   drift. The renderer is blind to its own flattening; render
-   fidelity is verified by a separate context (practice 2).
-
-3. **Instance domain-binding scope.** Instances legitimately carry
-   operational details with no upstream home — file-path naming
-   (`.clippy/runs/<run>.md`), what "executable verification" means
-   in the domain (pytest for software, debugger trace for
-   debugging), domain-specific lens shapes, dispatch-orchestration
-   mechanics. The architecture's instance slot, not framework gaps.
-   The "genuine domain binding" classification in practice 1 names
-   this category.
+The architecture rests on three contracts (framework arbitrariness
+/ render completeness / instance domain-binding scope), specified
+in `foundation.md`. This document and `instantiation-guide.md`
+both operate within those contracts; the practices below
+operationalize them.
 
 The contracts fill across three repositories:
 

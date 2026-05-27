@@ -5,6 +5,12 @@ The Anneal framework is domain-agnostic. A working tool is an
 instance for software engineering; a marketing-strategy tool would be
 a sibling. This guide is how to derive a new instance.
 
+This guide operates within the architectural foundation
+(`foundation.md`): the three contracts (framework arbitrariness /
+render completeness / instance domain-binding scope) hold across
+every instance, and the slots below (§2-4) are the operative form
+of contract 3's "instance domain-binding scope".
+
 ## The process — spec-first
 
 1. **Write the instance spec.** Bind the framework to the domain

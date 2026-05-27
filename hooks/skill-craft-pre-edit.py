@@ -35,6 +35,7 @@ SPEC_SOURCE_PATTERNS = [
     re.compile(r"/development-process\.md$"),
     re.compile(r"/post-run-review\.md$"),
     re.compile(r"/instantiation-guide\.md$"),
+    re.compile(r"/foundation\.md$"),
 ]
 
 # Skill-craft canonical exemption — skill-craft is a meta-plugin where

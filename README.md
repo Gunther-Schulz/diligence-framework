@@ -83,6 +83,11 @@ binding and lens set.
 
 ## This repo
 
+- [`foundation.md`](./foundation.md) — the three architectural
+  contracts (framework arbitrariness / render completeness /
+  instance domain-binding scope). Upstream anchor that
+  development-process.md and instantiation-guide.md both
+  operate within.
 - [`spec/`](./spec/) — the framework specification. The
   domain-agnostic source of truth instances are rendered from.
 - [`instantiation-guide.md`](./instantiation-guide.md) — how to
