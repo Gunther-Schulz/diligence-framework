@@ -110,7 +110,9 @@ boundary, the declaration shape, and the enable mechanism.
 
 Together these are the instance spec's **slots** — its
 render-consumed kinds of content, each with a framework-defined
-meaning: the three required above, and the two optional sections
+meaning: the three required above (the lens-set slot optionally
+extends with a supplement mechanism, §4 "Optional:
+project-supplemental lenses"), and the two optional sections
 (presentation and lifecycle extensions, §5). The set is **closed**.
 An instance never adds a slot silently — an unrecognised section is
 undefined input to the render. A genuinely new slot is proposed to
@@ -170,6 +172,49 @@ recur across domains — does a change force a coupled change
 elsewhere; are all downstream consumers enumerated; are failure paths
 specified; are all value-classes covered. Use these as prompts; the
 domain decides its own set.
+
+### Optional: project-supplemental lenses
+
+An instance may extend its lens-set slot with a **supplement
+mechanism** — a way for projects using the instance to add their
+own lenses (**lens supplements**) on top of the instance's closed
+core set. Supplements are optional: an instance may declare the
+mechanism; a project using that instance may or may not supply
+lens supplements.
+
+Supplemental lenses follow the same shape and discipline as core
+lenses — Name, Question, Scope (per `spec/modules.md` §2.1) — and
+are iterated by the standardized inspection pass the same way. The
+runtime lens set is core ∪ supplement, closed at the project's
+runtime: the standardized pass accounts for every lens whose scope
+is touched, whichever subset it belongs to.
+
+Constraints on the supplement mechanism:
+
+1. **Same lens shape.** Every supplemental lens fills the
+   Name/Question/Scope entry shape; loose-prose "lenses" are
+   malformed.
+2. **Closed at project level.** The project's supplemental set is
+   enumerable from the supplement file or location; the
+   standardized pass accounts for every supplemental lens whose
+   scope is touched.
+3. **Operator-supplied.** The operator writes the lenses; they
+   are not invented at runtime.
+4. **Additive-only.** Supplemental lenses do not disable, narrow,
+   or override the instance's core lenses. If a core lens
+   consistently mismatches a project's needs, the fix is at the
+   instance-spec level (sharpen the core lens), not at the project
+   level (silence it).
+5. **Skill-craft form discipline.** Supplemental lenses are
+   reviewed against the same form-quality rules as core lenses
+   — the full canonical sweep per skill-craft's `PROCEDURE.md`
+   + `references/anti-patterns.md`.
+
+The instance spec declares the mechanism — where the supplement
+file lives, how the orchestrator loads it at standardized-pass
+dispatch. The supplement file is an operator-editable artifact
+subject to the filesystem layout rule in §5 (operator-editable
+distinct from runtime state, instance-unique namespace).
 
 ## 5. Lifecycle extensions (optional)
 
@@ -256,10 +301,36 @@ as the extension declarations, must be:
   unreadable.
 
 A worked example for software-engineering instances: a file at
-`<instance-runs-dir>/extensions.enabled` listing enabled extension
+`<instance-config-dir>/extensions.enabled` listing enabled extension
 names, one per line — the operator edits the file to toggle. Other
 instances may use config lines, environment variables, or per-run
 tracker-header entries; the framework is mechanism-agnostic.
+
+### Filesystem layout for operator-editable artifacts
+
+When an instance places operator-editable artifacts on disk — the
+enable mechanism above; the lens-supplement file in §4; any future
+operator-editable instance-side artifact — three framework rules
+apply:
+
+1. **Distinct location from runtime state.** Operator-editable
+   artifacts and runtime-state artifacts (the run-artifacts an
+   instance writes per §2's persistence mechanism) live at
+   observably distinct filesystem paths — observable under git
+   as: operator-editable paths are tracked (`git ls-files`);
+   runtime-state paths are gitignored (`git check-ignore`).
+   Mixing them blurs the commit boundary and the edit-permission
+   contract: operators forget which files they own, instances
+   overwrite operator-edited files, and gitignore rules fragment.
+2. **Namespace uniqueness.** Each instance's filesystem footprint
+   uses a namespace unique to that instance, preventing collisions
+   when multiple anneal-derived instances coexist in one project.
+3. **Convention** (recommended, not mandated):
+   `<plugin-skill-name>.config/` (committed, operator-editable) +
+   `.<plugin-skill-name>/runs/` (gitignored, instance-managed). The
+   visible-vs-hidden filesystem distinction maps to
+   commit-vs-gitignore; the namespace inherits uniqueness from the
+   plugin manifest's skill-name uniqueness.
 
 ### Declaration shape
 

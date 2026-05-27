@@ -36,6 +36,14 @@ inspection differs only by where the lens comes from. Two sources:
    specified in `modules.md`; the set itself is supplied by the
    domain instance.
 
+**Lens supplement** — a project-supplied optional extension to an
+instance's closed core lens set. Follows the same Name/Question/Scope
+shape as core lenses (`modules.md` §2.1) and is iterated by the
+standardized inspection pass the same way. The runtime lens set is
+core ∪ supplement, closed at the project's runtime. Specified in
+`instantiation-guide.md` §4 "Optional: project-supplemental lenses";
+additive-only (supplements cannot disable or override core lenses).
+
 ## Basis and evidence
 
 **Basis** — the evidence a claim or design decision rests on: a
