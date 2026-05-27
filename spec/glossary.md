@@ -178,11 +178,18 @@ on zero D-track delta.
 **Finding** — a discrete observation recorded in the tracker, carrying
 a status tag.
 
+**Finding disposition** — the cited case-discrimination on a
+[VERIFIED] finding's status line (form `[VERIFIED —
+<disposition>]`). Closed enum: **addressed**, **non-issue**,
+**deferred**. Each case's body, cite-form, and the malformed-
+status rule on absence are specified in `core.md` §5.1.
+
 **Status tag** — a bracketed marker on a finding or a design
 decision recording its state. The full set:
 **[PENDING]** (recorded, not yet at terminal — both tracks),
 **[PARTIALLY VERIFIED]** (finding mid-verification),
-**[VERIFIED]** (verified terminal — both tracks),
+**[VERIFIED]** (verified terminal — both tracks; on the finding
+track, carries a Finding-disposition suffix per `core.md` §5.1),
 **[INVALIDATED]** (verified terminal contradicted by later
 evidence — both tracks),
 **[OUTLINED]** (decision: committed direction, detail not yet
@@ -273,11 +280,11 @@ enforcement form.
 **Convergence exception (auto-battle verify [ISSUES FOUND])** —
 the rule that prevents auto-battle from infinite-looping on a
 finding the AI already chose to defer at investigate-design time
-(`modules.md` §1.2; V-9). A verify finding whose evidence field
-cross-references an existing [AUTO-ACCEPTED] decision by tracker
-identifier does not trigger loopback; the run completes with the
-re-surfacing notation. Without the explicit cross-reference, the
-finding triggers loopback as a new gap.
+(`modules.md` §1.2; V-9). Mechanism: the finding closes
+[VERIFIED — deferred] per Finding disposition (`core.md` §5.1) —
+its disposition cites the existing [AUTO-ACCEPTED] decision's
+tracker ID. Without a citable deferred-disposition, the finding
+triggers loopback as a new gap.
 
 ## Modes
 

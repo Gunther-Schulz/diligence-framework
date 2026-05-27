@@ -113,15 +113,12 @@ decision is, by its tag, surfaced in the tracker for the operator's
 review of the completed run.
 
 Verify [ISSUES FOUND] in auto-battle triggers automatic loopback to
-investigate-design (`core.md` §4.3, §6). The convergence exception:
-a verify finding whose evidence field explicitly cross-references an
-existing [AUTO-ACCEPTED] design decision by its tracker ID — declaring
-the finding observes the same gap the decision deferred — does not
-trigger loopback. The finding is appended to the tracker as a
-re-surfacing notation alongside the original [AUTO-ACCEPTED] tag,
-and the run completes; the AI's prior judgment to defer is preserved
-for the operator's post-run review. Other halt conditions — phases
-that genuinely cannot complete on causes other than [ISSUES FOUND] —
+investigate-design (`core.md` §4.3, §6). A finding that closes
+[VERIFIED — deferred] (`core.md` §5.1) does not trigger loopback —
+the disposition cites the existing [AUTO-ACCEPTED] decision and the
+run completes; the AI's prior judgment to defer is preserved for
+the operator's post-run review. Other halt conditions — phases that
+genuinely cannot complete on causes other than [ISSUES FOUND] —
 remain a separate effort, not yet undertaken.
 
 ## 2. The standardized lens set

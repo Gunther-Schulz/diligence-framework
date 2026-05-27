@@ -609,10 +609,25 @@ A finding — an observation recorded by inspection — moves through:
    directly; [PARTIALLY VERIFIED] holds a finding whose verification
    spans steps or cycles.
 3. **[VERIFIED]** — verification complete: the finding's content is
-   established on evidence — whether that content is a live concern
-   (it informs the design) or a non-issue (investigated, it does
-   not). Which it is lives in the finding's summary, not a separate
-   state.
+   established on evidence. A [VERIFIED] tag carries a cited
+   **disposition** naming which of three cases applies (closed enum):
+
+   - **addressed** — the cited D# names the same observable
+     behavior the finding observes (file, symbol, or contract
+     surface); citation-equivalence is the check.
+   - **non-issue** — basis cites (a) a re-runnable search whose
+     result is empty, or (b) a file:line + observable fact
+     contradicting the finding's premise (§3.1).
+   - **deferred** — re-observes a gap an existing [AUTO-ACCEPTED]
+     decision deferred; basis cites that decision's tracker ID,
+     and the finding is appended as a re-surfacing notation
+     alongside the original [AUTO-ACCEPTED] tag.
+
+   The disposition is cited as a tagged suffix on the status line:
+   `[VERIFIED — <disposition>]`. A [VERIFIED] without a cited
+   disposition is malformed (§3.1). A finding with none of the
+   three dispositions citable stays at its prior status; §4.3
+   then forces [ISSUES FOUND].
 
 A finding whose stated content is found inaccurate during
 verification is corrected — appended as a new line at its current
