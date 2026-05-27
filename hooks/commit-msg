@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-commit-msg hook — validates the Step-5 discharge artifact for rule-corpus commits.
+commit-msg hook — validates the Step-4 discharge artifact for rule-corpus commits.
 
-Per anneal-framework development-process.md step 5 (release loop):
+Per anneal-framework development-process.md step 4 (release loop):
 - Detects if the commit touches rule-corpus files (spec/, development-process.md,
   plugin/skills/, references/*.md)
-- If so, requires a Step-5 discharge artifact in the commit message
+- If so, requires a Step-4 discharge artifact in the commit message
 - Validates each of the 7 required checks is present
 - Pattern-fails on rationalize-away-as-covered shapes ("folded into",
   "subsumed by", "covered by [other check]") — per the closed-set rule
@@ -111,11 +111,11 @@ def validate_discharge(msg: str) -> list[str]:
     errors = []
 
     # 1. Discharge present
-    if "Step-5 discharge" not in msg:
+    if "Step-4 discharge" not in msg:
         errors.append(
-            "Missing Step-5 discharge artifact in commit message.\n"
-            "  See development-process.md step 5 for the required template.\n"
-            "  Format: 'Step-5 discharge for commit [pending]:' followed by\n"
+            "Missing Step-4 discharge artifact in commit message.\n"
+            "  See development-process.md step 4 for the required template.\n"
+            "  Format: 'Step-4 discharge for commit [pending]:' followed by\n"
             "  one line per check in [subagent ID, verdict] / [N/A: ...] / "
             "[in-context check cited] form."
         )
@@ -160,7 +160,7 @@ def validate_discharge(msg: str) -> list[str]:
     if fold_into_hits:
         errors.append(
             "Fold-into rationalization detected (per development-process.md "
-            "step 5, 'A \"folded-into\" or \"subsumed\" form is never one of "
+            "step 4, 'A \"folded-into\" or \"subsumed\" form is never one of "
             "those — it is the rationalize-away-as-covered shape'):\n"
             + "\n".join(f"    {l}" for l in fold_into_hits)
         )

@@ -117,7 +117,7 @@ name, identifier shorthand, prose paraphrase, cross-section anchor
 (or a named new class with rationale; the enumeration is closed
 unless extension is explicit) — with confirmation that the patterns
 cover each class. A practice-4 audit citing only "grep done"
-without the artifact is incomplete; per Step 5 the discharge
+without the artifact is incomplete; per Step 4 the discharge
 requires evidence.
 
 ### 5. Ground before asserting or editing
@@ -131,7 +131,7 @@ process itself **per edit cycle**, not per session: a system
 reminder noting an earlier-turn skill invocation does not
 discharge a rule-corpus hook for a new edit. An **edit cycle** is
 one scope of change — framework-spec edit + its renders + the
-checks that discharge step 5 for that scope; a new scope (a
+checks that discharge step 4 for that scope; a new scope (a
 different finding, a different rule, a different fix target) is
 a new cycle, regardless of response boundaries.
 
@@ -370,11 +370,9 @@ A change runs the same loop:
    (practice 1).
 2. **Fix at the source** — edit the spec at the level the change
    belongs to.
-3. **Commit the source repo** — a clear message stating what changed
-   and why.
-4. **Re-render** the affected instance files from the corrected spec
+3. **Re-render** the affected instance files from the corrected spec
    — faithfully, clause by clause.
-5. **Verify** — each check below is dispatched (separate context
+4. **Verify** — each check below is dispatched (separate context
    where required); discharge produces an **explicit artifact**
    the operator second-judges before commit. The operator-facing
    view is the practice-11 findings table when subagent findings
@@ -392,7 +390,7 @@ A change runs the same loop:
    The discharge artifact form, per commit:
 
    ```
-   Step-5 discharge for commit <SHA or "pending">:
+   Step-4 discharge for commit <SHA or "pending">:
    - Render fidelity (practice 2) → [subagent ID, verdict] OR [N/A: cited reason]
    - Spec-origin trace (per contract 2; for commits touching `plugin/skills/*/`) → [<plugin-file>:<spec-clause> per touched plugin file] OR [N/A: no plugin/skills/* files in diff]
    - Practice-4 dependent audit → [grep evidence cited] OR [N/A: cited reason]
@@ -422,7 +420,7 @@ A change runs the same loop:
    "covered by [other reviewer]," "subsumed by [other check]") are
    the very signal that the check is in scope. The doubt IS the
    evidence. This pattern is the recurring failure shape behind
-   partial Step-5 discharge. **Each check's acceptable forms are
+   partial Step-4 discharge. **Each check's acceptable forms are
    exhaustive**: exactly those named in its template line —
    `[subagent ID, verdict]` or `[N/A: mechanically-verifiable cited
    reason]` (or `[in-context check cited]` for practice-6). A
@@ -491,6 +489,11 @@ A change runs the same loop:
      multi-file extension (`PROCEDURE.md`). Trigger: commit touches
      2+ spec files OR instance render makes a rule visible in more
      than one home.
+5. **Commit the source repo** — after step 4's discharge artifact
+   is surfaced and the operator approves explicitly per cycle-18
+   gate, AI commits. Clear message stating what changed and why;
+   the Step-4 discharge artifact in the commit body per the form
+   above.
 6. **Release the instance** — version-bump the plugin, commit and
    push to remote, then for each affected instance **pull the
    marketplace clone and run `claude plugin update`**:
