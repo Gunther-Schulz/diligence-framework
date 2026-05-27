@@ -324,3 +324,22 @@ investigate-design checks and the [READY] presentation missed).
 An **operator catch** is a defect caught at the [READY]
 presentation, before the run proceeded (investigate-design
 missed but the [READY] presentation worked as designed).
+
+## Lifecycle extensions
+
+**Lifecycle extension** — an instance-declared behavior that fires
+at a framework-defined lifecycle extension point. Optional
+instance-spec slot specified in `instantiation-guide.md` §5. Ships
+disabled by default; the instance supplies the enable mechanism the
+operator toggles. Bounded by the capability-boundary clauses
+(§5). Distinct from the descriptive-verb sense of "extension"
+elsewhere in this corpus (e.g., `spec/README.md` "deliberately
+resistant to extension" addresses framework-spec additions; lifecycle
+extensions are instance-side slot content, scoped by a closed point
+set and a closed capability boundary).
+
+**Lifecycle extension point** — a framework-defined event in the
+cycle with fixed firing semantics, exposed read-only context, and
+permitted effect scope. Named member of a closed set specified in
+`instantiation-guide.md` §5. The set is closed — instances do not
+invent points.

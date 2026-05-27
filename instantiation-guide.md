@@ -18,7 +18,7 @@ of contract 3's "instance domain-binding scope".
    framework spec (`spec/`) for the method, and supplies only the
    domain bindings and the domain's standardized lens set.
 2. **Generate the plugin** from the spec, per skill-craft.
-3. **Verify and validate** the instance by the development process (§5).
+3. **Verify and validate** the instance by the development process (§6).
 
 Spec-first is not optional. Writing and settling the spec before
 building the plugin surfaces gaps — mis-bindings, missing lenses,
@@ -97,16 +97,27 @@ in `bindings.md`, the render's instance-side input. The section is
 optional and most instances leave it empty: the framework defines the
 slot, it never dictates its content.
 
+The framework also recognises **lifecycle extensions** — instance-
+declared behaviors that fire at framework-defined points in the cycle
+(e.g., on verify-PASSED, on instance-complete) and are bounded by a
+framework-defined capability boundary. Lifecycle extensions do not
+extend the method — they ride alongside it, as bookends layered on
+framework-defined events. The set of points is closed (an instance
+hooks existing points; it does not invent them) and every extension
+ships disabled by default (the instance supplies the enable
+mechanism the operator toggles). §5 specifies the points, the
+boundary, the declaration shape, and the enable mechanism.
+
 Together these are the instance spec's **slots** — its
 render-consumed kinds of content, each with a framework-defined
-meaning: the three required above, and the optional presentation
-section. The set is **closed**. An instance never adds a slot
-silently — an unrecognised section is undefined input to the render.
-A genuinely new slot is proposed to the framework and recognised in
-this guide, or it does not exist. An instance's freedom is in how it
-fills the slots, and in free-form rationale the render does not
-consume — not in inventing render-consumed structure the framework
-does not know.
+meaning: the three required above, and the two optional sections
+(presentation and lifecycle extensions, §5). The set is **closed**.
+An instance never adds a slot silently — an unrecognised section is
+undefined input to the render. A genuinely new slot is proposed to
+the framework and recognised in this guide, or it does not exist. An
+instance's freedom is in how it fills the slots, and in free-form
+rationale the render does not consume — not in inventing
+render-consumed structure the framework does not know.
 
 ## 3. Binding the framework to the domain
 
@@ -160,10 +171,126 @@ elsewhere; are all downstream consumers enumerated; are failure paths
 specified; are all value-classes covered. Use these as prompts; the
 domain decides its own set.
 
-## 5. Generate the instance
+## 5. Lifecycle extensions (optional)
 
-With the instance spec written and the lens set bootstrapped, the
-domain-specific work is done. From here the instance is built and
+An instance may declare behaviors that fire at framework-defined
+points in the cycle — for example, opening a pull request when verify
+reaches [PASSED], or refusing to start a run on a dirty tree. These
+are **lifecycle extensions**: bookends layered on the framework's
+cycle, not modifications to it.
+
+The framework defines a **closed set** of lifecycle extension points.
+Each point has framework-defined firing semantics, exposed read-only
+context, and permitted effect scope. An instance hooks one or more
+points by declaring extensions in its spec — as an `## Extensions`
+section in `bindings.md`, or as a separate `spec/extensions.md` when
+the section grows. The set is closed: an instance never hooks an
+unrecognised point and never invents one. A genuinely new point is
+proposed to the framework and recognised here, or it does not exist.
+
+### Extension points
+
+| Point | Fires when | Exposes (read-only) | Permitted effects |
+|---|---|---|---|
+| `on-instance-start` | Run begins, pre-investigate | Task summary, mode | External side effects; **may return a precondition-failure** (a halt signal with a stated reason) **that blocks the run** (only point allowed to gate) |
+| `on-cycle-end` | A cycle's two tracks settle and its standardized pass is clean | The cycle's F/D entries with statuses, the cycle's standardized-pass artifact | External side effects; writes to non-spec paths |
+| `on-verify-PASSED` | Verify reaches [PASSED] | Full tracker snapshot, work-product paths, basis citations | External side effects; writes to non-spec paths |
+| `on-instance-complete` | Run reaches its closed state | Full tracker, all artifacts | External side effects; archival; writes to non-spec paths |
+
+### Capability boundary
+
+A lifecycle extension cannot:
+
+1. **Modify tracker state.** No status changes; no F/D additions.
+   The tracker is the spine — extensions cannot bypass it.
+2. **Influence phase gates mid-flow.** Only `on-instance-start` may
+   gate. The framework's phase mechanics ([READY], verify-PASSED)
+   are framework-determined; extensions are bookends, not gates.
+3. **Read context outside its point's exposed snapshot.** An
+   extension at `on-cycle-end` does not peek at other cycles or
+   at run-internal mechanics not in the exposed context.
+4. **Write to framework spec, instance spec, or rendered skill
+   files.** Extensions cannot smuggle in content with no spec
+   origin (`foundation.md` contract 2).
+5. **Fire other extension points, or recurse into the cycle.**
+   Linear orchestration only; no reentrancy.
+6. **Run during a phase.** Only at the named extension points —
+   between-phases or at-event.
+7. **Block subsequent extensions** at the same point, unless
+   framework-marked blocking. Failure of one is logged and
+   continues.
+
+**Binding-refinement vs lifecycle extension.** Some domain concerns
+look like extensions but are not. The test is slot-membership:
+
+- A behavior that refines a domain-general term in §3's bindings
+  table (verification, scope, work product, etc.) is a **binding
+  refinement** — extend that row in §3, not §5. Examples: adding
+  a new check tool to verification; adding a new search class to
+  scope.
+- A behavior that fires at one of the extension points named in
+  the table above is a **lifecycle extension** — declare it in
+  the instance spec's `## Extensions` section.
+- A behavior that fits neither requires a framework-spec change
+  (a new extension point, or a new binding category) per the
+  closed-slot rule above.
+
+### Disabled by default
+
+Every declared extension ships in the rendered plugin but is
+**disabled** until the operator enables it. The framework does not
+prescribe the enable mechanism — the instance supplies it (parallel
+to how the instance supplies the run-artifact persistence mechanism,
+§2). The AI reads the enable state before firing any extension;
+missing or ambiguous state is read as disabled (fail-safe).
+
+The instance-supplied enable mechanism, declared in the same section
+as the extension declarations, must be:
+
+- **Operator-controllable** — togglable without spec or code edits.
+- **Version-controllable** — the operator can choose whether the
+  enable state travels with the project (committed) or is per-clone
+  (gitignored).
+- **Fail-safe** — missing, malformed, or ambiguous state reads as
+  disabled. The AI never fires an extension whose enable state is
+  unreadable.
+
+A worked example for software-engineering instances: a file at
+`<instance-runs-dir>/extensions.enabled` listing enabled extension
+names, one per line — the operator edits the file to toggle. Other
+instances may use config lines, environment variables, or per-run
+tracker-header entries; the framework is mechanism-agnostic.
+
+### Declaration shape
+
+An extension declaration carries: the point it hooks, the action it
+performs, the side-effect target, and its failure handling. Multiple
+extensions at the same point run in declared order.
+
+```
+## Extensions
+
+Enable mechanism: <instance-supplied — names the artifact's location
+and format and how absence is interpreted>
+
+### on-verify-PASSED · auto-create-pr
+Action: invoke `gh pr create --title <T> --body <B>`
+  T derived from: the cycle's task summary
+  B derived from: tracker reduced to verified F/D entries
+Side-effect target: GitHub remote
+Failure handling: log + continue
+```
+
+The declaration is the audit surface: a capability-violating action
+string is observable in the instance spec at review time, not
+deferred to runtime. The catch is the spec-origin audit
+(`foundation.md` contract 2 + `development-process.md` practice 4).
+
+## 6. Generate the instance
+
+With the spec settled — bindings, lens set, run-artifact persistence,
+optionally presentation and lifecycle extensions — the domain-specific
+work is done. From here the instance is built and
 evolved by the **development process** (`development-process.md`) —
 render, verify in a separate context, validate, and change. The first
 build is that process run once over the whole instance; every later
