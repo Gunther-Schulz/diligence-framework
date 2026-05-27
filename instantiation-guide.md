@@ -341,17 +341,29 @@ apply:
    plugin manifest's skill-name uniqueness.
 
 **Project init.** When an instance runs in a project for the
-first time, it bootstraps placeholder files at every
-operator-editable artifact location declared in its spec — the
-enable mechanism file above, the lens-supplement file (§4), and
-any future operator-editable instance-side artifact. Placeholders
-are committed (tracked under git); the runtime-state directory is
-added to `.gitignore` by the instance on the same first-run. This
-makes the operator's edit surface visible at first-use, not
-buried in spec-prose the operator has to discover. (Distinct
-from the developer-time template-copy at the top of "The
-process — spec-first", which scaffolds the instance repo
-itself.)
+first time, it bootstraps placeholder files for **every
+operator-editable slot kind the framework recognises**
+(enumerated at the top of this subsection), regardless of
+whether the instance has declared specific items in those slots.
+The placeholder is what makes the capability visible: an
+operator landing in a fresh project sees the slot kinds
+available without needing to read spec-prose to discover them. Placeholders are committed (tracked under git);
+the runtime-state directory is added to `.gitignore` by the
+instance on the same first-run.
+
+**Placeholder content style.** Each placeholder carries: a
+header comment naming the slot kind and pointing at its spec
+section; empty sections matching the slot's declaration shape;
+optionally a commented-out small example showing what filling-in
+looks like. The file documents
+the capability — its presence is the un-fakeable signal that
+the slot is available in this instance; its content shows the
+operator what content goes here. An instance that later adds a
+declared item (a specific extension; a specific supplemental
+lens) replaces the placeholder content rather than creating a
+new file. (Distinct from the developer-time template-copy at
+the top of "The process — spec-first", which scaffolds the
+instance repo itself.)
 
 ### Declaration shape
 
