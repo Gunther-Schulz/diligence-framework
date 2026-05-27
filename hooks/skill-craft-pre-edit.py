@@ -33,6 +33,8 @@ PLUGIN_RENDER_PATTERNS = [
 SPEC_SOURCE_PATTERNS = [
     re.compile(r"/spec/.+\.md$"),
     re.compile(r"/development-process\.md$"),
+    re.compile(r"/post-run-review\.md$"),
+    re.compile(r"/instantiation-guide\.md$"),
 ]
 
 # Skill-craft canonical exemption — skill-craft is a meta-plugin where
