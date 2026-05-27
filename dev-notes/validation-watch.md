@@ -1002,8 +1002,8 @@ boilerplate or compression dominates), not deferral-journal.
 
 ## V-19. Convergence-cycle isolation — is falsification-pass alone enough?
 
-**Status: FIX-SHIPPED (2026-05-28, partial).** Theater hypothesis
-confirmed at n=1 by unit-8 cycle 4 (beat-the-books): D7 received
+**Status: FIX-SHIPPED (2026-05-28).** Theater hypothesis confirmed
+at n=1 by unit-8 cycle 4 (beat-the-books): D7 received
 falsification candidate `grep -rn "@model_validator"
 src/beat_the_books/services/` (pattern-shape grep), returned
 `holds` on the validator-override mechanism check, but did NOT
@@ -1015,29 +1015,30 @@ including variant_seed.py:97 and surfaced the validator collision
 before commit. Theater shape confirmed: `holds` on shallow
 candidate; downstream catch on coupling the candidate didn't cover.
 
-**Named fix shipped — partial.** Convergence-subagent (the candidate
-fix V-19 named) shipped 2026-05-28 in `core.md` §4.1.4: dispatched
-to fresh-context subagent + mechanical coverage check on return.
-However, the same unit-8 cycle-4 evidence shows the named fix is
-INSUFFICIENT alone: the candidate-selection failure is about
-**coupling-shape coverage discipline**, not just context anchoring.
-A fresh-context subagent could still pick pattern-only grep because
-§3.4's "capable of returning falsifying evidence" requirement does
-not specify coupling-shape coverage (patterns + call-sites +
-imports + downstream consumers). Even with operator priming of
-falsification discipline, the working context picked pattern-shape
-not call-site-shape.
+**Two-part fix shipped 2026-05-28** (same date, sequential cycles):
 
-**Remaining work to close.** Next-cycle structural fix:
-coupling-shape candidate enumeration discipline applied to §3.4
-(per-D-entry candidate set must cover each coupling shape the
-basis depends on). Queued for the immediately-next edit cycle.
+1. **Convergence-subagent** (C8 sharpening, commit 8f27d32):
+   falsification pass dispatched to fresh-context subagent with
+   mechanical coverage check on return + isolation fallback
+   (`core.md` §4.1.4). Closes the coverage failure shape
+   (1/15, 2/5, 6/9 D-entry coverage observed across three runs).
+
+2. **Coupling-shape candidate enumeration** (C8 follow-on,
+   commit pending): per-D-entry candidate set — one candidate
+   per coupling shape the basis depends on (closed set per
+   `glossary.md` Coupling shape: target-shape, target-uses,
+   target-behavior); aggregate-holds-or-falsified per line.
+   Closes the candidate-shape adequacy failure that the
+   convergence-subagent alone did not address. Without this
+   second part, a fresh-context subagent could still pick
+   pattern-only grep — the unit-8 cycle-4 failure shape
+   recurred even under operator priming, demonstrating the
+   structural gap.
 
 **Closing criterion (FIX-SHIPPED → RESOLVED).** A run under the
-complete fix (dispatch + coupling-shape candidate enumeration)
-where the dispatched falsification subagent catches a coupling
-failure that the pre-fix in-context-with-pattern-only candidate
-would have missed. One observed instance is sufficient.
+complete fix where the dispatched falsification subagent catches
+a coupling failure that the pre-fix in-context-with-pattern-only
+candidate would have missed. One observed instance is sufficient.
 
 **Original observation preserved below for audit trail.**
 
@@ -1094,3 +1095,53 @@ Per `development-process.md` practice 8, this V-N is legitimate
 materializes — the fix is classifiable structural-enforcement
 once the signal appears, but the signal-existence is the
 genuinely uncertain question).
+
+---
+
+## V-20. Basis-body claimed-shapes pinning — does the bounded judgment hold?
+
+**Status: WATCHING.**
+
+**Decision (`core.md` §4.1.4 + `modules.md` §3.4 + `glossary.md`
+Coupling shape; commit pending).** The candidate-set form
+requires per-D-entry candidates covering "every shape the basis
+claims." The closed enum (target-shape / target-uses /
+target-behavior) bounds the set to three. **target-uses** has a
+mechanical pin: §3.2.2 amendment decisions always include it.
+**target-shape** and **target-behavior** have no mechanical
+pin — the subagent infers per-basis which shapes apply from
+the basis text. Bounded judgment within a structurally-enforced
+closed enum.
+
+**Why uncertain.** The basis-body shape (`core.md` §5.2 (a)-(e))
+does not carry an explicit "claimed shapes: [list]" field.
+Whether the subagent's per-basis shape inference reliably
+matches the basis's actual dependencies is the open question.
+Adding the explicit field to §5.2 (b) would mechanically pin
+all three shapes, removing the residual judgment — but at the
+cost of an additional design-decision body field for every
+[VERIFIED] D-entry. Pareto cost vs. benefit isn't established
+empirically.
+
+**Production signal to watch.** A run where the falsification
+candidate set produced `holds` aggregate, followed by a
+downstream catch (implement-loopback or verify [ISSUES FOUND])
+on a coupling the candidate set didn't cover — and the missed
+coupling matches a shape the basis depended on but the
+candidate set didn't tag. If observed at n=1, sharpen `core.md`
+§5.2 (b) body shape to carry an explicit claimed-shapes
+enumeration; the falsification subagent then matches the
+candidate set's shape tags against the basis's claimed-shapes
+field mechanically.
+
+Closing criterion (WATCHING → FIX-SHIPPED): observed n=1
+instance of the production signal; ship the claimed-shapes
+field. FIX-SHIPPED → RESOLVED on first observed run where the
+mechanically-pinned shapes catch what the bounded-judgment
+shape-inference would have missed.
+
+Per `development-process.md` practice 8, this V-N is legitimate
+(form depends on whether the bounded-judgment shape-inference
+fails empirically — the fix is classifiable
+structural-enforcement once observed, but the signal-existence
+is the genuinely uncertain question).

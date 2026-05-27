@@ -369,29 +369,40 @@ a search or read whose positive result would invalidate the
 entry's basis, runs it, and cites the result. The subagent
 returns the artifact and does not initiate further dispatches.
 The pass produces a per-decision artifact (`modules.md` §3.4):
-one line per [VERIFIED] entry in `{decision-ID, falsification-
-candidate, result, holds-or-falsified}` shape. A falsification
-candidate whose negative result would not invalidate the basis
-is malformed — the candidate must be capable of returning
-falsifying evidence if the basis is wrong (the basis rule's
-search-establishment shape applied to the candidate, per §3.2).
-A [VERIFIED] entry whose candidate finds positive falsifying
-evidence is **falsified**: the entry flips through
-[INVALIDATED]→[PENDING] (per §5.2) and the cycle continues.
+one line per [VERIFIED] entry carrying a **candidate set** —
+one candidate per coupling shape the basis depends on
+(`glossary.md` Coupling shape; closed set: target-shape /
+target-uses / target-behavior). Each candidate is tagged with
+its shape; the line aggregates to `holds` only if every
+per-shape candidate holds. A candidate whose negative result
+would not invalidate the basis on its tagged shape is
+malformed — each candidate must be capable of returning
+falsifying evidence on its shape if the basis is wrong (the
+basis rule's search-establishment shape applied to the
+candidate, per §3.2). A candidate set whose shape coverage
+does not include every shape the basis claims is also
+malformed. A [VERIFIED] entry whose aggregate-holds-or-
+falsified is `falsified` flips through [INVALIDATED]→[PENDING]
+(per §5.2) and the cycle continues.
 
 **Coverage check on return.** The orchestrator counts the
 returned artifact's lines against the [VERIFIED] D-entry set at
-the convergence cycle's start AND checks each line's
-mechanical form (candidate field non-empty + cites a file:line
-or a re-runnable query per §3.2). A missing line OR a
+the convergence cycle's start AND checks each line's mechanical
+form: (i) candidate set non-empty, (ii) each candidate carries
+a shape tag from the closed set (`glossary.md` Coupling shape),
+a candidate field (file:line or re-runnable query per §3.2), a
+result field, and a per-candidate holds-or-falsified value;
+(iii) the line's aggregate-holds-or-falsified equals the
+conjunction of per-candidate holds. A missing line OR a
 mechanically-malformed line is a malformed return; the
-orchestrator re-dispatches with the gap's D-entry IDs
-explicit, and the subagent fills the gap. Both checks are
-computed from the artifact — the un-fakeable evidence the
-pass is complete. **Semantic capability** — whether each
-candidate is capable of returning falsifying evidence if the
-basis is wrong (`modules.md` §3.4) — is the subagent's
-responsibility per the brief (d), not the orchestrator's.
+orchestrator re-dispatches with the gap's D-entry IDs explicit,
+and the subagent fills the gap. All checks are computed from
+the artifact. **Semantic capability** — whether each candidate
+is capable of returning falsifying evidence on its tagged
+shape, AND whether the candidate set's shape coverage matches
+the basis's claimed shapes (`modules.md` §3.4) — is the
+subagent's responsibility per the brief (d), not the
+orchestrator's.
 
 **Isolation fallback.** If an isolated context cannot be
 established (subagent spawn fails), the falsification pass is

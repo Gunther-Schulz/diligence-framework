@@ -313,28 +313,46 @@ references them by section letter.
 
 The convergence cycle's falsification pass (`core.md` §4.1.4)
 emits a per-decision artifact: one line per [VERIFIED] D-entry
-at the start of the convergence cycle, in the shape
-`{decision-ID, falsification-candidate, result, holds-or-falsified}`.
+at the start of the convergence cycle, carrying a **candidate
+set** — one candidate per coupling shape the basis depends on
+(`glossary.md` Coupling shape). Line shape:
+
+`{decision-ID, [{shape, candidate, result, holds-or-falsified}, …], aggregate-holds-or-falsified}`
+
 Produced by the fresh-context falsification subagent dispatched
 per `core.md` §4.1.4; the orchestrator coverage-checks the
-returned artifact (line count against [VERIFIED] entry count)
-on return.
+returned artifact on return (`core.md` §4.1.4 Coverage check).
 
 - **decision-ID** — the D# being attempted.
-- **falsification-candidate** — an executable query (grep,
-  search) or located read (file:line) whose positive result
-  would invalidate the entry's basis. Form follows §3.2 — the
-  candidate is a search-established artifact, not a recalled
-  hypothesis. A candidate whose negative result would not
-  invalidate the basis is malformed: the candidate must be
-  capable of returning falsifying evidence if the basis is
-  wrong.
+- **shape** — one of: `target-shape`, `target-uses`,
+  `target-behavior` (closed set per `glossary.md` Coupling
+  shape).
+- **candidate** — an executable query (grep, search) or
+  located read (file:line) whose positive result would
+  invalidate the entry's basis on this shape. Form follows
+  §3.2 — the candidate is a search-established artifact, not
+  a recalled hypothesis. A candidate whose negative result
+  would not invalidate the basis on its tagged shape is
+  malformed: the candidate must be capable of returning
+  falsifying evidence on its shape if the basis is wrong.
 - **result** — the actual output of running the candidate:
   cited matches (file:line) for a search, content for a read.
-- **holds-or-falsified** — binary, computed from the result:
-  `holds` if no falsifying evidence returned; `falsified`
-  otherwise. `falsified` flips the entry through
-  [INVALIDATED]→[PENDING] (per `core.md` §5.2).
+- **holds-or-falsified** — binary per-candidate, computed
+  from the result: `holds` if no falsifying evidence
+  returned; `falsified` otherwise.
+- **aggregate-holds-or-falsified** — binary per-line,
+  computed from the candidate set: `holds` if every per-shape
+  candidate holds; `falsified` otherwise. `falsified` flips
+  the entry through [INVALIDATED]→[PENDING] (per `core.md`
+  §5.2).
+
+A candidate set whose shape coverage does not include every
+shape the basis claims is a malformed line — the basis
+specifies its shape dependencies, the candidate set mirrors.
+Amendment decisions (`core.md` §3.2.2) always include
+target-uses in the basis's claimed shapes; the candidate set's
+target-uses candidate re-runs §3.2.2's reference enumeration
+as its search.
 
 A [VERIFIED] entry without a falsification-pass line at the
 convergence cycle is a malformed artifact — the [READY]

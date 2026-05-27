@@ -63,6 +63,24 @@ claims carry the basis apparatus (`core.md` §3.2).
 element's dependents, an input's value-classes, a flaw class's
 instances. Its basis is a mechanical search (`core.md` §3.2).
 
+**Coupling shape** — a category of dependency that a [VERIFIED]
+D-entry's basis claims to rest on. Closed set of three:
+
+- **target-shape** — the named target exists with its claimed
+  contract surface (signature, type, decorator, attribute,
+  structure).
+- **target-uses** — code that uses the target (call-sites,
+  imports, downstream consumers). Amendment decisions
+  (`core.md` §3.2.2) always include this shape; the
+  target-uses candidate re-runs §3.2.2's reference
+  enumeration as its search.
+- **target-behavior** — the target's behavior under input
+  classes (branches, error paths, contracts honored).
+
+The convergence-cycle falsification pass (`core.md` §4.1.4)
+must cover every shape the basis depends on with a candidate
+per shape (`modules.md` §3.4 candidate set).
+
 **Silent substitution** — missing or malformed evidence defaulted to
 a plausible proxy that propagates as if it were the basis: a
 recalled count where a search is needed, a free-text claim of having
@@ -110,17 +128,22 @@ findings is malformed.
 cycle attempting to invalidate each [VERIFIED] D-entry's basis
 (`core.md` §4.1.4). Dispatched to a fresh-context subagent
 applying §3.1's separate-checker requirement. For each entry,
-the subagent produces a falsification candidate, runs it, and
-cites the result as holds-or-falsified. A candidate finding
-positive falsifying evidence reopens the entry to [PENDING]
-(`modules.md` §3.4).
+the subagent produces a candidate set (one candidate per
+coupling shape the basis depends on; see Coupling shape above),
+runs each candidate, and cites the result as holds-or-falsified
+per candidate plus aggregate-holds-or-falsified per line. An
+aggregate-falsified entry reopens to [PENDING] (`modules.md`
+§3.4).
 
-**Falsification candidate** — an executable query or located
-read whose positive result would invalidate a [VERIFIED] D-entry's
-basis (`modules.md` §3.4). Form follows the basis rule (`core.md`
+**Falsification candidate** — a per-shape executable query or
+located read whose positive result would invalidate a
+[VERIFIED] D-entry's basis on the candidate's tagged coupling
+shape (`modules.md` §3.4). Form follows the basis rule (`core.md`
 §3.2): the candidate is search-established, not recalled, and
-must be capable of returning falsifying evidence if the basis is
-wrong.
+must be capable of returning falsifying evidence on its tagged
+shape if the basis is wrong on that shape. Candidates compose
+into a candidate set covering every shape the basis depends on
+(see Coupling shape above).
 
 **Cycle-another (recommendation)** — the AI's recommendation to
 run another investigate-design cycle rather than transition to

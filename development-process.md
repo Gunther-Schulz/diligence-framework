@@ -135,18 +135,25 @@ checks that discharge step 4 for that scope; a new scope (a
 different finding, a different rule, a different fix target) is
 a new cycle, regardless of response boundaries.
 
-**Skill-craft invocation at edit-cycle start.** Before drafting
-any edit in a new rule-corpus cycle (skill-craft canonical,
-anneal-framework spec, instance spec, or `plugin/skills/*/`),
-invoke skill-craft via the Skill tool. The invocation reloads
-PROCEDURE.md + anti-patterns.md so the disciplines (Form-choice,
+**Skill-craft invocation is unconditional at every edit-cycle
+start.** Before drafting any edit in a rule-corpus cycle
+(skill-craft canonical, anneal-framework spec, instance spec,
+or `plugin/skills/*/`), invoke skill-craft via the Skill tool —
+unconditionally, regardless of prior invocations earlier in the
+session. The invocation reloads PROCEDURE.md +
+anti-patterns.md so the disciplines (Form-choice,
 Edit-as-Pareto, Naked-judgment, Skip-rationalization,
 Soft-load-pointers, Additive-reflex, Amendment) are active at
 DRAFTING, not just at post-hoc validation. Per-edit-cycle, not
 per-session — session-level invocation does not discharge a new
-cycle's grounding. The PreToolUse hook surfaces this reminder;
-the rule is to comply proactively at cycle-start, not reactively
-at the hook.
+cycle's grounding; a prior cycle's invocation does not
+discharge the new cycle's. Rationalizations for skipping
+("this edit is small," "the disciplines are already in
+memory," "I just invoked it last cycle," "the files are
+cached") are Skip-rationalization shapes — the rationalization
+IS the dispatch signal, invoke instead. The PreToolUse hook is
+a reactive reminder; compliance is proactive invocation at
+cycle-start.
 
 **Spec-origin grounding for plugin edits.** Before editing any
 file under `plugin/skills/*/`, surface which spec clause the
