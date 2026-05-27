@@ -205,7 +205,17 @@ return.
 
 ## V-5. [READY] self-assessment vs external check
 
-**Status: FIX-SHIPPED (2026-05-25, commit e18bca1).** The recurrence
+**Status: RESOLVED (2026-05-28).** Load-bearing instance: unit-8
+arb-strategy run (beat-the-books project), cycle 3 — the
+convergence cycle's falsification pass caught 3 [VERIFIED]
+D-entries with unsurfaced gaps (F21 — D1 missing 2 test files;
+F22 — D5 missing SQL projection; F23 — D9 wrong file name +
+wrong handling). All three would have escaped under the
+pre-fix self-test-only protocol and surfaced as
+implement-loopback or verify [ISSUES FOUND]; the convergence
+cycle caught them at investigate-design.
+
+**Origin: FIX-SHIPPED (2026-05-25, commit e18bca1).** The recurrence
 the production-signal watched for was observed in the unit-14 run
 (beat-the-books project): cycle 3 declared [READY], operator chose
 Continue, cycle 4 surfaced material design corrections (F31-F36 +
@@ -992,7 +1002,46 @@ boilerplate or compression dominates), not deferral-journal.
 
 ## V-19. Convergence-cycle isolation — is falsification-pass alone enough?
 
-**Status: WATCHING.**
+**Status: FIX-SHIPPED (2026-05-28, partial).** Theater hypothesis
+confirmed at n=1 by unit-8 cycle 4 (beat-the-books): D7 received
+falsification candidate `grep -rn "@model_validator"
+src/beat_the_books/services/` (pattern-shape grep), returned
+`holds` on the validator-override mechanism check, but did NOT
+attest the validator's call-site coupling. U1 dispatched, then
+loopbacked on `variant_seed.py:97` `ArbParams()` zero-arg
+construction failing the new strict validator. Counterfactual:
+`grep -rn "ArbParams(" src tests` would have returned 6 matches
+including variant_seed.py:97 and surfaced the validator collision
+before commit. Theater shape confirmed: `holds` on shallow
+candidate; downstream catch on coupling the candidate didn't cover.
+
+**Named fix shipped — partial.** Convergence-subagent (the candidate
+fix V-19 named) shipped 2026-05-28 in `core.md` §4.1.4: dispatched
+to fresh-context subagent + mechanical coverage check on return.
+However, the same unit-8 cycle-4 evidence shows the named fix is
+INSUFFICIENT alone: the candidate-selection failure is about
+**coupling-shape coverage discipline**, not just context anchoring.
+A fresh-context subagent could still pick pattern-only grep because
+§3.4's "capable of returning falsifying evidence" requirement does
+not specify coupling-shape coverage (patterns + call-sites +
+imports + downstream consumers). Even with operator priming of
+falsification discipline, the working context picked pattern-shape
+not call-site-shape.
+
+**Remaining work to close.** Next-cycle structural fix:
+coupling-shape candidate enumeration discipline applied to §3.4
+(per-D-entry candidate set must cover each coupling shape the
+basis depends on). Queued for the immediately-next edit cycle.
+
+**Closing criterion (FIX-SHIPPED → RESOLVED).** A run under the
+complete fix (dispatch + coupling-shape candidate enumeration)
+where the dispatched falsification subagent catches a coupling
+failure that the pre-fix in-context-with-pattern-only candidate
+would have missed. One observed instance is sufficient.
+
+**Original observation preserved below for audit trail.**
+
+---
 
 **Decision (`core.md` §4.1.4, C8 commit pending).** C8 ships
 falsification-pass at convergence cycle (per-decision artifact

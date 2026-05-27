@@ -286,20 +286,28 @@ subagent that follows a closed-section form: (a) **load
 instructions** — the orchestrator's skill files to read; (b)
 **tracker reference** — at implement dispatch, full tracker or
 the cited reduction (`core.md` §4.2); at verify dispatch
-(`core.md` §4.3), the §3.1 reduced-to-latest projection — the
-orchestrator produces the projection before brief construction;
-the raw tracker remains accessible to the subagent for
-ledger-history inspection; (c) **unit scope** — the [VERIFIED] decisions
-this unit implements (by tracker identifier), plus the unit's
-element and contract scopes; (d) **return-state expectations** —
-the fixed-shape ledger lines for new findings (§3.1), the unit's
-commit reference, and any loopback signal. Sections (a) AND (d)
-are uniform across dispatches within a run and live in the
-instance's `phases/implement.md` as a reusable template the
-subagent loads on dispatch; only sections (b) and (c) carry
-per-unit parameters written into each brief. The brief MUST NOT
-restate (a) or (d) content — those live in the template only;
-the brief references them by section letter.
+(`core.md` §4.3) and convergence-falsification dispatch
+(`core.md` §4.1.4), the §3.1 reduced-to-latest projection —
+the orchestrator produces the projection before brief
+construction; the raw tracker remains accessible to the
+subagent for ledger-history inspection; (c) **unit scope** —
+at implement dispatch, the [VERIFIED] decisions this unit
+implements (by tracker identifier) plus the unit's element
+and contract scopes; at convergence-falsification dispatch,
+the [VERIFIED] D-entry set at the convergence cycle's start
+(by tracker identifier); (d) **return-state expectations** —
+at implement dispatch, the fixed-shape ledger lines for new
+findings (§3.1), the unit's commit reference, and any
+loopback signal; at convergence-falsification dispatch, the
+§3.4 per-decision artifact — one line per [VERIFIED] entry,
+coverage-checked by the orchestrator on return (`core.md`
+§4.1.4). Sections (a) AND (d) are uniform across dispatches
+within a run and live in the instance's phase files as a
+reusable template the subagent loads on dispatch; only
+sections (b) and (c) carry per-dispatch parameters written
+into each brief. The brief MUST NOT restate (a) or (d)
+content — those live in the template only; the brief
+references them by section letter.
 
 ### 3.4 The falsification-pass artifact
 
@@ -307,6 +315,10 @@ The convergence cycle's falsification pass (`core.md` §4.1.4)
 emits a per-decision artifact: one line per [VERIFIED] D-entry
 at the start of the convergence cycle, in the shape
 `{decision-ID, falsification-candidate, result, holds-or-falsified}`.
+Produced by the fresh-context falsification subagent dispatched
+per `core.md` §4.1.4; the orchestrator coverage-checks the
+returned artifact (line count against [VERIFIED] entry count)
+on return.
 
 - **decision-ID** — the D# being attempted.
 - **falsification-candidate** — an executable query (grep,

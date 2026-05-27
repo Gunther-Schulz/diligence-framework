@@ -330,7 +330,13 @@ Required columns:
   test applied (Concern-named OR AI scan of skill-craft's
   candidate set OR `cosmetic-no-discipline-applies` exemption
   per skill-craft) + the observable evidence supporting the
-  disposition
+  disposition. **For `keep-as-is`**, the cell also names what
+  the fix would lose; an empty loss, an anchor-reachable loss
+  ("derivable from [other-home]"), or a recall-shaped loss
+  ("emphasis," "reads better," "boundary moment," "defendable
+  separation") is rationalization-construction per skill-craft
+  Skip-rationalization — flip to fix-now. The named loss is the
+  un-fakeable evidence the keep is defensible.
 
 Operator's second-judge happens in conversation flow — the
 operator's next message overrides any disposition (per-row,

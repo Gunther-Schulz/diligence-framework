@@ -108,10 +108,12 @@ findings is malformed.
 
 **Falsification pass** — the per-decision pass at the convergence
 cycle attempting to invalidate each [VERIFIED] D-entry's basis
-(`core.md` §4.1.4). For each entry, the working context produces
-a falsification candidate, runs it, and cites the result as
-holds-or-falsified. A candidate finding positive falsifying
-evidence reopens the entry to [PENDING] (`modules.md` §3.4).
+(`core.md` §4.1.4). Dispatched to a fresh-context subagent
+applying §3.1's separate-checker requirement. For each entry,
+the subagent produces a falsification candidate, runs it, and
+cites the result as holds-or-falsified. A candidate finding
+positive falsifying evidence reopens the entry to [PENDING]
+(`modules.md` §3.4).
 
 **Falsification candidate** — an executable query or located
 read whose positive result would invalidate a [VERIFIED] D-entry's

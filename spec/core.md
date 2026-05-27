@@ -357,19 +357,48 @@ produces no new-surface citations (only re-attestations of
 prior surfaces) is a malformed artifact.
 
 The **falsification pass** iterates each [VERIFIED] D-entry at
-the convergence cycle's start: for each, the working context
-names a search or read whose positive result would invalidate
-the entry's basis, runs it, and cites the result. The pass
-produces a per-decision artifact (`modules.md` §3.4): one line
-per [VERIFIED] entry in `{decision-ID, falsification-candidate,
-result, holds-or-falsified}` shape. A falsification candidate
-whose negative result would not invalidate the basis is
-malformed — the candidate must be capable of returning
+the convergence cycle's start. It is **dispatched to a fresh-
+context subagent**, applying §3.1's separate-checker
+requirement — an artifact produced and judged in the same
+context is not self-enforcing. The subagent is briefed per
+`modules.md` §3.3 dispatch-brief schema (convergence-
+falsification variant): it loads the orchestrator's skill
+files, reads the tracker reduced-to-latest projection, and
+iterates each [VERIFIED] D-entry. For each, the subagent names
+a search or read whose positive result would invalidate the
+entry's basis, runs it, and cites the result. The subagent
+returns the artifact and does not initiate further dispatches.
+The pass produces a per-decision artifact (`modules.md` §3.4):
+one line per [VERIFIED] entry in `{decision-ID, falsification-
+candidate, result, holds-or-falsified}` shape. A falsification
+candidate whose negative result would not invalidate the basis
+is malformed — the candidate must be capable of returning
 falsifying evidence if the basis is wrong (the basis rule's
 search-establishment shape applied to the candidate, per §3.2).
 A [VERIFIED] entry whose candidate finds positive falsifying
 evidence is **falsified**: the entry flips through
 [INVALIDATED]→[PENDING] (per §5.2) and the cycle continues.
+
+**Coverage check on return.** The orchestrator counts the
+returned artifact's lines against the [VERIFIED] D-entry set at
+the convergence cycle's start AND checks each line's
+mechanical form (candidate field non-empty + cites a file:line
+or a re-runnable query per §3.2). A missing line OR a
+mechanically-malformed line is a malformed return; the
+orchestrator re-dispatches with the gap's D-entry IDs
+explicit, and the subagent fills the gap. Both checks are
+computed from the artifact — the un-fakeable evidence the
+pass is complete. **Semantic capability** — whether each
+candidate is capable of returning falsifying evidence if the
+basis is wrong (`modules.md` §3.4) — is the subagent's
+responsibility per the brief (d), not the orchestrator's.
+
+**Isolation fallback.** If an isolated context cannot be
+established (subagent spawn fails), the falsification pass is
+conducted in the working context per the rules above and the
+artifact records "without isolation"; an un-isolated
+falsification pass is never silently taken as though it were
+independent (parallel to §4.3 verify isolation).
 
 If the convergence cycle surfaces D-track deltas (new decisions
 or amendments, or falsified [VERIFIED] entries reopened), the
@@ -380,10 +409,9 @@ outputs (investigation pass artifact + falsification pass
 artifact + zero-D-delta status) form part of the [READY]
 artifact** alongside §4.1.2's fresh-session result line.
 
-Per V-5 (`dev-notes/validation-watch.md`) — the mechanism breaks the
-recall-pool failure shape that allows false-[READY]s, by switching
-the working context from self-assessment mode to fresh
-investigation mode.
+The convergence cycle's role in closing the false-[READY]
+failure shape is recorded in V-5
+(`dev-notes/validation-watch.md`).
 
 The convergence cycle fires in both modes (interactive and
 auto-battle). In auto-battle no operator override is available;
