@@ -207,10 +207,10 @@ cross-field conflation (e.g. "verify [PASSED]" — embedding the
 Status value inside the Phase field, or vice versa). Each ledger
 line carries its entry's identifier, and an entry's current state is
 its latest line: where current state is needed — at [READY], a
-resume, the closed artifact — it is the tracker reduced to the latest
-line per entry. The append-only history is the run's audit trail;
-because no ledger line is ever rewritten, no past entry can be
-silently altered.
+resume, verify (`core.md` §4.3), the closed artifact — it is the
+tracker reduced to the latest line per entry. The append-only
+history is the run's audit trail; because no ledger line is ever
+rewritten, no past entry can be silently altered.
 
 A **basis-only refinement** on a terminal-status entry
 ([VERIFIED], or [AUTO-ACCEPTED] for an auto-battle design
@@ -283,8 +283,12 @@ locked design.
 **Dispatch-brief schema.** Each dispatch carries a brief to its
 subagent that follows a closed-section form: (a) **load
 instructions** — the orchestrator's skill files to read; (b)
-**tracker reference** — full tracker, or the cited reduction
-(`core.md` §4.2); (c) **unit scope** — the [VERIFIED] decisions
+**tracker reference** — at implement dispatch, full tracker or
+the cited reduction (`core.md` §4.2); at verify dispatch
+(`core.md` §4.3), the §3.1 reduced-to-latest projection — the
+orchestrator produces the projection before brief construction;
+the raw tracker remains accessible to the subagent for
+ledger-history inspection; (c) **unit scope** — the [VERIFIED] decisions
 this unit implements (by tracker identifier), plus the unit's
 element and contract scopes; (d) **return-state expectations** —
 the fixed-shape ledger lines for new findings (§3.1), the unit's
