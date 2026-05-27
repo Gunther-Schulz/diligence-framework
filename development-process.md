@@ -489,11 +489,11 @@ A change runs the same loop:
      multi-file extension (`PROCEDURE.md`). Trigger: commit touches
      2+ spec files OR instance render makes a rule visible in more
      than one home.
-5. **Commit the source repo** — after step 4's discharge artifact
-   is surfaced and the operator approves explicitly per cycle-18
-   gate, AI commits. Clear message stating what changed and why;
-   the Step-4 discharge artifact in the commit body per the form
-   above.
+5. **Commit and push the source repo** — after step 4's discharge
+   artifact is surfaced and the operator approves explicitly per
+   the cycle-18 gate, AI commits AND pushes to remote in the same
+   step. Clear message stating what changed and why; the Step-4
+   discharge artifact in the commit body per the form above.
 6. **Release the instance** — version-bump the plugin, commit and
    push to remote, then for each affected instance **pull the
    marketplace clone and run `claude plugin update`**:
