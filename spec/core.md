@@ -524,9 +524,12 @@ context — the context that conducted investigate-design and
 implement. An actor checking its own work carries its own anchoring
 and blind spots into the check; isolation is what makes verify an
 independent check and not the actor re-reading itself. verify is
-artifact-driven — the three checks below work from the tracker, the
-standardized lens set, and the work product, and need nothing from
-the run's conversation — so the isolated context is fully equipped.
+artifact-driven — the three checks below work from the current
+run's tracker, the standardized lens set, and the work product,
+and need nothing from the run's conversation — so the isolated
+context is fully equipped. Prior-run trackers are not basis
+material (§3.2); the current tracker must carry re-grounded basis
+for anything verify checks against.
 The isolation is unconditional: that verify runs isolated is not a
 judgment the run makes per task. verify's recorded result names the
 context it was conducted in, so a [PASSED] carries whether the check
