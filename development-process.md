@@ -375,12 +375,19 @@ A change runs the same loop:
 4. **Re-render** the affected instance files from the corrected spec
    — faithfully, clause by clause.
 5. **Verify** — each check below is dispatched (separate context
-   where required); discharge before step 6 via an **explicit
-   discharge artifact visible to the operator before push** — in
-   the commit message body, in the session response, or as a
-   separate file. Force the artifact, not self-attest (parallel
-   to `core.md` §4.1.4 / V-5). Structural enforcement per
-   practice 8 — the artifact IS the un-fakeable thing.
+   where required); discharge produces an **explicit artifact**
+   the operator second-judges before commit. The operator-facing
+   view is the practice-11 findings table when subagent findings
+   are ranked, or the proposed-commit summary + discharge artifact
+   when not. AI does not commit before the operator's explicit
+   approval (`yes`, `commit`, or equivalent) or per-row override
+   resolution. Broad-authorization phrases ("sequence as you
+   recommend", "all", "go ahead") authorize the workstream but
+   each commit still requires its own approval moment at the
+   table/discharge presentation. Force the artifact, not self-
+   attest (parallel to `core.md` §4.1.4 / V-5). Structural
+   enforcement per practice 8 — the artifact IS the un-fakeable
+   thing, the operator's approval IS the un-fakeable gate.
 
    The discharge artifact form, per commit:
 
