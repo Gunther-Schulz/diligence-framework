@@ -135,26 +135,31 @@ target) is a new cycle, regardless of response boundaries.
 
 **Skill-craft invocation gates Edits to rule-corpus files.**
 
-- [ ] skill-craft invoked via Skill tool this session, with
-      PROCEDURE.md + anti-patterns.md loaded?
+- [ ] Since the last operator message, skill-craft invoked via
+      Skill tool with PROCEDURE.md + anti-patterns.md loaded?
   - NO → CANNOT Edit/Write to rule-corpus files. Invoke now.
   - YES → Evidence: [tool-call ID]
 
 Before any Edit/Write to rule-corpus files (skill-craft canonical,
 anneal-framework spec, instance spec, `plugin/skills/*/`), the
-session must contain a Skill tool_use invoking skill-craft. The
-invocation loads PROCEDURE.md + anti-patterns.md so disciplines
-(Form-choice, Edit-as-Pareto, Naked-judgment,
-Skip-rationalization, Soft-load-pointers, Additive-reflex,
-Amendment) are active at drafting.
+current turn (since the last operator message) must contain a
+Skill tool_use invoking skill-craft. The invocation loads
+PROCEDURE.md + anti-patterns.md so disciplines (Form-choice,
+Edit-as-Pareto, Naked-judgment, Skip-rationalization,
+Soft-load-pointers, Additive-reflex, Amendment) are active at
+drafting.
 
 System-side enforcement: the PreToolUse hook
-`hooks/skill-craft-pre-edit.py` scans the session transcript for
-a Skill skill-craft invocation and blocks the Edit if absent.
-Once invoked, subsequent Edits this session pass the gate.
-Per-cycle re-invocation (each new scope of change) is an
-AI-discipline goal, not mechanically enforced — the disciplines
-stay in context across cycles once loaded.
+`hooks/skill-craft-pre-edit.py` scans the transcript since the
+last operator-prompt boundary (a user-role event with isMeta
+unset and text content) for a Skill skill-craft invocation;
+blocks the Edit if absent. Per-turn enforcement aligns the gate
+with operator-request boundaries — a new operator message starts
+a new turn requiring fresh invocation. Invocations in prior
+turns do NOT discharge the current turn's gate. Mid-turn cycle
+boundaries (multiple scopes of change within one operator
+response) are an AI-discipline goal; once invoked in a turn,
+subsequent Edits in the same turn pass the gate mechanically.
 
 Post-edit review fires per release loop step 4 (skill-craft
 subagent dispatched against working-tree diff, post-Edit,

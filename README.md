@@ -112,8 +112,9 @@ binding and lens set.
   rationalizations). The `skill-craft-pre-edit.py` PreToolUse hook
   (configured in user settings) fires on Edit/Write/NotebookEdit
   to skill-craft, framework spec, or instance skill files —
-  scans the session transcript and BLOCKS the Edit if no Skill
-  tool_use invoking skill-craft is found; allows once invoked.
+  scans the current turn's transcript (since the last operator
+  message) and BLOCKS the Edit if no Skill tool_use invoking
+  skill-craft is found in that window; allows once invoked.
   Plugin renders additionally receive a spec-origin reminder.
 
 ## License
