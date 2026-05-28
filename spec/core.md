@@ -492,15 +492,17 @@ alongside the tracker (`modules.md` §3.3).
 
 **Dispatch.** When the impl plan has two or more units, each unit's
 work is dispatched to a subagent isolated from the run's working
-context; a single-unit plan is implemented in the working context.
-The subagent is briefed artifact-driven, mirroring verify (§4.3):
-it loads the orchestrator's skill files and receives the tracker
-plus the locked contracts the unit honors. The default is the
-full tracker; reduction to the unit's in-scope decisions is
-permitted only when the orchestrator cites a concrete cause
-(e.g., tracker size exceeds the subagent's context budget),
-recorded as the basis (§3.2) for the reduction. It implements the in-scope
-decisions; it does not design — any actioned finding halts it (below).
+context per the Isolation mechanism below; a single-unit plan is
+implemented in the working context. The subagent is briefed
+artifact-driven, mirroring verify (§4.3): it loads the
+orchestrator's skill files and receives the tracker plus the
+locked contracts the unit honors. The default is the full
+tracker; reduction to the unit's in-scope decisions is permitted
+only when the orchestrator cites a concrete cause (e.g., tracker
+size exceeds the subagent's context budget), recorded as the
+basis (§3.2) for the reduction. It implements the in-scope
+decisions; it does not design — any actioned finding halts it
+(below).
 Parallel-eligible units may be dispatched concurrently; the
 disjointness basis makes that safe. **Dispatch is continuous,
 not wave-batched.** The orchestrator maintains a
@@ -513,22 +515,57 @@ fires when it becomes dispatchable, not when a "wave" is
 reached; the disjointness check uses the same scope basis the
 impl plan declared at [READY].
 
+**Isolation mechanism.** Subagent isolation rests on a per-unit
+**git worktree** at an **instance-specified path** (the instance
+declares the path convention; canonical: a top-level path outside
+the operator's main repository tree — e.g., under `/tmp/` — so
+defensive cwd-resilience by the subagent cannot land in the
+operator's main). The orchestrator creates the worktree on a
+**unique branch** (instance-specified naming, e.g., per-run +
+per-unit identifiers) so the subagent's commits land on a branch
+the operator can audit and integrate. **Strip remotes:** the
+orchestrator removes the worktree's git remotes after creation,
+denying the subagent discovery of the operator's main path via
+`git remote -v` metadata. **Brief discipline:** all paths in the
+subagent's brief are cwd-relative (`./src/...`, `./tests/...`),
+never absolute paths into the operator's main tree — denies the
+subagent knowledge of the operator's main path, not just access.
+**Pre/post HEAD verification:** the orchestrator snapshots
+`git rev-parse HEAD` on the operator's main before dispatch and
+verifies it unchanged after dispatch; a moved HEAD means the
+subagent contaminated the operator's main, which halts the run
+and surfaces. **Integration:** after the subagent's commit is
+verified clean (self-check passed, HEAD unchanged), the
+orchestrator integrates the worktree's commit onto the operator's
+main via **cherry-pick** (not merge) — clean data flow, no
+worktree-branch leakage into operator's history. **Bootstrap is
+out of scope:** what the project needs to be runnable in the
+isolated tree (deps, venv, etc.) is the project's concern, not
+the framework's — instances may delegate to operator conventions
+(`make bootstrap` or equivalent) without the framework specifying
+the mechanism.
+
 **Self-check at dispatch boundary.** Before returning state, the
 dispatched subagent (and the working context, for a single-unit
 plan) applies the standardized lenses most relevant to write-time
 issues — the instance specifies which ones (`modules.md` §2.2) —
-to its diff against the unit's in-scope locked design decisions. Findings are entered as
-fixed-shape ledger lines (`modules.md` §3.1) and returned with
-state; the orchestrator appends per Tracker writes below. The
-self-check compounds with the design-time forcing function for
-delete/replace/amend decisions (§3.2): the basis enumerates
-references as of [READY]; the self-check catches references and
-behaviors introduced post-design (new docstrings, new branches, new
-failure modes the unit's diff introduces). The check is
-unconditional — applied at every dispatch boundary, and by the
-working context for a single-unit plan. A self-check finding
-triggers the loopback below (or [VERIFIED — deferred] per the
-operator's first-judge recommendation, §5.1 (b)).
+to its diff against the unit's in-scope locked design decisions.
+**Diff-vs-listed-scope check:** the subagent additionally verifies
+its diff stays within the unit's listed scope (`modules.md` §3.3;
+diff-referenced identifiers ∖ listed scope = ∅). A diff line
+referencing identifiers outside the unit's listed scope is an
+actioned finding (per the always-loopback rule above). Findings
+are entered as fixed-shape ledger lines (`modules.md` §3.1) and
+returned with state; the orchestrator appends per Tracker writes
+below. The self-check compounds with the design-time forcing
+function for delete/replace/amend decisions (§3.2): the basis
+enumerates references as of [READY]; the self-check catches
+references and behaviors introduced post-design (new docstrings,
+new branches, new failure modes the unit's diff introduces). The
+check is unconditional — applied at every dispatch boundary, and
+by the working context for a single-unit plan. A self-check
+finding triggers the loopback below (or [VERIFIED — deferred] per
+the operator's first-judge recommendation, §5.1 (b)).
 
 **Tracker writes.** The orchestrator (§6) owns the tracker append.
 A dispatched subagent does not write directly; on completion or
