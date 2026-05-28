@@ -453,10 +453,21 @@ Discovery in implement is minimal. A new finding during
 implementation is **major new scope** (and triggers loopback) if
 any of:
 
-1. Touches an element or contract not in the unit's listed scope
-2. Changes a locked contract's members (the instance defines what counts)
+1. **Touches** — the unit's commit diff adds, modifies, or
+   deletes a line referencing any element or contract identifier
+   not in the unit's listed scope (`modules.md` §3.3 The impl
+   plan; per-unit listed-scope artifact). Mechanical check:
+   diff-referenced identifiers ∖ listed scope ≠ ∅.
+2. **Changes a locked contract's members** — the diff modifies
+   any item in the contract's listed-members enumeration
+   (signatures, fields, error variants, schema items; the
+   instance specifies the artifact carrying the enumeration —
+   type declaration file, schema file, API spec). Mechanical
+   check: diff intersects any line of the listed-members
+   artifact.
 3. Introduces a new design decision (per §5.2)
-4. Crosses another unit's scope (breaks the disjointness basis)
+4. Crosses another unit's scope (breaks the disjointness basis
+   per §3.2)
 
 Otherwise it is a **local clarification** — recorded in the
 tracker; the unit proceeds. No work is lost when loopback fires.

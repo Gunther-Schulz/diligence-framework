@@ -182,10 +182,15 @@ honors the return rather than proceeding.
 **Major new scope** — an implementation-phase finding classified
 as returning the run rather than proceeding within the current
 unit's locked design. Closed four-clause definition (`core.md`
-§4.2): (1) touches an element or contract not in the unit's
-listed scope; (2) changes a locked contract's members; (3)
-introduces a new design decision; (4) crosses another unit's
-scope. Otherwise a local clarification (recorded; unit proceeds).
+§4.2), each clause mechanically computable from the unit's
+commit diff: (1) **touches** — diff references identifier not
+in unit's listed scope (`modules.md` §3.3); (2) **changes
+locked contract's members** — diff intersects the contract's
+listed-members artifact (instance-specified, e.g., type
+declaration, schema, API spec); (3) introduces a new design
+decision (per §5.2); (4) crosses another unit's scope (breaks
+the disjointness basis per §3.2). Otherwise a local
+clarification (recorded; unit proceeds).
 
 **Self-check (at dispatch boundary)** — a check the dispatched
 impl-phase subagent (and the working context, for a single-unit
