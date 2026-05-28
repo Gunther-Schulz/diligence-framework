@@ -127,40 +127,51 @@ stale assumptions about wording cause failed edits. Check
 `git status` and `git log` before claiming the state of a repo.
 Never assert current state from memory or from a document written
 earlier; verify against the live source. This applies to the
-process itself **per edit cycle**, not per session: a system
-reminder noting an earlier-turn skill invocation does not
-discharge a rule-corpus hook for a new edit. An **edit cycle** is
-one scope of change — framework-spec edit + its renders + the
-checks that discharge step 4 for that scope; a new scope (a
-different finding, a different rule, a different fix target) is
-a new cycle, regardless of response boundaries.
+process itself **per edit cycle**, not per session. An **edit
+cycle** is one scope of change — framework-spec edit + its
+renders + the checks that discharge step 4 for that scope; a new
+scope (a different finding, a different rule, a different fix
+target) is a new cycle, regardless of response boundaries.
 
-**Skill-craft invocation gates every edit-cycle's drafting.**
+**Skill-craft invocation gates Edits to rule-corpus files.**
 
-- [ ] skill-craft invoked via Skill tool this edit cycle, with
+- [ ] skill-craft invoked via Skill tool this session, with
       PROCEDURE.md + anti-patterns.md loaded?
-  - NO → CANNOT draft. Invoke now.
-  - YES → Evidence: [tool-call ID or transcript line]
+  - NO → CANNOT Edit/Write to rule-corpus files. Invoke now.
+  - YES → Evidence: [tool-call ID]
 
-Before drafting any edit in a rule-corpus cycle (skill-craft
-canonical, anneal-framework spec, instance spec, or
-`plugin/skills/*/`), invoke skill-craft via the Skill tool —
-no exceptions sourced in judgment. The invocation reloads
-PROCEDURE.md + anti-patterns.md so the disciplines (Form-choice,
-Edit-as-Pareto, Naked-judgment, Skip-rationalization,
-Soft-load-pointers, Additive-reflex, Amendment) are active at
-DRAFTING, not at post-hoc validation. Acceptable skip-condition
-is exhaustive: none (per skill-craft PROCEDURE.md
-Un-fakeable-artifact N/A-escape extension). Session-level
-invocation does not discharge
-a new cycle's grounding; a prior cycle's invocation does not
-discharge the new cycle's. Skip-rationalization shapes — "this
-edit is small," "the disciplines are already in memory," "I
-just invoked it last cycle," "the files are cached," "applying
-an existing recommendation," "the PreToolUse hook already
-reminded me" — are the dispatch signal, invoke instead. The
-PreToolUse hook is a reactive reminder, not the discharge;
-compliance is proactive invocation at cycle-start.
+Before any Edit/Write to rule-corpus files (skill-craft canonical,
+anneal-framework spec, instance spec, `plugin/skills/*/`), the
+session must contain a Skill tool_use invoking skill-craft. The
+invocation loads PROCEDURE.md + anti-patterns.md so disciplines
+(Form-choice, Edit-as-Pareto, Naked-judgment,
+Skip-rationalization, Soft-load-pointers, Additive-reflex,
+Amendment) are active at drafting.
+
+System-side enforcement: the PreToolUse hook
+`hooks/skill-craft-pre-edit.py` scans the session transcript for
+a Skill skill-craft invocation and blocks the Edit if absent.
+Once invoked, subsequent Edits this session pass the gate.
+Per-cycle re-invocation (each new scope of change) is an
+AI-discipline goal, not mechanically enforced — the disciplines
+stay in context across cycles once loaded.
+
+Post-edit review fires per release loop step 4 (skill-craft
+subagent dispatched against working-tree diff, post-Edit,
+pre-commit).
+
+**Rule-corpus drafting is file-bound, not conversation-bound.**
+The Edit tool call IS the drafting moment for rule-corpus
+content. Exact rule wording — sentence-level prose intended for
+the rule body, as it would appear in the file — does NOT appear
+in conversation text before the Edit. Conversation carries (a)
+design surface per practice 9 (rule shape, classification,
+placement, tradeoffs — not exact text), and (b) post-Edit diff
+review (operator approves the diff; AI re-Edits if needed;
+commit waits on operator approval per the release loop). This
+eliminates the "draft-in-conversation-before-skill-craft-active"
+failure shape at the source: no conversation drafting, no
+opportunity.
 
 **Spec-origin grounding for plugin edits.** Before editing any
 file under `plugin/skills/*/`, surface which spec clause the

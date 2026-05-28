@@ -105,14 +105,16 @@ binding and lens set.
   empirical-validation procedure (the Q-set for analyzing a real
   run against the spec; rendered into each instance's
   `references/post-run-review.md`).
-- [`hooks/`](./hooks/) — git hooks that enforce the development
-  process at commit-time. The `commit-msg` hook validates the
-  step-5 discharge artifact for rule-corpus commits (rejects
-  commits missing required check labels or carrying fold-into
-  rationalizations). A PreToolUse hook (configured in user
-  settings) fires on edits to skill-craft, framework spec, or
-  instance skill files — reminds the AI to invoke skill-craft
-  before editing rule-corpus content.
+- [`hooks/`](./hooks/) — hooks that enforce the development
+  process. The `commit-msg` git hook validates the step-5
+  discharge artifact for rule-corpus commits (rejects commits
+  missing required check labels or carrying fold-into
+  rationalizations). The `skill-craft-pre-edit.py` PreToolUse hook
+  (configured in user settings) fires on Edit/Write/NotebookEdit
+  to skill-craft, framework spec, or instance skill files —
+  scans the session transcript and BLOCKS the Edit if no Skill
+  tool_use invoking skill-craft is found; allows once invoked.
+  Plugin renders additionally receive a spec-origin reminder.
 
 ## License
 
