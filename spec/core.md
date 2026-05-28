@@ -449,7 +449,7 @@ surrounding conventions are context, not authority — where they
 diverge from the locked design, the design governs. The work is derived from the
 design first; existing patterns are evaluated for fit afterward.
 
-Discovery in implement is minimal. A new finding during
+implement makes no design decisions. A new finding during
 implementation is **major new scope** (and triggers loopback) if
 any of:
 
