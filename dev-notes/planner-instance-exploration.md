@@ -33,6 +33,10 @@ clippy lens-set coherence-audit (uneven granularity, boundary-lens overlap, the
 2 left observations); (2) candidate framework principle — "a lens set sits at
 its instance's declared scope; sub-domain specifics → supplement."
 
+**Independent framework finding (own cycle):** verify checks work against the
+locked design, NOT the original task requirements — requirement-coverage has no
+structural verifier (see Framework finding 5). Needs its own decision-design.
+
 ## What this is
 
 A prospective new Anneal instance, **upstream of clippy**, whose domain is
@@ -218,6 +222,37 @@ These are about the framework/triad, independent of whether the planner ships.
      (the bindings table binds terms — e.g. "executable verification" — that
      aren't necessarily full glossary entries). Making it complete is real work;
      scoping it is part of what the derivation exposes.
+
+5. **Verify anchors on the locked design, not the original task requirements
+   — INDEPENDENT of the planner (surfaced 2026-05-29).**
+   - Checked clippy `phases/verify.md:34-52` + framework `core.md` §4.3:
+     verify's three checks are planned-vs-actual (work vs LOCKED DESIGN +
+     a design-completeness audit that runs work→design), standardized lenses,
+     executable verification. None re-derives the work against the ORIGINAL
+     task requirements.
+   - `"acceptance criteria"` exists only as a per-design-decision body field
+     (`core.md` §5.2(c) / clippy `tracker.md:131`), not the task's
+     requirements. Verify reads only a one-line task summary (clippy
+     persistence) — so it structurally cannot check full requirements today.
+   - **Gap:** a requirement dropped at investigate-design escapes — no D-entry
+     to check; design-completeness audit catches undesigned WORK (scope-creep),
+     not a missing requirement (no work element to flag); executable
+     verification catches it only if encoded as a failing test; lenses catch
+     recurring blind-spots, not per-task asks. Only catch = operator at
+     [READY], which the framework explicitly DISCLAIMS (`core.md` §1
+     operator-expected-action bound). → requirement-coverage has NO structural
+     verifier, internally inconsistent with the no-operator-detection principle.
+   - **Steelman (noted):** framework treats locked design as the unit of truth
+     (D-track = resolved requirements); but the D-track can't self-verify
+     coverage of the ask, so the gap stands.
+   - **Partial existing mechanism:** project-supplemental lenses can encode
+     RECURRING requirement-classes (e.g. a data-integrity lens), not per-task
+     coverage.
+   - **Disposition:** standalone FRAMEWORK cycle (fix at source per practice 1
+     → renders to all instances) — a requirements artifact + a coverage check
+     at [READY] and/or verify (verify is the stronger spot: isolated context
+     could catch a working-context-dropped requirement, IF requirements are in
+     its artifacts). Needs a practice-9 design surface. NOT started.
 
 ## Sequencing — does anneal need fixing first?
 
